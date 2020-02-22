@@ -4,14 +4,17 @@ from django.db import models
 # from django.db import models
 
 class Product(models.Model):
-    name = models.CharField(max_length=200, unique=True)
-    category = models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
+    category = models.TextField()
     brand = models.CharField(max_length=200)
-    img = models.CharField(max_length=200, unique=True)
-    details = models.CharField(max_length=500, unique=True)
+    img = models.URLField(max_length=300)
+    details = models.TextField()
     nutigrade = models.CharField(max_length=200)
-    stores = models.CharField(max_length=200)
-    link = models.CharField(max_length=200, unique=True)
+    nutriscore = models.IntegerField()
+    stores = models.TextField()
+    link = models.URLField(max_length=300)
+    ingredients = models.TextField()
+    nutriments = models.TextField()
 
     def __str__(self):
         return self.name
