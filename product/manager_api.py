@@ -6,7 +6,7 @@
 # coding: UTF-8
 
 from requests import get
-
+import pprint
 
 class ManagerApi():
     """ manage the API request """
@@ -14,11 +14,12 @@ class ManagerApi():
     def __init__(self):
 
         self.categories = (
-            "Saucisson",
-            "Pizza",
-            "Chips",
-            "Yaourts",
-            "Biscuits"
+            #"Saucisson",
+            #"Pizza",
+            #"Chips",
+            #"Yaourts",
+            "Biscuits",
+            "desserts"
             )
 
         self.food_list = []
@@ -30,13 +31,13 @@ class ManagerApi():
 
         url = "https://fr.openfoodfacts.org/cgi/search.pl"
         params = {
-            "action": "process",
-            "tagtype_0": "categories",
-            "tag_contains_0": "contains",
+            'search_simple': 1,
+            'action': 'process',
+            'json': 1,
+            'page_size': 5,
+            'tagtype_0': 'categories',
+            'tag_contains_0': 'contains',
             "tag_0": "{}".format(category_name),
-            "page_size": "25",
-            "json": "1",
-            "page": "1"
             }
 
         request = get(url=url, params=params)
@@ -53,28 +54,38 @@ class ManagerApi():
             for product in data["products"]:
 
                 food_data = {
-                    "Category": "",
-                    "Name": "",
-                    "Img": "",
-                    "Details": "",
-                    "Brand": "",
-                    "Nutrigrade": "",
-                    "Stores": "",
-                    "Link": ""
+                    "category": "",
+                    "name": "",
+                    "img": "",
+                    "details": "",
+                    "brand": "",
+                    "brand_link": "",
+                    "nutrigrade": "",
+                    "nutriscore": "",
+                    "stores": "",
+                    "link": "",
+                    "ingredients": "",
+                    "nutriments": "",
                     }
 
                 try:
 
-                    food_data["Category"] = category
-                    food_data["Name"] = product["product_name"]
-                    food_data["Img"] = product["image_url"]
-                    food_data["Details"] = product["generic_name_fr"]
-                    food_data["Brand"] = product["brands"]
-                    food_data["Brand_link"] = product["link"]
-                    food_data["Nutrigrade"] = product["nutrition_grades"]
-                    food_data["Stores"] = product["stores"]
-                    food_data["Link"] = product["url"]
-                    
+                    food_data["category"] = category
+                    food_data["name"] = product["product_name"]
+                    food_data["img"] = product["image_url"]
+                    food_data["details"] = product["generic_name_fr"]
+                    food_data["brand"] = product["brands"]
+                    food_data["brand_link"] = product["link"]
+                    food_data["nutrigrade"] = product["nutrition_grades"]
+                    food_data["nutriscore"] = int(product["nutriments"]["nutrition-score-fr"])
+                    food_data["stores"] = product["stores"]
+                    food_data["link"] = product["url"]
+                    food_data["ingredients"] = product["ingredients_text_fr"]
+                    food_data["fat_100g"] = float(product["nutriments"]["fat_100g"])
+                    food_data["saturated_fat_100g"] = float(product["nutriments"]["saturated-fat_100g"])
+                    food_data["salt_100g"] = float(product["nutriments"]["salt_100g"])
+                    food_data["sugar_100g"] = float(product["nutriments"]["sugars_100g"])
+                    food_data["nova"] = int(product["nutriments"]["nova-group_100g"])
 
                     self.food_list.append(food_data)
                     
