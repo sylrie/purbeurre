@@ -25,5 +25,5 @@ class Product(models.Model):
         verbose_name = "product"
         ordering = ['name']
         
-    def fulldata(self):
+    def __str__(self):
         return self.name

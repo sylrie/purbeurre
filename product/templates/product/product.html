@@ -1,38 +1,65 @@
 {% extends 'product/base.html' %}
-
+{% load static %}
 {% block content %}
-<section class="page-section bg-dark" id="selected">
-  <div class="container text-white ">
-    <div class="row justify-content-center">
-      <h2>Produit selectionné</h2>
+{% if product %}
+  <section class="page-section pb-3 bg-info" id="selected">
+    <div class="row justify-content-center align-items-center text-white">
+      <div class="col-5 text-center">
+        <img class="img-fluid border" src="{{ product.img }}" alt="">
+        <h2>{{ product.name }}</h2>
+        <i class="far fa-save text-warning"> Ajouter aux favoris</i>
+      </div>
+      <div class="col-5 border rounded border-primary bg-secondary">
+        <div class="row my-2 mx-2 justify-content-around">
+          <img class="img-fluid" src="https://static.openfoodfacts.org/images/misc/nutriscore-{{ product.nutrigrade }}.svg" alt="nutrigrade">
+          <img class="img-fluid rounded px-1 mx1 bg-white" src="https://static.openfoodfacts.org/images/misc/nova-group-{{ product.nova }}.svg" alt="nutrigrade">
+        </div>
+        <h4 class="text-center">Repères nutrinonnels <br> pour 100 g </h4>
+        <div class="row w-100"></div>
+        <img class="img-fluid py-1" src="https://static.openfoodfacts.org/images/misc/high.svg" alt="">
+        Matières grasses / Lipides: <strong>{{ product.fat_100g }}g</strong>
+        <div class="row w-100"></div>
+        <img class="img-fluid py-1" src="https://static.openfoodfacts.org/images/misc/moderate.svg" alt="">
+        Acides gras saturés: <strong>{{ product.saturated_fat_100g }}g</strong>
+        <div class="row w-100"></div>
+        <img class="img-fluid py-1" src="https://static.openfoodfacts.org/images/misc/low.svg" alt="">
+        Sucres: <strong>{{ product.sugar_100g }}g</strong>
+        <div class="row w-100"></div>
+        <img class="img-fluid py-1" src="https://static.openfoodfacts.org/images/misc/high.svg" alt="">
+        sel: <strong>{{ product.salt_100g }}g</strong>
+      </div>
     </div>
-  </div>
+  </section>
+{% else %}
+<section class="page-section text-center text-white pb-3 bg-info">
+  
+  <h1>Sélectionnez un produit dans la liste</h1>
+  <h2>ou affinez votre recherche</h2> 
+      
 </section>
 
-  
-  
+{% endif %}
 
-<section class="page-section" id="portfolio">
-  <div class="container-fluid px-1">
-    <div class="row justify-content-center">
+<section class="page-section py-5 bg-primary" id="products">
+  <h2 class="text-center text-white">Liste des produits</h2>
+  
+    <div class="row justify-content-center mx-2">
      
-      {% for product in product %}
-      <div class="col-lg-4 col-sm-7 text-center">
-        <a class="portfolio-box" href="../static/product/img/nav/icon_menu.png">
-          <img class="img-fluid" src="../static/product/img/nav/logo.png" alt="">
-          <div class="portfolio-box-caption">
-            <div class="project-category text-white-50">
-              {{ product }}
-            </div>
-            <div class="project-name">
-              {{ product }}
-            </div>
-          </div>
-        </a>
-      </div>-->
+      {% for product in products %}
+      <div class="col-lg-4 col-md-8 py-2">
+        <div class="text-center rounded px-3 py-3 bg-dark">
+          <a href="{% url 'substitutes' %}?code={{ product.code }}">
+          <img class="img-fluid" src="{{ product.img }}" alt="">
+          <h2 class="text-white mt-0">{{ product.name }}</h2>
+          <hr class="divider light my-4">
+          <p class="text-white-50 mb-4">{{ product.details }}</p>
+          </a>
+          <i class="far fa-save text-warning"> Ajouter aux favoris</i>
+        </div>
+      </div>
       {% endfor %}
     </div>
-  </div>
+  
 </section>
   
 {% endblock %}

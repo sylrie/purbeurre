@@ -1,6 +1,7 @@
 {% extends 'product/base.html' %}
+{% load static %}
+  {% block content %}
 
-{% block content %}
   <!-- Masthead -->
   <header class="masthead">
     <div class="container h-100">
@@ -8,44 +9,42 @@
         <div class="col-lg-10 align-self-end">
           <h1 class="text-uppercase text-white font-weight-bold">
             Du gras, oui,<br>
-            mais de qualité !
-          </h1>
+            mais de qualité !</h1>
           <hr class="divider my-4">
         </div>
-        <div class="col-lg-8 align-self-baseline">
+        <div class="col-lg-10 align-self-baseline">
           <h2 class="text-white-75 font-weight-light mb-5">
             Trouvez un produit de substitution pour ceux que vous consommez tous les jours.
           </h2>
-          <input class="col-md-6 rounded" type="text" id="question"
-            onFocus="if(this.value!='')this.value=''"/>
-
-        <input class="col-xs-1 text-white bg-secondary border border-dark rounded" type="submit" id="valid" value="Chercher"/>
+          <form class="input-group mb-3 justify-content-center" action="{% url 'products' %}" method="post">
+            {% csrf_token %}
+            <input type="text" class="form-control rounded col-6 text-muted " name="product-name"
+             placeholder="Rechercher" onFocus="if(this.value!='')this.value=''"/>>
+            <div class="input-group-append">
+              <button class="btn btn-primary rounded" type="button">Chercher</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </header>
 
   <!-- Services Section -->
-  <section class="page-section bg-primary" id="identity">
+  <section class="page-section px-2 py-5" id="">
     <div class="container">
-      <div class="justify-content-center">
-        <h2 class="text-center ">De la ratatouille aux croissants</h2>
-        <hr class="divider my-4">
-        <p class="col-7 text-justify">Pur Beurre est l'initiative de deux amoureux de la gastronomie française,
-          Colette Tatou et Rémy, que vous avez déjà certainement rencontrés dans notre excellent
-          restaurant Ratatouille.</p>
+      <h2 class="text-center mt-0">De la ratatouille aux croissants</h2>
+      <div class="mt-3 text-muted text-justify text-center">
+        Pur Beurre est l'initiative de deux amoureux de la gastronomie française,
+        Colette Tatou et Rémy, que vous avez déjà certainement rencontrés dans notre excellent
+        restaurant Ratatouille.
       </div>
-    </div>
-  </section>
-  <section class="page-section" id="owners">
-    <div class="container">
-      <h2 class="text-center mt-0">Colette et Remy</h2>
       <hr class="divider my-4">
-      <div class="row align-items-end justify-content-center">
-        <div class="col-lg-5 col-md-7 text-center">
+      <h2 class="text-center mt-0">Colette et Rémy</h2>
+      <div class="row justify-content-around">
+        <div class="col-lg-6 col-md-10 text-center">
           <div class="mt-5">
-            <img class="img-fluid pr-1" src="../static/product/img/colette.png" alt="Colette">
-            <h3 class="h4 mb-2">Colette</h3>
+            <img class="sr-icons img-about" src="{% static 'product/img/colette.jpg' %}" alt="">
+            <h3 class="h4 mb-2">Colette Tatou</h3>
             <p class="text-muted text-justify mb-0">
               "Nous aimons tous manger, surtout en France ! Personnellement, une baguette fraîche,
               du bon fromage de chèvre et un bon vin rouge me suffisent amplement.
@@ -56,10 +55,10 @@
             </p>
           </div>
         </div>
-        <div class="col-lg-5 col-md-7 text-center">
+        <div class="col-lg-6 col-md-10 text-center">
           <div class="mt-5">
-            <img class="img-fluid pr-1" src="../static/product/img/remy.jpg" alt="Remy">
-            <h3 class="h4 mb-2">Remy</h3>
+            <img class="sr-icons img-about" src="{% static 'product/img/remy.jpg' %}" alt="">
+            <h3 class="h4 mb-2">Rémy</h3>
             <p class="text-muted text-justify mb-0">
               "Pour ma part je me rendais déjà dans bien des magasins car j'aime beaucoup me balader,
               surtout dans les caves et les cuisines.
@@ -72,10 +71,11 @@
         </div>
       </div>
     </div>
+    
   </section>
 
   <!-- Contact Section -->
-  <section class="page-section" id="contact">
+  <section class="page-section bg-light" id="contact">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-8 text-center">
@@ -87,11 +87,11 @@
       <div class="row">
         <div class="col-lg-4 ml-auto text-center mb-5 mb-lg-0">
           <i class="fas fa-phone fa-3x mb-3 text-muted"></i>
-          <div>00 00 00 00 00</div>
+          <div class="text-primary">01 23 45 67 89</div>
         </div>
         <div class="col-lg-4 mr-auto text-center">
           <i class="fas fa-envelope fa-3x mb-3 text-muted"></i>
-          <a class="d-block" href="mailto:pur_beurre@yourwebsite.com">pur_beurre@yourwebsite.com</a>
+          <a class="d-block" href="mailto:pur_beurre@yourwebsite.com">colette.remy@pur_beurre.com</a>
         </div>
       </div>
     </div>
