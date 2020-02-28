@@ -1,0 +1,50 @@
+
+:root {
+    --biscuit: #E8A75D;
+    --moules: #345A61;
+    --rigolo: #86EBE6;
+    --caramel: #DE9440;
+    --rooibos: #C45525;
+}
+
+.btn {
+    background-color: var(--rooibos);
+}
+#selected {
+    background-color: var(--moules);
+    padding-bottom: 3rem;
+    color: white;
+}
+.card, .product-card {
+    border: 4px var(--rigolo) ridge;
+    background-color: var(--biscuit);
+    color: var(--moules);
+}
+.product-card {
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    text-align: center;    
+}
+#products {
+    background-color: var(--rooibos);
+    color: var(--moules);
+}
+#identity {
+    color: var(--moules);
+    padding-top: 3rem;
+}
+
+.id-box {
+    border: 4px var(--rigolo) ridge;
+    padding: 0.8rem 0.8rem 0.8rem 0.8rem;
+    
+}
+footer {
+    background-color: var(--caramel);
+}    
+h2 {
+    padding: 1rem 0 1rem 0;
+}
+h3 {
+    padding: 1rem 0 1rem 0;
+    font-style: italic;
+}

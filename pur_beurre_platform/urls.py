@@ -6,6 +6,7 @@ from django.urls import path
 from product import views
 
 urlpatterns = [
+    path('', views.index, name='index'),
     path('products/', views.results, name='products'),
     path('substitutes/', views.substitutes, name='substitutes'),
     url(r'^$', views.index),

@@ -1,62 +1,104 @@
 {% extends 'product/base.html' %}
 {% load static %}
 {% block content %}
-{% if product %}
-  <section class="page-section pb-3 bg-info" id="selected">
-    <div class="row justify-content-center align-items-center text-white">
+
+  <section class="page-section" id="selected">
+    {% if product %}
+    <div class="row justify-content-center align-items-center">
       <div class="col-5 text-center">
         <img class="img-fluid border" src="{{ product.img }}" alt="">
         <h2>{{ product.name }}</h2>
-        <i class="far fa-save text-warning"> Ajouter aux favoris</i>
+        <i class="far fa-save"> Ajouter aux favoris</i>
       </div>
-      <div class="col-5 border rounded border-primary bg-secondary">
+      <div class="card col-5 d-flex align-self-stretch ">
         <div class="row my-2 mx-2 justify-content-around">
-          <img class="img-fluid" src="https://static.openfoodfacts.org/images/misc/nutriscore-{{ product.nutrigrade }}.svg" alt="nutrigrade">
-          <img class="img-fluid rounded px-1 mx1 bg-white" src="https://static.openfoodfacts.org/images/misc/nova-group-{{ product.nova }}.svg" alt="nutrigrade">
+          <a href="https://fr.openfoodfacts.org/nutriscore" target ="_blank">
+            <img class="img-fluid"
+            src="https://static.openfoodfacts.org/images/misc/nutriscore-{{ product.nutrigrade }}.svg"
+            alt="nutrigrade {{ product.nutrigrade }}">
+          </a>
+          <a href="https://fr.openfoodfacts.org/nova" target ="_blank">
+            <img class="img-fluid rounded px-1 mx1 bg-white" 
+            src="https://static.openfoodfacts.org/images/misc/nova-group-{{ product.nova }}.svg"
+            alt="nova-group {{ product.nova }}">
+          </a>
         </div>
-        <h4 class="text-center">Repères nutrinonnels <br> pour 100 g </h4>
+        <p class="text-center">Repères nutrinonnels pour 100 g 
+          <a href="https://fr.openfoodfacts.org/reperes-nutritionnels" target="_blank">
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+          </a>
+        </p>
         <div class="row w-100"></div>
-        <img class="img-fluid py-1" src="https://static.openfoodfacts.org/images/misc/high.svg" alt="">
-        Matières grasses / Lipides: <strong>{{ product.fat_100g }}g</strong>
+          <p>
+            <img class="img-fluid py-1"
+             src="https://static.openfoodfacts.org/images/misc/{{ product.level_fat }}.svg"
+             alt="">
+             Matières grasses / Lipides: <strong>{{ product.fat_100g }}g</strong>
+          </p>
         <div class="row w-100"></div>
-        <img class="img-fluid py-1" src="https://static.openfoodfacts.org/images/misc/moderate.svg" alt="">
-        Acides gras saturés: <strong>{{ product.saturated_fat_100g }}g</strong>
+          <p>
+            <img class="img-fluid py-1" 
+            src="https://static.openfoodfacts.org/images/misc/{{ product.level_saturated_fat }}.svg" 
+            alt="">
+             Acides gras saturés: <strong>{{ product.saturated_fat_100g }}g</strong>
         <div class="row w-100"></div>
-        <img class="img-fluid py-1" src="https://static.openfoodfacts.org/images/misc/low.svg" alt="">
-        Sucres: <strong>{{ product.sugar_100g }}g</strong>
+          <p>
+            <img class="img-fluid py-1" 
+            src="https://static.openfoodfacts.org/images/misc/{{ product.level_sugar }}.svg" 
+            alt="">
+             Sucres: <strong>{{ product.sugar_100g }}g</strong>
+          </p>
         <div class="row w-100"></div>
-        <img class="img-fluid py-1" src="https://static.openfoodfacts.org/images/misc/high.svg" alt="">
-        sel: <strong>{{ product.salt_100g }}g</strong>
+          <p>
+            <img class="img-fluid py-1" 
+            src="https://static.openfoodfacts.org/images/misc/{{ product.level_salt }}.svg" 
+            alt="">
+             sel: <strong>{{ product.salt_100g }}g</strong>
+          </p>
+      </div> 
+      <div class="text-center">
+        <a href="{{ url }}" target ="_blank">
+        <h3> Voir la fiche Open Food Facts</h3>
+        </a>
       </div>
+  </div>
+  </section>
+
+  <section class="page-section py-5" id="products">
+    <h2 class="text-center">Vous pouvez remplacer cet aliment par:</h2>
+    
+    {% else %}
+    <div class="text-center">
+      <h1>Propositions pour:</h1>
+      <h3>"{{ request }}"</h3>    
     </div>
   </section>
-{% else %}
-<section class="page-section text-center text-white pb-3 bg-info">
+    <section class="page-section py-5" id="products">
+    <h2 class="text-center">Sélectionnez un produit dans la liste</h2>
+    {% endif %}
   
-  <h1>Sélectionnez un produit dans la liste</h1>
-  <h2>ou affinez votre recherche</h2> 
-      
-</section>
-
-{% endif %}
-
-<section class="page-section py-5 bg-primary" id="products">
-  <h2 class="text-center text-white">Liste des produits</h2>
-  
-    <div class="row justify-content-center mx-2">
+    <div class="row justify-content-around mx-2">
      
-      {% for product in products %}
-      <div class="col-lg-4 col-md-8 py-2">
-        <div class="text-center rounded px-3 py-3 bg-dark">
-          <a href="{% url 'substitutes' %}?code={{ product.code }}">
-          <img class="img-fluid" src="{{ product.img }}" alt="">
-          <h2 class="text-white mt-0">{{ product.name }}</h2>
-          <hr class="divider light my-4">
-          <p class="text-white-50 mb-4">{{ product.details }}</p>
-          </a>
-          <i class="far fa-save text-warning"> Ajouter aux favoris</i>
+      {% for food in products %}
+        
+        <div class="col-lg-4 col-md-8 py-2 d-flex flex-column ">
+          <div class="product-card">
+            <div class="row d-flex flex-row-reverse">{{ food.nutrigrade }}
+              <!--<img class="img-fluid" src="{% static 'product/img/d.png' %}"
+               alt="nutrigrade {{ food.nutrigrade }}">-->
+            </div>
+            <a href="{% url 'substitutes' %}?code={{ food.code }}">
+            <img class="img-fluid" src="{{ food.img }}" alt="">
+            </a>
+            <h2>{{ food.name }}</h2>
+            
+            <hr class="divider">
+            <p >{{ food.details }}</p>
+            <a href="">
+            <i class="far fa-save" aria-hidden="true"> Ajouter aux favoris</i>
+            </a>
+          </div>
         </div>
-      </div>
       {% endfor %}
     </div>
   

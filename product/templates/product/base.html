@@ -1,6 +1,6 @@
 {% load static %} 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
  
 <head>
 
@@ -25,16 +25,17 @@
   <link href="{% static 'product/vendor/magnific-popup/magnific-popup.css' %}" rel="stylesheet">
   
   <!-- Theme CSS - Includes Bootstrap -->
-  <link href="{% static 'product/css/creative.min.css' %}" rel="stylesheet">
+  <link href="{% static 'product/css/creative.css' %}" rel="stylesheet">
+  <link href="{% static 'product/css/style.css' %}" rel="stylesheet">
 
 </head>
 
 <body id="page-top">
 
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top " id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">
+      <a class="navbar-brand js-scroll-trigger" href="{% url 'index' %}">
         <img class="img-fluid pr-1" src="{% static 'product/img/nav/logo_pur_beurre.png' %}" alt="Logo" style="max-height: 60px;">
         Pur Beurre</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,8 +46,8 @@
           <li class="nav-item d-flex justify-content-end">
             <form action="{% url 'products' %}" method="post" class="form-inline">
               {% csrf_token %}
-              <input class="form rounded text-muted" name="product-name" type="text" 
-              style="background-color: lightgray;" onFocus="if(this.value!='')this.value=''">
+              <input class="form-control rounded text-muted" name="product-name" type="text" 
+               placeholder="Rechercher" onFocus="if(this.value!='')this.value=''">
             </form>
           </li>
           <li class="nav-item">
@@ -72,10 +73,10 @@
   {% block content %}{% endblock %}
 
   <!-- Footer -->
-  <footer class="bg-light py-5">
-    <div class="row">
-      <div class="col-6 small text-center text-muted">Mentions légales</div>
-      <div class="col-6 small text-center text-muted">Contact</div>
+  <footer class="contenair py-5">
+    <div class="row justify-content-around">
+      <div class=" col-5 text-center ">Mentions légales</div>
+      <div class=" col-5 text-center ">Contact</div>
     </div>
   </footer>
 
