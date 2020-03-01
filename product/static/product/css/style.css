@@ -27,6 +27,7 @@
 #products {
     background-color: var(--rooibos);
     color: var(--moules);
+    text-align: center;
 }
 #identity {
     color: var(--moules);
@@ -47,4 +48,9 @@ h2 {
 h3 {
     padding: 1rem 0 1rem 0;
     font-style: italic;
+}
+.logo-nutriscore {
+    position: absolute;
+    top: 0px;
+    right: 0px;
 }

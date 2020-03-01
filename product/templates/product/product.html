@@ -3,7 +3,7 @@
 {% block content %}
 
   <section class="page-section" id="selected">
-    {% if product %}
+{% if product %}
     <div class="row justify-content-center align-items-center">
       <div class="col-5 text-center">
         <img class="img-fluid border" src="{{ product.img }}" alt="">
@@ -67,15 +67,16 @@
   <section class="page-section py-5" id="products">
     <h2 class="text-center">Vous pouvez remplacer cet aliment par:</h2>
     
-    {% else %}
+{% else %}
     <div class="text-center">
       <h1>Propositions pour:</h1>
       <h3>"{{ request }}"</h3>    
     </div>
   </section>
-    <section class="page-section py-5" id="products">
-    <h2 class="text-center">Sélectionnez un produit dans la liste</h2>
-    {% endif %}
+  <section class="page-section py-5" id="products">
+      <h2 class="text-center">Sélectionnez un produit dans la liste</h2>
+      <p> ou affinez votre recherche</p>
+{% endif %}
   
     <div class="row justify-content-around mx-2">
      
@@ -83,26 +84,25 @@
         
         <div class="col-lg-4 col-md-8 py-2 d-flex flex-column ">
           <div class="product-card">
-            <div class="row d-flex flex-row-reverse">{{ food.nutrigrade }}
-              <!--<img class="img-fluid" src="{% static 'product/img/d.png' %}"
-               alt="nutrigrade {{ food.nutrigrade }}">-->
-            </div>
+            <img class="logo-nutriscore img-fluid" src="{% static 'product/img/' %}{{ food.nutrigrade }}.png"
+              alt="nutrigrade {{ food.nutrigrade }}">
+            
             <a href="{% url 'substitutes' %}?code={{ food.code }}">
-            <img class="img-fluid" src="{{ food.img }}" alt="">
+              <img class="product-img img-fluid" src="{{ food.img }}" alt="">
             </a>
             <h2>{{ food.name }}</h2>
-            
             <hr class="divider">
             <p >{{ food.details }}</p>
             <a href="">
             <i class="far fa-save" aria-hidden="true"> Ajouter aux favoris</i>
             </a>
-          </div>
+            </div>
+          
         </div>
       {% endfor %}
     </div>
   
-</section>
+  </section>
   
 {% endblock %}
   
