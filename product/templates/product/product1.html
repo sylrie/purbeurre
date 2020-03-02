@@ -1,0 +1,109 @@
+{% extends 'product/base.html' %}
+{% load static %}
+{% block content %}
+
+  <section class="page-section" id="selected">
+{% if product %}
+    <div class="row justify-content-center align-items-center">
+      <div class="col-5 text-center">
+        <img class="img-fluid border" src="{{ product.img }}" alt="">
+        <h2>{{ product.name }}</h2>
+        <i class="far fa-save"> Ajouter aux favoris</i>
+      </div>
+      <div class="card col-5 d-flex align-self-stretch ">
+        <div class="row my-2 mx-2 justify-content-around">
+          <a href="https://fr.openfoodfacts.org/nutriscore" target ="_blank">
+            <img class="img-fluid"
+            src="https://static.openfoodfacts.org/images/misc/nutriscore-{{ product.nutrigrade }}.svg"
+            alt="nutrigrade {{ product.nutrigrade }}">
+          </a>
+          <a href="https://fr.openfoodfacts.org/nova" target ="_blank">
+            <img class="img-fluid rounded px-1 mx1 bg-white" 
+            src="https://static.openfoodfacts.org/images/misc/nova-group-{{ product.nova }}.svg"
+            alt="nova-group {{ product.nova }}">
+          </a>
+        </div>
+        <p class="text-center">Repères nutrinonnels pour 100 g 
+          <a href="https://fr.openfoodfacts.org/reperes-nutritionnels" target="_blank">
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+          </a>
+        </p>
+        <div class="row w-100"></div>
+          <p>
+            <img class="img-fluid py-1"
+             src="https://static.openfoodfacts.org/images/misc/{{ product.level_fat }}.svg"
+             alt="">
+             Matières grasses / Lipides: <strong>{{ product.fat_100g }}g</strong>
+          </p>
+        <div class="row w-100"></div>
+          <p>
+            <img class="img-fluid py-1" 
+            src="https://static.openfoodfacts.org/images/misc/{{ product.level_saturated_fat }}.svg" 
+            alt="">
+             Acides gras saturés: <strong>{{ product.saturated_fat_100g }}g</strong>
+        <div class="row w-100"></div>
+          <p>
+            <img class="img-fluid py-1" 
+            src="https://static.openfoodfacts.org/images/misc/{{ product.level_sugar }}.svg" 
+            alt="">
+             Sucres: <strong>{{ product.sugar_100g }}g</strong>
+          </p>
+        <div class="row w-100"></div>
+          <p>
+            <img class="img-fluid py-1" 
+            src="https://static.openfoodfacts.org/images/misc/{{ product.level_salt }}.svg" 
+            alt="">
+             sel: <strong>{{ product.salt_100g }}g</strong>
+          </p>
+      </div> 
+      <div class="text-center">
+        <a href="{{ url }}" target ="_blank">
+        <h3> Voir la fiche Open Food Facts</h3>
+        </a>
+      </div>
+  </div>
+  </section>
+
+  <section class="page-section py-5" id="products">
+    <h2 class="text-center">Vous pouvez remplacer cet aliment par:</h2>
+    
+{% else %}
+    <div class="text-center">
+      <h1>Propositions pour:</h1>
+      <h3>"{{ request }}"</h3>    
+    </div>
+  </section>
+  <section class="page-section py-5" id="products">
+      <h2 class="text-center">Sélectionnez un produit dans la liste</h2>
+      <p> ou affinez votre recherche</p>
+{% endif %}
+  
+    <div class="row justify-content-around mx-2">
+     
+      {% for food in products %}
+        
+      <div class="row justify-content-around mx-2">
+          <div class="product-card" style="background-image: url('{{ food.img }}');">
+            <img class="logo-nutriscore img-fluid" src="{% static 'product/img/' %}{{ food.nutrigrade }}.png"
+              alt="nutrigrade {{ food.nutrigrade }}">
+            
+            <a href="{% url 'substitutes' %}?code={{ food.code }}">
+              
+            </a>
+            <h2>{{ food.name }}</h2>
+            <hr class="divider">
+            <p >{{ food.details }}</p>
+            <a href="">
+            <i class="far fa-save" aria-hidden="true"> Ajouter aux favoris</i>
+            </a>
+            </div>
+          
+        </div>
+      {% endfor %}
+    </div>
+  
+  </section>
+  
+{% endblock %}
+  
+  

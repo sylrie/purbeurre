@@ -26,7 +26,7 @@ def get_data_list(data):
         food_data = {
             
             }
-
+        
         try:
 
             food_data["code"] = product["code"]

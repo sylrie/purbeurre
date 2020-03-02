@@ -39,11 +39,12 @@ def substitutes(request):
     url = "https://world.openfoodfacts.org/product/{}".format(query)
     category = product["category"]
     nutrigrade = product["nutrigrade"]
+    
 
     substitutes = search_substitutes(category, nutrigrade)
     
-    #paginator = Paginator(substitutes, 9)
-    #products = paginator.page(paginator.num_pages)
+    #paginator = Paginator(substitutes, 11)
+    #substitutes = paginator.page(paginator.num_pages)
 
     context = {
         'url': url,

@@ -5,52 +5,119 @@
     --rigolo: #86EBE6;
     --caramel: #DE9440;
     --rooibos: #C45525;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1100px;
+    --breakpoint-xl: 1200px;
+}
+body {
+    font-family: "Scope One", sans-serif;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+#nav-form.form-control {
+    background-color: rgba(228, 227, 227, 0.7);
+    border: 1px solid var(--moules);
+    color: var(--moules);
+    font-size: 1.1rem;
+
+}
+.fas {
+    font-size: 2rem;
+}
+.btn {
+    background-color: var(--caramel);
+    border: 1px var(--rooibos) outset;
+    color: var(--moules);
+    padding: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    
 }
 
-.btn {
-    background-color: var(--rooibos);
-}
 #selected {
     background-color: var(--moules);
     padding-bottom: 3rem;
     color: white;
+    background-position: center;
+    background-repeat: no-repeat;
+ 
 }
-.card, .product-card {
+.card {
     border: 4px var(--rigolo) ridge;
     background-color: var(--biscuit);
-    color: var(--moules);
+    color: white;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
+
 .product-card {
     padding: 0.5rem 0.5rem 0.5rem 0.5rem;
     text-align: center;    
+    color: var(--moules);
+    
+}
+.logo-nutriscore {
+    position: absolute;
+    top: -10px;    
 }
 #products {
-    background-color: var(--rooibos);
+    background-color: var(--biscuit);
     color: var(--moules);
     text-align: center;
 }
 #identity {
-    color: var(--moules);
-    padding-top: 3rem;
+    color: var(--rooibos);
+    padding-top: 4rem;
+    
 }
-
+#contact {
+    background-color: var(--rooibos);
+    color: var(--biscuit);
+}
 .id-box {
-    border: 4px var(--rigolo) ridge;
+    border: 4px var(--biscuit) ridge;
     padding: 0.8rem 0.8rem 0.8rem 0.8rem;
     
 }
 footer {
     background-color: var(--caramel);
+    color: var(--moules);
+}
+h1, h2, h3 {
+    font-family: "Open Sans", sans-serif;
+    font-weight: bold;
+    padding-bottom: 2rem;
+    margin-bottom: 0;
+}
+h1 {
+    
+    font-size: 2.8rem;
 }    
+header.masthead h1 {
+    font-size: 5rem;
+    color: var(--biscuit);
+}
+header.masthead h2 {
+    font-size: 3rem;
+}
 h2 {
+    font-size: 2.4rem;
     padding: 1rem 0 1rem 0;
 }
 h3 {
+    font-size: 2rem;
     padding: 1rem 0 1rem 0;
     font-style: italic;
 }
-.logo-nutriscore {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-}
+.d-block {
+    color: var(--caramel);
+    font-weight: bold;
+  }
+  
+.d-block:hover {
+    color:var(--rigolo);
+    text-decoration: underline;
+  }
