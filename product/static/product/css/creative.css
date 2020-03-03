@@ -170,7 +170,7 @@ a {
 }
 
 a:hover {
-  color:var(--rooibos);
+  color:var(--rigolo);
   text-decoration: underline;
 }
 
@@ -9594,7 +9594,7 @@ hr.light {
 }
 
 #mainNav {
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
   background-color: var(--caramel);
   transition: background-color 0.2s ease;
 }

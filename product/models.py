@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 # from django.db import models
 
-class Product(models.Model):
+"""class Product(models.Model):
     name = models.CharField(max_length=200, primary_key=True ,unique=True)
     category = models.TextField()
     brand = models.CharField(max_length=200)
@@ -26,4 +26,4 @@ class Product(models.Model):
         ordering = ['name']
         
     def __str__(self):
-        return self.name
+        return self.name"""

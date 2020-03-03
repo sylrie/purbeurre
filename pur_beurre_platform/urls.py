@@ -3,15 +3,16 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.urls import path
 
-from product import views
+from product import views as product
+from users import views as users
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('products/', views.results, name='products'),
-    path('substitutes/', views.substitutes, name='substitutes'),
-    url(r'^$', views.index),
-    url(r'^product/', include('product.urls')),
-    url(r'^admin/', admin.site.urls),
+    path('', product.index, name='index'),
+    path('products/', product.Product().results, name='products'),
+    path('substitutes/', product.Product().substitutes, name='substitutes'),
+    path('food/', product.Product().food, name='food'),
+    path('create/', users.create_acount, name='create'),
+    path('login/', users.login, name='login'),
 ]
 
 if settings.DEBUG:

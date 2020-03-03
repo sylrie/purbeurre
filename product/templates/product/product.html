@@ -6,18 +6,25 @@
   {% if product %}
   <div class="container">
     <div class="row justify-content-center align-items-center">
-      <div class="col-5 text-center">
+      <div class="col-lg-5 text-center">
         <img class="img-fluid border" src="{{ product.img }}" alt="">
       </div>
-      <div class="card col-5 text-center d-flex">
+      <div class="card col-lg-5 col-md-10 mt-2 text-center d-flex">
         <div class="row my-2 mx-2 justify-content-around">
           <h1>{{ product.name }}</h1>
+          <div class="row w-100"></div>
           <a href="https://fr.openfoodfacts.org/nutriscore" target ="_blank">
             <img class="img-fluid"
             src="https://static.openfoodfacts.org/images/misc/nutriscore-{{ product.nutrigrade }}.svg"
             alt="nutrigrade {{ product.nutrigrade }}">
           </a>
-          <h2>{{ product.details }}</h2>
+          <div class="row w-100 justify-content-center pt-4">
+            <span>{{ product.details }}</span>
+          </div>
+          <a href="{% url 'food' %}?code={{ product.code }}">
+            <i class="fas fa-hand-point-right" style="font-size: 110%;"> Voir la fiche produit</i>
+          </a>
+
         </div>
       </div> 
     </div>
@@ -43,18 +50,22 @@
       <div class="row justify-content-center">
         {% for food in products %}
         <div class="col-lg-4 col-md-8 py-2">
-          <div class="product-card">
+          <div class="product-card pb-5">
             {% if product %}
             <img class="logo-nutriscore img-fluid" src="{% static 'product/img/nutrigrade/' %}{{ food.nutrigrade }}.png"
               alt="nutrigrade {{ food.nutrigrade }}">
-              {% endif %}
+            <a href="{% url 'food' %}?code={{ food.code }}">
+            {% else %}
             <a href="{% url 'substitutes' %}?code={{ food.code }}">
+            {% endif %}
               <img class="product-img img-fluid" src="{{ food.img }}" alt="">
+            <h2 class="pb-0">{{ food.name }}</h2>
+            
             </a>
-            <h2>{{ food.name }}</h2>
-            <hr class="divider">
-            <p >{{ food.details }}</p>
+
             {% if product %}
+            
+            <hr class="divider">
             <a href="">
               <i class="far fa-save" aria-hidden="true"> Ajouter aux favoris</i>
             </a>

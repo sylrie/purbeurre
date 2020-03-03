@@ -40,7 +40,7 @@ def get_data_list(data):
             food_data["nutriscore"] = int(product["nutriments"]["nutrition-score-fr"])
             food_data["stores"] = product["stores"]
             food_data["link"] = product["url"]
-            food_data["ingredients"] = product["ingredients_text_fr"]
+            food_data["ingredients"] = product["ingredients_text_fr"].replace("_", " ")
             food_data["fat_100g"] = float(product["nutriments"]["fat_100g"])
             food_data["saturated_fat_100g"] = float(product["nutriments"]["saturated-fat_100g"])
             food_data["salt_100g"] = float(product["nutriments"]["salt_100g"])
@@ -60,7 +60,29 @@ def get_data_list(data):
 
 def get_product_list(product):
     """ Add foods into product_list"""
-    food_data = {}
+    food_data = {
+        "code": "",
+        "category": "",
+        "name": "",
+        "img": "",
+        "details": "",
+        "brand": "",
+        "brand_link": "",
+        "nutrigrade": "",
+        "nutriscore": "",
+        "stores": "",
+        "link": "",
+        "ingredients": "",
+        "fat_100g": "",
+        "saturated_fat_100g": "",
+        "salt_100g": "",
+        "sugar_100g": "",
+        "level_fat": "",
+        "level_saturated_fat": "",
+        "level_salt": "",
+        "level_sugar": "",
+        "nova": "",
+    }   
     try:
 
         food_data["code"] = product["code"]
@@ -74,7 +96,7 @@ def get_product_list(product):
         food_data["nutriscore"] = int(product["nutriments"]["nutrition-score-fr"])
         food_data["stores"] = product["stores"]
         #food_data["link"] = product["url"]
-        food_data["ingredients"] = product["ingredients_text_fr"]
+        food_data["ingredients"] = product["ingredients_text_fr"].replace("_", " ")
         food_data["fat_100g"] = float(product["nutriments"]["fat_100g"])
         food_data["saturated_fat_100g"] = float(product["nutriments"]["saturated-fat_100g"])
         food_data["salt_100g"] = float(product["nutriments"]["salt_100g"])
@@ -84,8 +106,9 @@ def get_product_list(product):
         food_data["level_salt"] = product["nutrient_levels"]["salt"]
         food_data["level_sugar"] = product["nutrient_levels"]["sugars"]
         food_data["nova"] = product["nutriments"]["nova-group"]
-        
-    except Exception as error:
+       
+
+    except Exception:
             pass
         
     return food_data
@@ -97,7 +120,7 @@ def search_product(user_request):
         'search_simple': 1,
         'action': 'process',
         'json': 1,
-        'page_size': 10,
+        'page_size': 12,
         'search_terms': "{}".format(user_request),
     }
 
@@ -148,24 +171,21 @@ def search_substitutes(category, nutrigrade):
 def select_product(code):
     """ give all data for a selected product """
 
-    product_list = []
-
     url = "https://world.openfoodfacts.org/api/v0/produit/"+str(code)+".json"
     
     product = get(url).json()
 
     food_data = get_product_list(product["product"])
-    product_list.append(food_data)
+    #product_list.append(food_data)
+    return food_data
     
-    return product_list[0]
-
 """food = search_product("kinder")#"en:chocolate-nuts-cookie-bars")
 print(len(food))
 for product in food:
     print(product["name"])"""
 
 """food = select_product("3242272346050")
-print(len(food))
+print(type(food))
 #print(food["nova"])
-for key in food:
-    print(key)"""
+for value in food.values():
+    print(value)"""
