@@ -7,7 +7,7 @@
     --rooibos: #C45525;
     --breakpoint-xs: 0;
     --breakpoint-sm: 576px;
-    --breakpoint-md: 768px;
+    --breakpoint-md: 850px;
     --breakpoint-lg: 1100px;
     --breakpoint-xl: 1200px;
 }
@@ -17,8 +17,41 @@ body {
     font-size: 1.4rem;
     font-weight: bold;
 }
+h1, h2, h3 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  padding-bottom: 2rem;
+  margin-bottom: 0;
+}
+h1 {
+  font-size: 2.8rem;
+}
+h2 {
+  font-size: 2.4rem;
+  padding: 1rem 0 1rem 0;
+}
+h3 {
+  font-size: 2rem;
+  padding: 1rem 0 1rem 0;
+}
+h4 {
+  font-size: 1.8rem;
+  padding: 1rem 0 1rem 0;
+}
+.masthead {
+  color: var(--biscuit);
+  
+  text-shadow: 1px 2px 3px rgba(0,0,0, 1),
+  -1px -2px 0 rgba(255,255,255,1);;
+} 
+header.masthead h1 {
+  font-size: 5rem;
+  
+}
+header.masthead h2 {
+  font-size: 3rem;
+}
 strong {
-    font-size: 115%;
     color: var(--rooibos);
 }
 #nav-form.form-control {
@@ -26,157 +59,128 @@ strong {
     border: 1px solid var(--moules);
     color: var(--moules);
     font-size: 1.1rem;
-
 }
 .fas {
     font-size: 2rem;
-}
-.btn {
-    background-color: var(--caramel);
-    border-radius: 2px;
-    
-    color: var(--moules);
-    padding:6px 0 6px 0;
-    font-size: 1.2rem;
-    font-weight: bold;
-    box-shadow: 2px 2px 5px rgba(0,0,0, 1);
-}
-.btn:hover {
-    background-color: var(--biscuit);
-    color: var(--rooibos);
 }
 #selected {
     background-color: var(--moules);
     padding-bottom: 3rem;
     color: var(--biscuit);
 }
-#selected a {
-    color: var(--rigolo);
+#selected a, #connection a {
+    color: var(--rooibos);
     text-decoration: none;
     background-color: transparent;
-}
-  
-#selected a:hover {
-    color:var(--rooibos);
+} 
+#selected a:hover, #connection a:hover{
+    color:var(--rigolo);
     text-decoration: underline;
 }
 #contact {
     font-size: 110%;
 }
-.card {
-    background-color: var(--moules);
-    border: none;
-    color:var(--biscuit);    
-}
-
-.product-card {
-    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-    text-align: center;    
-    color: var(--moules);
-    margin-top: 4px;
-    margin-bottom: 4px;
-}
-.product-box {
-    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-    border: 3px ridge var(--moules);
-    text-align: center;    
-    color: var(--moules);
-    margin-top: 4px;
-    margin-bottom: 4px;
-}
-.level {
-    font-size: 1.8rem;
-}
-.logo-nutriscore {
-    position: absolute;
-    top: -5px;    
-}
 #products {
-    background-color: var(--biscuit);
+    background-color: var(--caramel);
     color: var(--moules);
     text-align: center;
+    padding-bottom: 3rem;
 }
 #identity {
     color: var(--rooibos);
     padding-top: 4rem;
 }
 #connection {
-    background-color: var(--moules);
+    background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.3) 100%), url("../img/bg-masthead.jpg");
+    background-position: top;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
     color: var(--caramel);
 }
 #contact {
     background-color: var(--rooibos);
     color: var(--biscuit);
 }
-
 .id-box {
     border: 4px var(--biscuit) ridge;
     padding: 0.8rem 0.8rem 0.8rem 0.8rem;
     
 }
+.card {
+  background-color: var(--moules);
+  border: none;
+  color:var(--biscuit);    
+}
+.product-card {
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  text-align: center;
+  background-color: var(--biscuit);
+  color: var(--moules);
+  margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+  border: 4px var(--moules) ridge;
+}
+.product-img {
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+}
+.product-box {
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  background-color: var(--biscuit);
+  border: 3px ridge var(--moules);
+  text-align: center;    
+  color: var(--moules);
+  margin: 0.5rem 0 0.5rem 0;
+ 
+}
+.logo-nutriscore {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+}
 footer {
     background-color: var(--caramel);
     color: var(--moules);
 }
-h1, h2, h3 {
-    font-family: "Open Sans", sans-serif;
-    font-weight: bold;
-    padding-bottom: 2rem;
-    margin-bottom: 0;
-}
-h1 {
-    font-size: 2.8rem;
-}  
-.masthead {
-    color: var(--biscuit);
-    
-    text-shadow: 1px 2px 3px rgba(0,0,0, 1),
-    -1px -2px 0 rgba(255,255,255,1);;
-} 
-header.masthead h1 {
-    font-size: 5rem;
-    
-}
-header.masthead h2 {
-    font-size: 3rem;
-}
-h2 {
-    font-size: 2.4rem;
-    padding: 1rem 0 1rem 0;
-}
-h3 {
-    font-size: 2rem;
-    padding: 1rem 0 1rem 0;
-    font-style: italic;
-}
 .d-block {
     color: var(--caramel);
     font-weight: bold;
-  }
-  
+} 
 .d-block:hover {
     color:var(--rigolo);
     text-decoration: underline;
-  }
-
+}
+.btn {
+  background-color: var(--caramel);
+  border-radius: 2px;
+  
+  color: var(--moules);
+  padding:6px 0 6px 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  box-shadow: 2px 2px 5px rgba(0,0,0, 1);
+}
+.btn:hover {
+  background-color: var(--biscuit);
+  color: var(--rooibos);
+}
 .form-signin {
+  background-color: var(--moules);
   width: 100%;
   max-width: 420px;
   padding: 15px;
   margin: auto;
 }
-
 .form-label-group {
   position: relative;
   margin-bottom: 1rem;
 }
-
 .form-label-group > input,
 .form-label-group > label {
   height: 3.125rem;
   padding: .75rem;
 }
-
 .form-label-group > label {
   position: absolute;
   top: 0;
@@ -191,39 +195,31 @@ h3 {
   border-radius: .25rem;
   transition: all .1s ease-in-out;
 }
-
 .form-label-group input::-webkit-input-placeholder {
   color: transparent;
 }
-
 .form-label-group input:-ms-input-placeholder {
   color: transparent;
 }
-
 .form-label-group input::-ms-input-placeholder {
   color: transparent;
 }
-
 .form-label-group input::-moz-placeholder {
   color: transparent;
 }
-
 .form-label-group input::placeholder {
   color: transparent;
 }
-
 .form-label-group input:not(:placeholder-shown) {
   padding-top: 1.25rem;
   padding-bottom: .25rem;
 }
-
 .form-label-group input:not(:placeholder-shown) ~ label {
   padding-top: .25rem;
   padding-bottom: .25rem;
   font-size: 12px;
   
 }
-
 /* Fallback for Edge
 -------------------------------------------------- */
 @supports (-ms-ime-align: auto) {

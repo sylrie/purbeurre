@@ -27,8 +27,8 @@ class Product():
             query = request.GET.get('name')   
     
         self.product_list = search_product(query)
-        #paginator = Paginator(products, 9)
-        #products = paginator.page(paginator.num_pages)
+        #paginator = Paginator(self.product_list, 12)
+        #self.product_list = paginator.page(paginator.num_pages)
         
         context = {
             'products': self.product_list,
@@ -49,8 +49,8 @@ class Product():
 
         self.substitutes_list = search_substitutes(category, nutrigrade)
 
-        #paginator = Paginator(substitutes, 11)
-        #substitutes = paginator.page(paginator.num_pages)
+        #paginator = Paginator(self.substitutes_list, 12)
+        #self.substitutes_list = paginator.page(paginator.num_pages)
 
         context = {
             'url': url,
@@ -63,7 +63,6 @@ class Product():
     def food(self, request):
 
         query = request.GET.get('code')
-        print(query)
         self.product = select_product(query)
         url = "https://world.openfoodfacts.org/product/{}".format(query)
         for product in self.product_list:

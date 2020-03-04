@@ -162,8 +162,9 @@ def search_substitutes(category, nutrigrade):
         data = get_data_list(data_grade)
 
         product_list.extend(data)
-
-        if grade == nutrigrade:
+        if len(product_list) > 0:
+            break
+        elif grade == nutrigrade:
             break
 
     return product_list

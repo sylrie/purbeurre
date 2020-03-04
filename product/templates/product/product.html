@@ -6,27 +6,35 @@
   {% if product %}
   <div class="container">
     <div class="row justify-content-center align-items-center">
+      
       <div class="col-lg-5 text-center">
         <img class="img-fluid border" src="{{ product.img }}" alt="">
       </div>
+
       <div class="card col-lg-5 col-md-10 mt-2 text-center d-flex">
         <div class="row my-2 mx-2 justify-content-around">
+          
           <h1>{{ product.name }}</h1>
+          
           <div class="row w-100"></div>
+          
           <a href="https://fr.openfoodfacts.org/nutriscore" target ="_blank">
             <img class="img-fluid"
             src="https://static.openfoodfacts.org/images/misc/nutriscore-{{ product.nutrigrade }}.svg"
             alt="nutrigrade {{ product.nutrigrade }}">
           </a>
+          
           <div class="row w-100 justify-content-center pt-4">
             <span>{{ product.details }}</span>
           </div>
+          
           <a href="{% url 'food' %}?code={{ product.code }}">
-            <i class="fas fa-hand-point-right" style="font-size: 110%;"> Voir la fiche produit</i>
+            <i class="fas fa-hand-point-right pt-4" style="font-size: 110%;"> Voir la fiche produit</i>
           </a>
 
         </div>
       </div> 
+
     </div>
   </div>
 </section>
@@ -41,16 +49,20 @@
     </div>
   </section>
   <section class="page-section pt-4" id="products">
+    
     <div class="text-center">
       <h2 class="text-center">Sélectionner un produit dans la liste</h2>
       <p> ou affiner la recherche</p>
     </div>
   {% endif %}
-    <div class="container-fluid" > 
+    
+  <div class="container-fluid" > 
       <div class="row justify-content-center">
         {% for food in products %}
-        <div class="col-lg-4 col-md-8 py-2">
-          <div class="product-card pb-5">
+        
+        <div class="col-lg-4 col-md-8 mt-4 d-flex justify-content-center ">
+          <div class="product-card col-9 text-center">
+            
             {% if product %}
             <img class="logo-nutriscore img-fluid" src="{% static 'product/img/nutrigrade/' %}{{ food.nutrigrade }}.png"
               alt="nutrigrade {{ food.nutrigrade }}">
@@ -58,21 +70,33 @@
             {% else %}
             <a href="{% url 'substitutes' %}?code={{ food.code }}">
             {% endif %}
-              <img class="product-img img-fluid" src="{{ food.img }}" alt="">
-            <h2 class="pb-0">{{ food.name }}</h2>
-            
+              <img class="product-img img-fluid" src="{{ food.img }}"alt="">
+              
+              <h4 class="pb-0 col-12" style="height: 100px">{{ food.name }}</h4>
             </a>
-
+            
             {% if product %}
             
             <hr class="divider">
             <a href="">
               <i class="far fa-save" aria-hidden="true"> Ajouter aux favoris</i>
             </a>
+            
             {% endif %}
           </div>
-        </div>       
+        </div>
         {% endfor %}
+        <div class="row w-100 justify-content-around pt-5">
+          
+          <a href="">
+            <i class="fas fa-arrow-circle-left"></i>
+          </a>
+          <p>-page ?/?-</p>
+          <a href="">
+            <i class="fas fa-arrow-circle-right"></i>
+          </a>
+         
+        </div>
       </div>
     </div>  
   </section>  
