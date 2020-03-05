@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -25,8 +24,7 @@ SECRET_KEY = '^92a7n40s-1l0%k_mfw)r2%g+sfe97@k)#-7omu3d$=7&we=+u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
-
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -39,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms',
+    
 
 ]
 
@@ -118,6 +116,9 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LANGUAGE_CODE = 'fr'
 
 TIME_ZONE = 'Europe/Paris'
+
+LOGIN_REDIRECT_URL = 'pur-beurre-index'
+LOGIN_URL = 'login'
 
 USE_I18N = True
 

@@ -20,14 +20,14 @@
         </div>
         <div class="row w-100 align-self-baseline justify-content-center">
           <div class="col-lg-8">
-            <form class="row input-group mb-3 mx-0 justify-content-center" action="{% url 'products' %}" method="post">
+            <form class="row input-group mb-3 mx-0 justify-content-center" action="{% url 'products' %}" method="POST">
               {% csrf_token %}
               <div class="col-lg-6 col-md-10 py-2">
                 <input type="text" class="form-control input-group-append rounded " name="product-name"
               placeholder="Rechercher un produit" onFocus="if(this.value!='')this.value=''"/>
               </div>
               <div class="input-group-append col-lg-2 col-md-3 col-sm-6 py-2">
-                <button class="btn rounded w-100" input type="post">  Chercher  </button>
+                <button class="btn rounded w-100" input type="POST">  Chercher  </button>
               </div>
             </form>
         </div>

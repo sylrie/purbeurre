@@ -3,51 +3,33 @@ from django.http import HttpResponse
 from django.template import loader
 from .forms import UserRegisterForm
 from django.contrib.auth import authenticate
-
+from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.models import User
 
-# Create your views here.
+
 
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
+        
         if form.is_valid():
             form.save()
-            #username = form.cleaned_data.get('username')
-            #messages.success(request, "Votre compte a bien été créé, {}!".format(username))
 
             return redirect('login')
-    else:
-        form = UserRegisterForm()
-        users = User.objects.all()
-        for user in users:
-            print(user.username)
-            print(user.email)
-       
+    
+        else:
+            print("register problem")
+            return redirect('register')
+                  
     return render(request, 'users/register.html')
     
-def login(request):
+def login (request):
+    return render(request,'users/login.html' )     
 
-    if request.method == 'POST':
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-        print(email)
-        print(password)
-        user = authenticate(email=email, password=password)
-        
-        if user is not None:
-            print("ok")
-            
-        else:
-            print("raté")
-            
-        return redirect('index')
-    
-    else:
-        
-        return render(request,'users/login2.html')
-            
 def logout(request):
-
     return render(request,'users/logout.html' )
+
+@login_required
+def profile(request):
+    return render(request, 'users/profile.html')

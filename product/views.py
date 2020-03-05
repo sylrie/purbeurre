@@ -29,7 +29,7 @@ class Product():
         elif request.method == 'POST':
             query = request.POST.get("product-name")
         else:
-            query = request.GET.get('name')   
+            query = request.GET.get('name')
     
         self.product_list = search_product(query)
         #paginator = Paginator(self.product_list, 12)
@@ -76,7 +76,7 @@ class Product():
                 break
             else:
                 pass
-        print(self.product["brand_link"])    
+    
         context = {
             'url': url,
             'food': self.product,
