@@ -104,6 +104,14 @@ strong {
     background-size: cover;
     color: var(--caramel);
 }
+#logout {
+    background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.3) 100%), url("../img/ratatouille-11.jpg");
+    background-position: top;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+    color: var(--caramel);
+}
 #contact {
     background-color: var(--rooibos);
     color: var(--biscuit);
@@ -146,7 +154,7 @@ strong {
   top: -20px;
   right: -20px;
 }
-.legals {
+.legals, .logout {
   background-color: rgba(214, 214, 216, 0.4);
   color: var(--moules);
   text-shadow: 1px 1px 1px rgba(0,0,0, 1);
