@@ -9,6 +9,11 @@ from product.manager_api2 import search_product,  search_substitutes, select_pro
 def index(request):
     
     return render(request,'product/home.html' )
+
+def legals(request):
+
+    return render(request,'product/legals.html' )
+
 class Product():
 
     def __init__(self):

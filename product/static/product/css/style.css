@@ -10,10 +10,12 @@
     --breakpoint-md: 850px;
     --breakpoint-lg: 1100px;
     --breakpoint-xl: 1200px;
+    --font-family: "Scope One", sans-serif;
+    --font-family-h: "Open Sans", sans-serif;
 }
 body {
-    font-family: "Scope One", sans-serif;
-    
+    font-family: var(--font-family);
+    text-shadow: 0.5px 0.5px 0.5px rgba(0,0,0, 1);
     font-size: 1.4rem;
     font-weight: bold;
 }
@@ -40,16 +42,20 @@ h4 {
 }
 .masthead {
   color: var(--biscuit);
-  
-  text-shadow: 1px 2px 3px rgba(0,0,0, 1),
-  -1px -2px 0 rgba(255,255,255,1);;
+  text-shadow: 1px 1px 1px rgba(0,0,0, 1),
+  -2px -1px 0 var(--moules);
 } 
 header.masthead h1 {
   font-size: 5rem;
-  
 }
 header.masthead h2 {
   font-size: 3rem;
+}
+.title {
+  font-size: 2.6rem;
+  text-shadow: 1px 1px 1px rgba(0,0,0, 1);
+  font-weight: bold;
+  padding: 0;
 }
 strong {
     color: var(--rooibos);
@@ -90,7 +96,7 @@ strong {
     color: var(--rooibos);
     padding-top: 4rem;
 }
-#connection {
+#connection, #legals {
     background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.3) 100%), url("../img/bg-masthead.jpg");
     background-position: top;
     background-repeat: no-repeat;
@@ -103,8 +109,9 @@ strong {
     color: var(--biscuit);
 }
 .id-box {
-    border: 4px var(--biscuit) ridge;
+    border: 4px var(--rooibos) ridge;
     padding: 0.8rem 0.8rem 0.8rem 0.8rem;
+    color: var(--moules);
     
 }
 .card {
@@ -139,9 +146,15 @@ strong {
   top: -20px;
   right: -20px;
 }
+.legals {
+  background-color: rgba(214, 214, 216, 0.4);
+  color: var(--moules);
+  text-shadow: 1px 1px 1px rgba(0,0,0, 1);
+}
 footer {
     background-color: var(--caramel);
     color: var(--moules);
+
 }
 .d-block {
     color: var(--caramel);
@@ -154,12 +167,13 @@ footer {
 .btn {
   background-color: var(--caramel);
   border-radius: 2px;
-  
   color: var(--moules);
   padding:6px 0 6px 0;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: bold;
-  box-shadow: 2px 2px 5px rgba(0,0,0, 1);
+  box-shadow: 1px 1px 1px rgba(0,0,0, 1),
+  -2px -1px 0 var(--moules);
+  text-shadow: 0.5px 0.5px 0.5px rgb(114, 113, 113);
 }
 .btn:hover {
   background-color: var(--biscuit);

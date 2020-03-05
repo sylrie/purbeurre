@@ -2,35 +2,38 @@
 {% load static %}
 {% block content %}
 
-<section class="page-section" id="connection">
-  <form class="form-signin rounded">
+<section class="page-section h-100" id="connection">
+  <form class="form-signin rounded" action="{% url 'register' %}" method="POST">
+    
     <div class="text-center mb-4">
       <img class="mb-4" src="{% static 'product/img/nav/logo_pur_beurre.png' %}" alt="" width="100" height="100">
       <h1>Inscription</h1>
+      
       <p>Remplissez le formulaire</p>
     </div>
+    {% csrf_token %}
     
     <div class="form-label-group">
-      <input type="name" id="inputName" class="form-control" placeholder="Nom d'utilisateur" required>
+      <input type="name" name="username" class="form-control" placeholder="Nom d'utilisateur" required autofocus>
       <label for="inputPassword">Nom d'utilisateur</label>
     </div>
 
     <div class="form-label-group">
-      <input type="email" id="inputEmail" class="form-control" placeholder="Adresse email" required autofocus>
+      <input type="email" name="email" class="form-control" placeholder="Adresse email" required >
       <label for="inputEmail">Adresse email</label>
     </div>
-  
+    <span>Au moins 8 caractères</span>
     <div class="form-label-group">
-      <input type="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
+      <input type="password" name="password1" class="form-control" placeholder="Mot de passe" required>
       <label for="inputPassword">Mot de passe</label>
     </div>
 
     <div class="form-label-group">
-      <input type="password" id="inputPassword2" class="form-control" placeholder="Confirmation mot de passe" required>
+      <input type="password" name="password2" class="form-control" placeholder="Confirmation mot de passe" required>
       <label for="inputPassword">Confirmation mot de passe</label>
     </div>
   
-    <div class="checkbox mb-3">
+    <div class="checkbox my-4">
       <label>
         <input type="checkbox" value="remember-me"> Se souvenir de moi
       </label>
@@ -40,9 +43,10 @@
     
     <div class="text-center mt-4">
       <p>Vous êtes déjà inscrit ? <br>
-        <a href="{% url 'login' %}">Connectez-vous</a></p>
+        <a href="{% url 'login' %}">Connectez-vous</a>
+      </p>
     </div>
-
+    
   </form>
 </section>
 

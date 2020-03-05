@@ -54,25 +54,25 @@
       <h2 class="text-center">Sélectionner un produit dans la liste</h2>
       <p> ou affiner la recherche</p>
     </div>
-  {% endif %}
+    {% endif %}
     
-  <div class="container-fluid" > 
+    <div class="container-fluid" > 
       <div class="row justify-content-center">
         {% for food in products %}
-        
+        {% if food.code != product.code %}
         <div class="col-lg-4 col-md-8 mt-4 d-flex justify-content-center ">
           <div class="product-card col-9 text-center">
             
             {% if product %}
             <img class="logo-nutriscore img-fluid" src="{% static 'product/img/nutrigrade/' %}{{ food.nutrigrade }}.png"
               alt="nutrigrade {{ food.nutrigrade }}">
+            
             <a href="{% url 'food' %}?code={{ food.code }}">
             {% else %}
             <a href="{% url 'substitutes' %}?code={{ food.code }}">
             {% endif %}
               <img class="product-img img-fluid" src="{{ food.img }}"alt="">
-              
-              <h4 class="pb-0 col-12" style="height: 100px">{{ food.name }}</h4>
+              <h4 class="pb-0 align-self-center col-12" style="height: 100px">{{ food.name }}</h4>
             </a>
             
             {% if product %}
@@ -85,6 +85,7 @@
             {% endif %}
           </div>
         </div>
+        {% endif %}
         {% endfor %}
         <div class="row w-100 justify-content-around pt-5">
           
@@ -95,12 +96,14 @@
           <a href="">
             <i class="fas fa-arrow-circle-right"></i>
           </a>
-         
+          
         </div>
+
       </div>
     </div>  
-  </section>  
-  
+  </section>
+
+{% include 'product/footer.html' %}  
 {% endblock %}
   
   

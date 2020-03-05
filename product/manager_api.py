@@ -13,8 +13,6 @@ import pprint
 class Product():
     def __init__(self):
         
-        
-
         self.code = ""
         self.category = ""
         self.name = ""
@@ -34,8 +32,7 @@ class Product():
             "nova": "",
         }
         
-        
-    
+
     def create_product(self, data):
         self.data = data
         try:
@@ -128,7 +125,7 @@ class ManagerApi():
                 product = Product().create_product(product_data)
                 
                 self.product_list.append(product)
-                print(product.__dict__)
+                
             if grade == nutrigrade:
                 break
         #print(self.product_list[0].__dict__)
@@ -137,4 +134,4 @@ class ManagerApi():
 liste = ManagerApi().search_substitutes("fr:barres-chocolatees-au-lait", "e")
 print(len(liste))
 for food in liste:
-    print(food.nutrigrade)
+    print(food.name)
