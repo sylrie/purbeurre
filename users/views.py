@@ -43,17 +43,16 @@ def login(request):
         user = authenticate(email=email, password=password)
         
         if user is not None:
-            print("raté")
+            print("ok")
             
         else:
-            print("ok")
+            print("raté")
             
         return redirect('index')
     
     else:
         
-        
-        return render(request,'users/register.html')
+        return render(request,'users/login2.html')
             
             
 
