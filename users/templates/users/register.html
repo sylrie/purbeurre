@@ -1,4 +1,5 @@
 {% extends 'product/base.html' %}
+{% block title %}Inscription{% endblock %}
 {% load static %}
 {% block content %}
 
@@ -31,12 +32,6 @@
     <div class="form-label-group">
       <input type="password" name="password2" class="form-control" placeholder="Confirmation mot de passe" required>
       <label for="inputPassword">Confirmation mot de passe</label>
-    </div>
-  
-    <div class="checkbox my-4">
-      <label>
-        <input type="checkbox" value="remember-me"> Se souvenir de moi
-      </label>
     </div>
     
     <button class="btn btn-lg btn-primary btn-block" type="submit">Créer le compte</button>

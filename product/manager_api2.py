@@ -120,7 +120,7 @@ def search_product(user_request):
         'search_simple': 1,
         'action': 'process',
         'json': 1,
-        'page_size': 12,
+        'page_size': 30,
         'search_terms': "{}".format(user_request),
     }
 
@@ -162,6 +162,7 @@ def search_substitutes(category, nutrigrade):
         data = get_data_list(data_grade)
 
         product_list.extend(data)
+        
         if len(product_list) > 0:
             break
         elif grade == nutrigrade:

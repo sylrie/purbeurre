@@ -32,12 +32,18 @@ class Product():
             query = request.GET.get('name')
     
         self.product_list = search_product(query)
-        #paginator = Paginator(self.product_list, 12)
-        #self.product_list = paginator.page(paginator.num_pages)
+        print(len(self.product_list))
+        paginator = Paginator(self.product_list, 9)
+        
+        page = request.GET.get('page')
+        products = paginator.get_page(page)
+        
+        title = "Recherche"
         
         context = {
-            'products': self.product_list,
             'request': query,
+            'products': products,
+            'title': title,
             }
 
         return render(request,'product/product.html', context)
@@ -47,20 +53,25 @@ class Product():
         query = request.GET.get('code')
 
         self.product = select_product(query)
+        
         url = "https://world.openfoodfacts.org/product/{}".format(query)
         category = self.product["category"]
         nutrigrade = self.product["nutrigrade"]
-        
-
         self.substitutes_list = search_substitutes(category, nutrigrade)
+        print(len(self.substitutes_list))
 
-        #paginator = Paginator(self.substitutes_list, 12)
-        #self.substitutes_list = paginator.page(paginator.num_pages)
+        paginator = Paginator(self.substitutes_list, 9)
+        
+        page = request.GET.get('page')
+        products = paginator.get_page(page)
 
+        title = "Substituts"
+        
         context = {
             'url': url,
             'product': self.product,
-            'products': self.substitutes_list,
+            'products': products,
+            'title': title
             }
 
         return render(request,'product/product.html', context)
@@ -82,3 +93,12 @@ class Product():
             'food': self.product,
             }
         return render(request,'product/food.html', context)
+
+    def favorites(self, request):
+
+        title = "Favorites"
+        context = {
+            'title': title,
+            }
+
+        return render(request,'product/favorites.html', context )

@@ -21,8 +21,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '^92a7n40s-1l0%k_mfw)r2%g+sfe97@k)#-7omu3d$=7&we=+u'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
@@ -117,7 +115,7 @@ LANGUAGE_CODE = 'fr'
 
 TIME_ZONE = 'Europe/Paris'
 
-LOGIN_REDIRECT_URL = 'pur-beurre-index'
+LOGIN_REDIRECT_URL = 'profile'
 LOGIN_URL = 'login'
 
 USE_I18N = True
@@ -130,7 +128,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+PROJECT_ROOT = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+)
+
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+
+STATICFILES_DIRS = [
+    os.path.join(PROJECT_ROOT, 'product/static')
+]
 
 # Django debug toolbar
 INTERNAL_IPS = ['127.0.0.1']
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
