@@ -7,6 +7,7 @@ CSS FILES FOR PUR BEURRE PLATFORM
 :root {
     --biscuit: #E8A75D;
     --moules: #345A61;
+    --moules-light: rgba(52, 90, 97, 0.8);
     --rigolo: #86EBE6;
     --caramel: #DE9440;
     --rooibos: #C45525;
@@ -106,12 +107,15 @@ strong {
     padding-top: 4rem;
 }
 #connection, #legals {
-    background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.3) 100%), url("../img/bg-masthead.jpg");
+    background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.4) 100%), url("../img/bg-masthead.jpg");
     background-position: top;
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-size: cover;
-    color: var(--caramel);
+    color: var(--moules);
+}
+#connection {
+  padding-top: 80px;
 }
 #logout {
     background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.3) 100%), url("../img/ratatouille-11.jpg");
@@ -197,9 +201,9 @@ footer {
   color: var(--rooibos);
 }
 .form-signin {
-  background-color: var(--moules);
+  background-color: rgba(214, 214, 216, 0.6);
   width: 100%;
-  max-width: 420px;
+  max-width: 650px;
   padding: 15px;
   margin: auto;
 }
@@ -250,6 +254,13 @@ footer {
   padding-bottom: .25rem;
   font-size: 12px;
   
+}
+.alert {
+  background: none;
+  border:none;
+  padding: 0;
+  color: var(--rooibos);
+  font-size: 20px;
 }
 /* Fallback for Edge
 -------------------------------------------------- */
