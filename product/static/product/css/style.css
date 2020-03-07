@@ -65,6 +65,8 @@ header.masthead h2 {
 }
 .name {
   height: 150px;
+  max-height: 150px;
+  margin:0px 2px 0px 2px ;
   text-overflow: "";
 }
 strong {
@@ -175,7 +177,6 @@ strong {
 footer {
     background-color: var(--caramel);
     color: var(--moules);
-
 }
 .d-block {
     color: var(--caramel);

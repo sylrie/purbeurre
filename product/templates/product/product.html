@@ -41,27 +41,31 @@
 </section>
 
 <section class="page-section py-5" id="products">
-  <h2 class="text-center pb-5">Vous pouvez remplacer cet aliment par:</h2>
+  <h3 class="text-center pb-5">Vous pouvez remplacer cet aliment par:</h3>
     
   {% else %}
     <div class="text-center">
       <h1>Résultats pour votre recherche:</h1>
-      <h3>"{{ request }}"</h3>    
+      <p><strong>"{{ request }}"</p></strong>    
     </div>
   </section>
   <section class="page-section pt-4" id="products">
     
     <div class="text-center">
-      <h2 class="text-center">Sélectionner un produit dans la liste</h2>
+      <h2 class="text-center pb-1">Sélectionner un produit dans la liste</h2>
       <p> ou affiner la recherche</p>
+      <hr class="divider">
+      
     </div>
     {% endif %}
     
-    <div class="container-fluid col-lg-10 " > 
+    <div class="container-fluid col-lg-10 " >
+      
       <div class="row justify-content-center">
+        {% include 'product/paging.html' %} 
         {% for food in products %}
         {% if food.code != product.code %}
-        <div class="col-lg-4 col-md-8 mt-4 d-flex justify-content-center ">
+        <div class="col-lg-4 col-md-8 mt-2 mb-2 d-flex justify-content-center ">
           <div class="product-card col-11 text-center">
             
             {% if product %}
@@ -73,7 +77,7 @@
             <a href="{% url 'substitutes' %}?code={{ food.code }}">
             {% endif %}
               <img class="product-img img-fluid" src="{{ food.img }}"alt="">
-              <h4 class="name pb-0 px-0 align-self-center col-12" style="max-height: 150px;" >{{ food.name }}</h4>
+              <h4 class="row name justify-content-center align-items-center">{{ food.name }}</h4>
             </a>
             
             {% if product %}
@@ -88,24 +92,11 @@
         </div>
         {% endif %}
         {% endfor %}
-        <div class="row w-100 justify-content-center pt-5">
-          
-          {% if products.has_previous %}
-          <a href="?page={{ products.previous_page_number }}">
-            <i class="fas fa-arrow-circle-left"></i>
-          </a>
-          {% endif %}
-          
-          <p class="px-4">-page {{ products.number }} of {{ products.paginator.num_pages }}-</p>
-          
-          {% if products.has_next %}
-          <a href="?page={{ products.next_page_number }}">
-            <i class="fas fa-arrow-circle-right"></i>
-          </a>
-          {% endif %}
-        </div>
 
+        {% include 'product/paging.html' %}
+        
       </div>
+      <hr class="divider">
     </div>  
   </section>
 

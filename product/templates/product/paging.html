@@ -1,0 +1,24 @@
+
+
+
+<div class="row w-100 px-1">      
+  <div class="col-4 text-right">
+    {% if products.has_previous %}
+      <a href="?page={{ products.previous_page_number }}">
+        <i class="fas fa-arrow-circle-left"></i>
+      </a>
+    {% endif %}
+  </div>
+  
+  <div class="col-4">
+    <p class="m-0">-page {{ products.number }} of {{ products.paginator.num_pages }}-</p>
+  </div>
+  
+  <div class="col-4 text-left">
+    {% if products.has_next %}
+    <a href="?page={{ products.next_page_number }}">
+      <i class="fas fa-arrow-circle-right"></i>
+    </a>
+    {% endif %}
+  </div>
+</div>

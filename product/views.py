@@ -22,26 +22,24 @@ class Product():
         self.product_list = []
         self.substitutes_list = []
 
-    def results(self, request, name=None):
-        
-        if name is not None:
-            query = name
-        elif request.method == 'POST':
-            query = request.POST.get("product-name")
-        else:
-            query = request.GET.get('name')
-    
-        self.product_list = search_product(query)
-        print(len(self.product_list))
-        paginator = Paginator(self.product_list, 9)
-        
-        page = request.GET.get('page')
-        products = paginator.get_page(page)
-        
+    def results(self, request):
         title = "Recherche"
+
+        if request.GET.get('page'):
+            page = int(request.GET.get('page'))
+        else:
+            page = 1
+
+        if request.POST.get('product-name'):    
+
+            self.query = request.POST.get("product-name")
+            self.product_list = search_product(self.query)
+        
+        paginator = Paginator(self.product_list, 6)
+        products = paginator.page(page)
         
         context = {
-            'request': query,
+            'request': self.query,
             'products': products,
             'title': title,
             }
@@ -49,26 +47,28 @@ class Product():
         return render(request,'product/product.html', context)
 
     def substitutes(self, request):
-        
-        query = request.GET.get('code')
+        title = "Substituts"
+        if request.GET.get('page'):
+            page = int(request.GET.get('page'))
+        else:
+            page = 1
+            
+        if request.GET.get('code'):
+            query = request.GET.get('code')
 
-        self.product = select_product(query)
-        
-        url = "https://world.openfoodfacts.org/product/{}".format(query)
-        category = self.product["category"]
-        nutrigrade = self.product["nutrigrade"]
-        self.substitutes_list = search_substitutes(category, nutrigrade)
-        print(len(self.substitutes_list))
+            self.product = select_product(query)
+            
+            self.url = "https://world.openfoodfacts.org/product/{}".format(query)
+            category = self.product["category"]
+            nutrigrade = self.product["nutrigrade"]
 
-        paginator = Paginator(self.substitutes_list, 9)
-        
-        page = request.GET.get('page')
+            self.substitutes_list = search_substitutes(category, nutrigrade)
+ 
+        paginator = Paginator(self.substitutes_list, 6)
         products = paginator.get_page(page)
 
-        title = "Substituts"
-        
         context = {
-            'url': url,
+            'url': self.url,
             'product': self.product,
             'products': products,
             'title': title
