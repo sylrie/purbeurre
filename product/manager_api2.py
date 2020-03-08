@@ -22,13 +22,12 @@ def get_data_list(data):
     product_list = []
     
     for product in data["products"]:
-
         food_data = {
-            
             }
-        
         try:
-
+                
+                
+            
             food_data["code"] = product["code"]
             food_data["category"] = product["compared_to_category"]
             food_data["name"] = product["product_name"]
@@ -52,10 +51,10 @@ def get_data_list(data):
             food_data["nova"] = product["nutriments"]["nova-group_100g"]
 
             product_list.append(food_data)
+
+        except:
+            pass
             
-        except Exception as error:
-               pass
-                
     return product_list
 
 def get_product_list(product):
@@ -133,7 +132,7 @@ def search_substitutes(category, nutrigrade):
     """ give a list of substitutes in the relevant category """
     product_list = []
     data = {}
-
+    quality ="better"
     nutrigrades = [
         "a",
         "b",
@@ -143,7 +142,12 @@ def search_substitutes(category, nutrigrade):
     ]
 
     for grade in nutrigrades:
-        
+        if grade == nutrigrade:
+            if len(product_list) > 0:
+                break
+            else:
+                quality = "equal"
+
         params = {
             'search_simple': 1,
             'action': 'process',
@@ -163,12 +167,11 @@ def search_substitutes(category, nutrigrade):
 
         product_list.extend(data)
         
-        if len(product_list) > 0:
+        if len(product_list) > 30:
             break
-        elif grade == nutrigrade:
-            break
+        
 
-    return product_list
+    return (product_list, quality)
     
 def select_product(code):
     """ give all data for a selected product """
@@ -178,16 +181,5 @@ def select_product(code):
     product = get(url).json()
 
     food_data = get_product_list(product["product"])
-    #product_list.append(food_data)
-    return food_data
-    
-"""food = search_product("kinder")#"en:chocolate-nuts-cookie-bars")
-print(len(food))
-for product in food:
-    print(product["name"])"""
 
-"""food = select_product("3242272346050")
-print(type(food))
-#print(food["nova"])
-for value in food.values():
-    print(value)"""
+    return food_data

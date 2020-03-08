@@ -9,7 +9,14 @@
   
     <div class="text-center ">
       <img src="{% static 'product/img/nav/logo_pur_beurre.png' %}" alt="" width="100" height="100">
-      <h1 class="pb-2">Inscription</h1>      
+      <h1 class="pb-2">Inscription</h1>  
+      {% if messages %}
+        {% for message in messages %}
+          <p class="text-danger -{{ message.tags }}">
+            {{ message }}
+          </p>
+        {% endfor %}
+      {% endif %}    
       <p>Remplissez le formulaire</p>
     </div>
 

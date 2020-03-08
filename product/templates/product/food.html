@@ -1,5 +1,5 @@
 {% extends 'product/base.html' %}
-{% block title %}Produit{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 {% load static %}
 {% block content %}
 
@@ -71,7 +71,8 @@
           </div>
         </div>
         <div class="row w-100 pt-4"></div>
-        <a href=""><i class="far fa-save"> Ajouter aux favoris</i></a>
+        <a class="nav-link js-scroll-trigger" href="{% url 'add_favorite' %}?code={{ food.code }}">
+          <i class="far fa-save"> Ajouter aux favoris</i></a>
       </div>
     </div>
   </section>
@@ -91,12 +92,7 @@
 
             <div class="py-2">
               {% if food.brand != "" %}
-              <h4 class="pb-0">Produit de la marque: <strong>{{ food.brand }}</strong></h4>
-              {% endif %}
-              {% if food.brand_link != "" %}
-              <a href="{{ food.brand_link }}" target ="_blank">
-                <p class="pt-0" >> Voir le site de la marque</p>
-              </a>
+              <h4>Produit de la marque: <strong>{{ food.brand }}</strong></h4>
               {% endif %}
             </div>
 
@@ -104,10 +100,11 @@
             
             <div class="py-2">
               <a href="{{ url }}" target ="_blank">
+                <p class="mb-0 py-0">Voir la fiche Open Food Facts</p>
                 <img class="img-fluid w-25"
                 src="{% static 'product/img/openfoodfacts.png' %}"
                 alt="logo OpenFoodFacts">
-                <p class="mb-0 py-0">> Voir la fiche Open Food Facts</p>
+                
               </a>
             </div>
           </div>

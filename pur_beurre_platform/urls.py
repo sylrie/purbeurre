@@ -17,6 +17,7 @@ urlpatterns = [
     path('products/', product_views.Product().results, name='products'),
     path('substitutes/', product_views.Product().substitutes, name='substitutes'),
     path('food/', product_views.Product().food, name='food'),
+    path('add_favorite/', product_views.Product().add_favorite, name='add_favorite'),
     path('favorites/', product_views.Product().favorites, name='favorites'),
     
     #USERS APP

@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from .models import SavedProduct, FavoriteProduct
+from django.contrib.auth.decorators import login_required
 from django.template import loader
 from django.core.paginator import Paginator
 
@@ -48,6 +49,7 @@ class Product():
 
     def substitutes(self, request):
         title = "Substituts"
+        self.quality = "better"
         if request.GET.get('page'):
             page = int(request.GET.get('page'))
         else:
@@ -62,8 +64,10 @@ class Product():
             category = self.product["category"]
             nutrigrade = self.product["nutrigrade"]
 
-            self.substitutes_list = search_substitutes(category, nutrigrade)
- 
+            substitutes = search_substitutes(category, nutrigrade)
+            self.substitutes_list = substitutes[0]
+            self.quality = substitutes[1]
+            
         paginator = Paginator(self.substitutes_list, 6)
         products = paginator.get_page(page)
 
@@ -71,34 +75,64 @@ class Product():
             'url': self.url,
             'product': self.product,
             'products': products,
-            'title': title
+            'title': title,
+            'quality': self.quality,
             }
-
+        
         return render(request,'product/product.html', context)
 
     def food(self, request):
-
+        title = "Fiche produit"
         query = request.GET.get('code')
         self.product = select_product(query)
         url = "https://world.openfoodfacts.org/product/{}".format(query)
-        for product in self.product_list:
-            if product.get("code") == query:
-                self.product = product
-                break
-            else:
-                pass
-    
+
         context = {
             'url': url,
+            'title': title,
             'food': self.product,
             }
         return render(request,'product/food.html', context)
 
-    def favorites(self, request):
+    def add_favorite(self, request):
 
-        title = "Favorites"
+        code = request.GET.get('code')
+        product = SavedProduct.objects.filter(code=code)
+
+        if not product.exists():
+            self.product = select_product(code)
+
+            product = SavedProduct(
+                code=self.product["code"],
+                name=self.product["name"],
+                img=self.product["img"],
+                details=self.product["details"],
+                nutrigrade=self.product["nutrigrade"],
+                )
+            product.save() 
+        else:
+            pass
+
+        product = FavoriteProduct.objects.filter(user=request.user)
+        print(product)   
+        product = FavoriteProduct.objects.filter(saved_product=code)
+        if not product.exists():
+            new_favorite = FavoriteProduct(
+                saved_product=code,
+                user=request.user,
+            )
+            new_favorite.save()
+            
+            message = "{} à bien été ajouté aux favois".format(self.product["name"])
+
+        else:
+            message = "Ce produit est déjà dans vos favoris"
+        
+        return render(request,'product/favorites.html', {'mesage': message} )
+
+    def favorites(self, request):
+        title = "Favoris"
         context = {
             'title': title,
             }
-
         return render(request,'product/favorites.html', context )
