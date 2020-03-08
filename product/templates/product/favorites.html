@@ -6,10 +6,12 @@
 {% if title == "Favoris" %}
 <section class="page-section" id="favorites">
   <div class="text-center">
-    <h1>Vos produits favoris</h1>
+    <h1 class="pb-0"><img class="star img-fluid" src="{% static 'product/img/star.png' %}"
+			alt="logo favoris">Tes produits favoris <img class="star img-fluid" src="{% static 'product/img/star.png' %}"
+			alt="logo favoris"></h1>
     {% if message != "" %}
-    <p><strong>{{ message }}</p></strong>
-    {% endif %}
+    <h2 class="py-0"><strong>{{ message }}</h2></strong>
+		{% endif %}
   </div>
 </section>
 {% endif %}
@@ -22,7 +24,7 @@
 		{% include 'product/paging.html' %}
 				
 		{% for food in products %}
-		{% with food.saved_product as food %}
+			{% with food.saved_product as food %}
 					
 			<div class="col-lg-4 col-md-8 mt-2 mb-2 d-flex justify-content-center ">
 				<div class="product-card col-11 text-center">
@@ -31,29 +33,28 @@
 					<img class="logo-nutriscore img-fluid" src="{% static 'product/img/nutrigrade/' %}{{ food.nutrigrade }}.png"
 						alt="nutrigrade {{ food.nutrigrade }}">
 					
-					
-					<a href="{% url 'food' %}?code={{ food.code }}">
+					<a href="{% url 'food' %}?code={{ food.code }}?favorite='yes'">
 						<img class="product-img img-fluid" src="{{ food.img }}"alt="">
 						<h4 class="row name justify-content-center align-items-center">{{ food.name }}</h4>
 					</a>
 					
 					<hr class="divider">
 					<a href="">
-						<i class="far fa-trash-alt"> Retirer des favoris</i>
+						<i class="far fa-trash-alt del-fav"> Retire le des favoris</i>
 					</a>
 
 				</div>
 			</div>
-		</div>
+		
 		{% endwith %}
 		{% endfor %}
-
+		</div>
 		{% include 'product/paging.html' %}
 	</div>
 {% else %}
 <section class="page-section h-100 pt-4" id="products">
 	<div class="text-center">  
-		<h2 class="text-center pb-1">Vous n'avez pas encore de favoris.</h2>
+		<h2 class="text-center pb-1">Tu n'as pas encore de favoris.</h2>
 		<hr class="divider">
 		<img class="img-fluid" src="{% static 'product/img/star.png' %}"
 					alt="logo favoris">
@@ -62,11 +63,5 @@
     
 </section>
 
-
-
-
-
-
 {% include 'product/footer.html' %}
-  
 {% endblock %}

@@ -95,6 +95,7 @@ strong {
     color:var(--rigolo);
     text-decoration: underline;
 }
+
 #contact {
     font-size: 110%;
 }
@@ -175,6 +176,7 @@ strong {
   left: -45px;
   width: 100px;
 }
+
 .legals, .logout {
   background-color: rgba(214, 214, 216, 0.4);
   color: var(--moules);

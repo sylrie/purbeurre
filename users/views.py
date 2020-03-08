@@ -11,7 +11,7 @@ def register(request):
         
         if form.is_valid():
             form.save()
-            messages.success(request, 'Votre compte a bien été créé,<br> Vous pouvez vous connecter.')
+            messages.success(request, 'ton compte a bien été créé,<br> tu peux te connecter connecter.')
             return redirect('login')
             
     else:

@@ -44,18 +44,18 @@
 
   <section class="page-section py-5" id="products">
     {% if quality == 'better' %}
-      <h3 class="text-center pb-5">Vous pouvez remplacer cet aliment par:</h3>
+      <h3 class="text-center pb-5">Tu peux remplacer cet aliment par:</h3>
     {% elif quality == 'equal' %}
-      <h3 class="text-center text-warning pb-5">Nous pouvons seulement vous proposer des produits équivalents:</h3>
+      <h3 class="text-center text-warning pb-5">Nous pouvons seulement te proposer des produits équivalents:</h3>
     {% else %}
-    <h3 class="text-center text-warning pb-5">Nous n'avons aucun produit à proposer.</h3>
+    <h3 class="text-center text-warning pb-5">Nous n'avons aucun produit à te proposer.</h3>
     {% endif %}
 {% endif %}
 
 {% if title == "Recherche" %}
   <section class="page-section" id="selected">
     <div class="text-center">
-      <h1>Résultats pour votre recherche:</h1>
+      <h1>Résultats pour la recherche:</h1>
       <p><strong>"{{ request }}"</p></strong>    
     </div>
   </section>
@@ -63,11 +63,11 @@
   {% if products %}
     <section class="page-section pt-4" id="products">
       <div class="text-center">
-        <h2 class="text-center pb-1">Sélectionner un produit dans la liste</h2>
+        <h2 class="text-center pb-1">Sélectionne un produit dans la liste</h2>
   {% else %}
     <section class="page-section h-100 pt-4" id="products">
       <div class="text-center">  
-        <h2 class="text-center pb-1">Nous n'avons aucun produit à proposer.</h2>
+        <h2 class="text-center pb-1">Nous n'avons aucun produit à te proposer.</h2>
   {% endif %}
         <hr class="divider">
       </div>
@@ -98,7 +98,7 @@
                   
                   <hr class="divider">
                   <a href="{% url 'add_favorite' %}?code={{ food.code }}">
-                    <i class="far fa-save"> Ajouter aux favoris</i>
+                    <i class="far fa-save add-fav"> Ajoute le aux favoris</i>
                   </a>
                   
                   {% endif %}

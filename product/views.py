@@ -82,7 +82,7 @@ class Product():
         
         return render(request,'product/product.html', context)
 
-    def food(self, request):
+    def food(self, request, favorite=None):
         title = "Fiche produit"
         query = request.GET.get('code')
         self.product = select_product(query)
@@ -92,6 +92,7 @@ class Product():
             'url': url,
             'title': title,
             'food': self.product,
+            'favorite': favorite,
             }
         return render(request,'product/food.html', context)
 
@@ -117,7 +118,8 @@ class Product():
         new_product = get_object_or_404(SavedProduct, pk=code)
         favorite = FavoriteProduct.objects.filter(user=request.user)
         favorite = favorite.filter(saved_product=code)
-        
+
+
         if not favorite.exists():
             try:
                 new_favorite = FavoriteProduct.objects.create(
@@ -125,11 +127,11 @@ class Product():
                     user=request.user,
                     )
                 new_favorite.save()
-                message = "Le produit à été ajouté aux favoris"
+                message = "Le produit à été ajouté aux favoris !"
             except:
                 pass
         else:
-            message = "Ce produit est déja dans la liste de favoris"
+            message = "Tu avais déjà ce produit en favoris"
             
         return self.favorites(request, message)
     
