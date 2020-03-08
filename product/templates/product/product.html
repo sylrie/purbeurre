@@ -25,14 +25,17 @@
               alt="nutrigrade {{ product.nutrigrade }}">
             </a>
             
+            {% if product.details %}
             <div class="row w-100 justify-content-center pt-4">
               <span>{{ product.details }}</span>
             </div>
+            {% endif %}
             
             <a class="pt-4" href="{% url 'food' %}?code={{ product.code }}">
               Voir la fiche produit</i>
             </a>
-
+            <div class="rox w-100"></div>
+            
           </div>
         </div> 
       </div>
@@ -94,8 +97,8 @@
                   {% if product %}
                   
                   <hr class="divider">
-                  <a href="">
-                    <i class="far fa-save" aria-hidden="true"> Ajouter aux favoris</i>
+                  <a href="{% url 'add_favorite' %}?code={{ food.code }}">
+                    <i class="far fa-save"> Ajouter aux favoris</i>
                   </a>
                   
                   {% endif %}

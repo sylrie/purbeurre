@@ -10,7 +10,7 @@ from users import views as users_views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-
+    path('admin/', admin.site.urls),
     #PRODUCT APP
     path('', product_views.index, name='index'),
     path('legals/', product_views.legals, name='legals'),

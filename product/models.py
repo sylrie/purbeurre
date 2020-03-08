@@ -23,4 +23,4 @@ class FavoriteProduct(models.Model):
     date = models.DateTimeField(verbose_name="Date sauvegarde", default=timezone.now)
 
     def __str__(self):
-        return self.saved_by
+        return str(self.saved_product)

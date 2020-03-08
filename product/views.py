@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import SavedProduct, FavoriteProduct
+from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 from django.template import loader
 from django.core.paginator import Paginator
@@ -98,7 +99,7 @@ class Product():
 
         code = request.GET.get('code')
         product = SavedProduct.objects.filter(code=code)
-
+        
         if not product.exists():
             self.product = select_product(code)
 
@@ -113,26 +114,44 @@ class Product():
         else:
             pass
 
-        product = FavoriteProduct.objects.filter(user=request.user)
-        print(product)   
-        product = FavoriteProduct.objects.filter(saved_product=code)
-        if not product.exists():
-            new_favorite = FavoriteProduct(
-                saved_product=code,
-                user=request.user,
-            )
-            new_favorite.save()
-            
-            message = "{} à bien été ajouté aux favois".format(self.product["name"])
-
-        else:
-            message = "Ce produit est déjà dans vos favoris"
+        new_product = get_object_or_404(SavedProduct, pk=code)
+        favorite = FavoriteProduct.objects.filter(user=request.user)
+        favorite = favorite.filter(saved_product=code)
         
-        return render(request,'product/favorites.html', {'mesage': message} )
+        if not favorite.exists():
+            try:
+                new_favorite = FavoriteProduct.objects.create(
+                    saved_product=new_product,
+                    user=request.user,
+                    )
+                new_favorite.save()
+                message = "Le produit à été ajouté aux favoris"
+            except:
+                pass
+        else:
+            message = "Ce produit est déja dans la liste de favoris"
+            
+        return self.favorites(request, message)
+    
+    def favorites(self, request, message=None):
 
-    def favorites(self, request):
+        if request.GET.get('page'):
+            page = int(request.GET.get('page'))
+        else:
+            page = 1
+
         title = "Favoris"
+        if message == None:
+            message =  ""
+        
+        favorite = FavoriteProduct.objects.filter(user=request.user).order_by('-date')
+        paginator = Paginator(favorite, 6)
+        products = paginator.get_page(page)
+        
         context = {
             'title': title,
+            'message': message,
+            'products': products,
             }
+
         return render(request,'product/favorites.html', context )

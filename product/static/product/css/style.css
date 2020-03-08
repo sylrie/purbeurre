@@ -81,7 +81,7 @@ strong {
 .fas {
     font-size: 2rem;
 }
-#selected {
+#selected, #favorites {
     background-color: var(--moules);
     padding-bottom: 3rem;
     color: var(--biscuit);
@@ -98,7 +98,7 @@ strong {
 #contact {
     font-size: 110%;
 }
-#products {
+#products{
     background-color: var(--caramel);
     color: var(--moules);
     text-align: center;
@@ -168,6 +168,12 @@ strong {
   position: absolute;
   top: -20px;
   right: -20px;
+}
+.logo-star {
+  position: absolute;
+  top: -45px;
+  left: -45px;
+  width: 100px;
 }
 .legals, .logout {
   background-color: rgba(214, 214, 216, 0.4);
