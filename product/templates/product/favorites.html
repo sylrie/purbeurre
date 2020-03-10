@@ -6,19 +6,20 @@
 {% if title == "Favoris" %}
 <section class="page-section" id="favorites">
   <div class="text-center">
-    <h1 class="pb-0">Tes produits favoris </h1>
+    {% if not message %}
+    <h1 class="pb-0">Tu as <strong>{{number}} </strong>produit(s) favoris</h1>
+    {% endif %}
     {% if message %}
     <h2 class="py-0"><strong>{{ message }}</h2></strong>
-		{% endif %}
+    {% endif %}
   </div>
 </section>
 {% endif %}
 
-
 {% if products %}
 <section class="page-section pt-4" id="products">
-	<div class="container-fluid col-lg-10 " >
-		<div class="row justify-content-center">
+	<div class="container-fluid col-lg-11 " >
+		<div class="row d-flex justify-content-center">
 		{% include 'product/paging.html' %}
 				
 		{% for food in products %}
@@ -39,8 +40,11 @@
 					
 					<a href="{% url 'food' %}?favorite={{ food.code }}">
 						<img class="product-img img-fluid" src="{{ food.img }}"alt="">
-						<h4 class="row name justify-content-center align-items-center">{{ food.name }}</h4>
-					</a>
+						<div class="row name justify-content-center align-items-center ">
+              <h4 class="food-name py-0 ">{{ food.name }}</h4></a>
+              <div class="row w-100"></div>
+              <span class=>{{ food.details}}</span>
+            </div>
 					
 					<hr class="divider">
 					<a href="{% url 'change_favorite' %}?del={{ food.code }}">

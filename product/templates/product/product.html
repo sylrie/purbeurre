@@ -44,9 +44,9 @@
 
   <section class="page-section py-5" id="products">
     {% if quality == 'better' %}
-      <h3 class="text-center pb-5">Tu peux remplacer cet aliment par:</h3>
+      <h3 class="text-center pb-5">Tu peux remplacer cet aliment par un de ces <strong>{{number}} produit(s):</strong></h3>
     {% elif quality == 'equal' %}
-      <h3 class="text-center text-warning pb-5">Nous pouvons seulement te proposer des produits équivalents:</h3>
+      <h3 class="text-center text-warning pb-5">Nous pouvons seulement te proposer <strong>{{number}} produits équivalents:</strong></h3>
     {% else %}
     <h3 class="text-center text-warning pb-5">Nous n'avons aucun produit à te proposer.</h3>
     {% endif %}
@@ -73,9 +73,9 @@
       </div>
 {% endif %}
 
-    <div class="container-fluid col-lg-10 " >
+    <div class="container-fluid col-lg-11 " >
       <div class="row justify-content-center">
-          
+        {% if products %}{% include 'product/paging.html' %}{% endif %}
           {% for food in products %}
             {% if food.code != product.code %}
               <div class="col-lg-4 col-md-8 mt-2 mb-2 d-flex justify-content-center ">
@@ -90,8 +90,13 @@
                   <a href="{% url 'substitutes' %}?code={{ food.code }}">
                   {% endif %}
                     <img class="product-img img-fluid" src="{{ food.img }}"alt="">
-                    <h4 class="row name justify-content-center align-items-center">{{ food.name }}</h4>
-                  </a>
+                    
+                    <div class="row name justify-content-center align-items-center ">
+                      <h4 class="food-name py-0 ">{{ food.name }}</h4></a>
+                      <div class="row w-100"></div>
+                      <span class=>{{ food.details}}</span>
+                    </div>
+                  
                   
                   {% if product %}
                   

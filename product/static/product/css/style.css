@@ -11,11 +11,6 @@ CSS FILES FOR PUR BEURRE PLATFORM
     --rigolo: #86EBE6;
     --caramel: #DE9440;
     --rooibos: #C45525;
-    --breakpoint-xs: 0;
-    --breakpoint-sm: 576px;
-    --breakpoint-md: 850px;
-    --breakpoint-lg: 1100px;
-    --breakpoint-xl: 1200px;
     --font-family: "Scope One", sans-serif;
     --font-family-h: "Open Sans", sans-serif;
 }
@@ -66,8 +61,13 @@ header.masthead h2 {
 .name {
   height: 150px;
   max-height: 150px;
-  margin:0px 2px 0px 2px ;
-  text-overflow: "";
+  margin:0px 5px 0px 5px ;
+  align-items: center;
+  padding: 0 5px, 0 5px;
+  font-size: 80%;
+  line-height: 120%;
+  text-overflow: ellipsis;
+  overflow: auto;
 }
 strong {
     color: var(--rooibos);

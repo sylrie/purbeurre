@@ -22,33 +22,15 @@ def get_data_list(data):
     product_list = []
     
     for product in data["products"]:
-        food_data = {
-            }
+        food_data = {}
         try:
                 
-                
-            
             food_data["code"] = product["code"]
             food_data["category"] = product["compared_to_category"]
             food_data["name"] = product["product_name"]
             food_data["img"] = product["image_url"]
             food_data["details"] = product["generic_name_fr"]
-            food_data["brand"] = product["brands"]
-            food_data["brand_link"] = product["link"]
             food_data["nutrigrade"] = product["nutrition_grades"]
-            food_data["nutriscore"] = int(product["nutriments"]["nutrition-score-fr"])
-            food_data["stores"] = product["stores"]
-            food_data["link"] = product["url"]
-            food_data["ingredients"] = product["ingredients_text_fr"].replace("_", " ")
-            food_data["fat_100g"] = float(product["nutriments"]["fat_100g"])
-            food_data["saturated_fat_100g"] = float(product["nutriments"]["saturated-fat_100g"])
-            food_data["salt_100g"] = float(product["nutriments"]["salt_100g"])
-            food_data["sugar_100g"] = float(product["nutriments"]["sugars_100g"])
-            food_data["level_fat"] = product["nutrient_levels"]["fat"]
-            food_data["level_saturated_fat"] = product["nutrient_levels"]["saturated-fat"]
-            food_data["level_salt"] = product["nutrient_levels"]["salt"]
-            food_data["level_sugar"] = product["nutrient_levels"]["sugars"]
-            food_data["nova"] = product["nutriments"]["nova-group_100g"]
 
             product_list.append(food_data)
 
@@ -59,29 +41,7 @@ def get_data_list(data):
 
 def get_product_list(product):
     """ Add foods into product_list"""
-    food_data = {
-        "code": "",
-        "category": "",
-        "name": "",
-        "img": "",
-        "details": "",
-        "brand": "",
-        "brand_link": "",
-        "nutrigrade": "",
-        "nutriscore": "",
-        "stores": "",
-        "link": "",
-        "ingredients": "",
-        "fat_100g": "",
-        "saturated_fat_100g": "",
-        "salt_100g": "",
-        "sugar_100g": "",
-        "level_fat": "",
-        "level_saturated_fat": "",
-        "level_salt": "",
-        "level_sugar": "",
-        "nova": "",
-    }   
+    food_data = {}   
     try:
 
         food_data["code"] = product["code"]
@@ -92,9 +52,7 @@ def get_product_list(product):
         food_data["brand"] = product["brands"]
         food_data["brand_link"] = product["link"]
         food_data["nutrigrade"] = product["nutrition_grades"]
-        food_data["nutriscore"] = int(product["nutriments"]["nutrition-score-fr"])
         food_data["stores"] = product["stores"]
-        #food_data["link"] = product["url"]
         food_data["ingredients"] = product["ingredients_text_fr"].replace("_", " ")
         food_data["fat_100g"] = float(product["nutriments"]["fat_100g"])
         food_data["saturated_fat_100g"] = float(product["nutriments"]["saturated-fat_100g"])
@@ -119,7 +77,7 @@ def search_product(user_request):
         'search_simple': 1,
         'action': 'process',
         'json': 1,
-        'page_size': 30,
+        'page_size': 40,
         'search_terms': "{}".format(user_request),
     }
 
@@ -130,7 +88,7 @@ def search_product(user_request):
 
 def search_substitutes(category, nutrigrade):
     """ give a list of substitutes in the relevant category """
-    print("subs")
+
     product_list = []
     data = {}
     quality ="better"
@@ -153,7 +111,7 @@ def search_substitutes(category, nutrigrade):
             'search_simple': 1,
             'action': 'process',
             'json': 1,
-            'page_size': 50,
+            'page_size': 60,
             'tagtype_0': 'categories',
             'tag_contains_0': 'contains',
             "tag_0": "{}".format(category),
@@ -168,7 +126,7 @@ def search_substitutes(category, nutrigrade):
 
         product_list.extend(data)
         
-        if len(product_list) > 30:
+        if len(product_list) > 40:
             break
         
 

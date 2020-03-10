@@ -57,29 +57,25 @@ class Product():
             
         if request.GET.get('code'):
             query = request.GET.get('code')
-            print(query)
 
             self.product = select_product(query)
-            
-            #self.url = "https://world.openfoodfacts.org/product/{}".format(query)
             category = self.product["category"]
             nutrigrade = self.product["nutrigrade"]
 
             substitutes = search_substitutes(category, nutrigrade)
             self.substitutes_list = substitutes[0]
-            for food in self.substitutes_list:
-                print(food["name"])
             self.quality = substitutes[1]
+            number =len(self.substitutes_list)
            
         paginator = Paginator(self.substitutes_list, 9)
         products = paginator.get_page(page)
 
         context = {
-            #'url': self.url,
             'product': self.product,
             'products': products,
             'title': title,
             'quality': self.quality,
+            'number': number
             }
         
         return render(request,'product/product.html', context)
@@ -114,8 +110,7 @@ class Product():
 
         if request.GET.get('del'):      
             code = request.GET.get('del')
-            print('del')      
-            favorite = get_object_or_404(SavedProduct, pk=code)
+    
             favorite = FavoriteProduct.objects.filter(user=request.user)
             favorite = favorite.filter(saved_product=code).delete()
 
@@ -169,7 +164,6 @@ class Product():
         
         
         if message == "Tu avais déjà ce produit en favoris":
-            print('ok')
             favorite = FavoriteProduct.objects.filter(user=request.user)
             favorite = favorite.filter(saved_product=code)
         else:
@@ -177,11 +171,13 @@ class Product():
         paginator = Paginator(favorite, 9)
         products = paginator.get_page(page)
         
+        number = len(favorite)
         context = {
             'title': title,
             'message': message,
             'code': code,
             'products': products,
+            'number': number,
             }
 
         return render(request,'product/favorites.html', context )
