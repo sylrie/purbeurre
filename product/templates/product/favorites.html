@@ -6,10 +6,8 @@
 {% if title == "Favoris" %}
 <section class="page-section" id="favorites">
   <div class="text-center">
-    <h1 class="pb-0"><img class="star img-fluid" src="{% static 'product/img/star.png' %}"
-			alt="logo favoris">Tes produits favoris <img class="star img-fluid" src="{% static 'product/img/star.png' %}"
-			alt="logo favoris"></h1>
-    {% if message != "" %}
+    <h1 class="pb-0">Tes produits favoris </h1>
+    {% if message %}
     <h2 class="py-0"><strong>{{ message }}</h2></strong>
 		{% endif %}
   </div>
@@ -27,19 +25,25 @@
 			{% with food.saved_product as food %}
 					
 			<div class="col-lg-4 col-md-8 mt-2 mb-2 d-flex justify-content-center ">
-				<div class="product-card col-11 text-center">
+        {% if code == food.code and message == 'Le produit à été ajouté aux favoris !' %}
+				<div class="new-product-card col-11 text-center">
+        {% else %}
+        <div class="product-card col-11 text-center">
+        {% endif %}
+          
 					<img class="logo-star img-fluid" src="{% static 'product/img/star.png' %}"
-					alt="logo favoris">
+          alt="logo favoris">
+       
 					<img class="logo-nutriscore img-fluid" src="{% static 'product/img/nutrigrade/' %}{{ food.nutrigrade }}.png"
 						alt="nutrigrade {{ food.nutrigrade }}">
 					
-					<a href="{% url 'food' %}?code={{ food.code }}?favorite='yes'">
+					<a href="{% url 'food' %}?favorite={{ food.code }}">
 						<img class="product-img img-fluid" src="{{ food.img }}"alt="">
 						<h4 class="row name justify-content-center align-items-center">{{ food.name }}</h4>
 					</a>
 					
 					<hr class="divider">
-					<a href="">
+					<a href="{% url 'change_favorite' %}?del={{ food.code }}">
 						<i class="far fa-trash-alt del-fav"> Retire le des favoris</i>
 					</a>
 

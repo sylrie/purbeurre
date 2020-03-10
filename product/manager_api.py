@@ -6,132 +6,181 @@
 # coding: UTF-8
 
 from requests import get
-import json
 import pprint
 
+def request_api(params):
+    """ Make a API request for a selected category"""
 
-class Product():
-    def __init__(self):
-        
-        self.code = ""
-        self.category = ""
-        self.name = ""
-        self.img = ""
-        self.details = ""
-        self.brand = ""
-        self.brand_link = ""
-        self.off_link = ""
-        self.nutrigrade = "nc"
-        self.stores = ""
-        self.ingredients = ""
-        self.nutriments = {
-            "fat_100g": ("nc", "nc"),
-            "saturated_fat_100g": ("nc", "nc"),
-            "salt_100g": ("nc", "nc"),
-            "sugar_100g": ("nc", "nc"),
-            "nova": "",
-        }
-        
-
-    def create_product(self, data):
-        self.data = data
-        try:
-            self.code = self.data["code"]
-            self.category = self.data["compared_to_category"]
-            self.name = self.data["product_name"]
-            self.img = self.data["image_url"]
-            self.details = self.data["generic_name"]
-            self.brand = self.data["brands"]
-            self.brand_link = self.data["link"]
-            self.off_link = self.data["url"]
-            self.nutrigrade = self.data["nutrition_grades"]
-            self.stores = self.data["stores"]
-            self.ingredients = self.data["ingredients_text_fr"].replace("_", " ")
-            self.nutriments["fat"] = (self.data["nutriments"]["fat_100g"], self.data["nutrient_levels"]["fat"])
-            self.nutriments["saturated_fat"] = (self.data["nutriments"]["saturated-fat_100g"], self.data["nutrient_levels"]["saturated-fat"])
-            self.nutriments["salt"] = (self.data["nutriments"]["fat_100g"], self.data["nutrient_levels"]["salt"])
-            self.nutriments["sugar"] = (self.data["nutriments"]["sugars_100g"], self.data["nutrient_levels"]["sugars"])
-            self.nutriments["nova"] = self.data["nutriments"]["nova-group"]
-
-        except Exception as err:
-            pass
-        return self
-
-class ManagerApi():
+    url = "https://world.openfoodfacts.org/cgi/search.pl"
     
-    def __init__(self):
-        self.product_list = []
+    request = get(url=url, params=params)
 
-    def request_api(self, params):
-        """ Make a API request for a selected category"""
+    return request.json()
+    
+def get_data_list(data):
+    """ Add foods into product_list"""
+    product_list = []
+    
+    for product in data["products"]:
+        food_data = {
+            }
+        try:
+                
+                
+            
+            food_data["code"] = product["code"]
+            food_data["category"] = product["compared_to_category"]
+            food_data["name"] = product["product_name"]
+            food_data["img"] = product["image_url"]
+            food_data["details"] = product["generic_name_fr"]
+            food_data["brand"] = product["brands"]
+            food_data["brand_link"] = product["link"]
+            food_data["nutrigrade"] = product["nutrition_grades"]
+            food_data["nutriscore"] = int(product["nutriments"]["nutrition-score-fr"])
+            food_data["stores"] = product["stores"]
+            food_data["link"] = product["url"]
+            food_data["ingredients"] = product["ingredients_text_fr"].replace("_", " ")
+            food_data["fat_100g"] = float(product["nutriments"]["fat_100g"])
+            food_data["saturated_fat_100g"] = float(product["nutriments"]["saturated-fat_100g"])
+            food_data["salt_100g"] = float(product["nutriments"]["salt_100g"])
+            food_data["sugar_100g"] = float(product["nutriments"]["sugars_100g"])
+            food_data["level_fat"] = product["nutrient_levels"]["fat"]
+            food_data["level_saturated_fat"] = product["nutrient_levels"]["saturated-fat"]
+            food_data["level_salt"] = product["nutrient_levels"]["salt"]
+            food_data["level_sugar"] = product["nutrient_levels"]["sugars"]
+            food_data["nova"] = product["nutriments"]["nova-group_100g"]
 
-        url = "https://world.openfoodfacts.org/cgi/search.pl"
+            product_list.append(food_data)
+
+        except:
+            pass
+            
+    return product_list
+
+def get_product_list(product):
+    """ Add foods into product_list"""
+    food_data = {
+        "code": "",
+        "category": "",
+        "name": "",
+        "img": "",
+        "details": "",
+        "brand": "",
+        "brand_link": "",
+        "nutrigrade": "",
+        "nutriscore": "",
+        "stores": "",
+        "link": "",
+        "ingredients": "",
+        "fat_100g": "",
+        "saturated_fat_100g": "",
+        "salt_100g": "",
+        "sugar_100g": "",
+        "level_fat": "",
+        "level_saturated_fat": "",
+        "level_salt": "",
+        "level_sugar": "",
+        "nova": "",
+    }   
+    try:
+
+        food_data["code"] = product["code"]
+        food_data["category"] = product["compared_to_category"]
+        food_data["name"] = product["product_name"]
+        food_data["img"] = product["image_url"]
+        food_data["details"] = product["generic_name_fr"]
+        food_data["brand"] = product["brands"]
+        food_data["brand_link"] = product["link"]
+        food_data["nutrigrade"] = product["nutrition_grades"]
+        food_data["nutriscore"] = int(product["nutriments"]["nutrition-score-fr"])
+        food_data["stores"] = product["stores"]
+        #food_data["link"] = product["url"]
+        food_data["ingredients"] = product["ingredients_text_fr"].replace("_", " ")
+        food_data["fat_100g"] = float(product["nutriments"]["fat_100g"])
+        food_data["saturated_fat_100g"] = float(product["nutriments"]["saturated-fat_100g"])
+        food_data["salt_100g"] = float(product["nutriments"]["salt_100g"])
+        food_data["sugar_100g"] = float(product["nutriments"]["sugars_100g"])
+        food_data["level_fat"] = product["nutrient_levels"]["fat"]
+        food_data["level_saturated_fat"] = product["nutrient_levels"]["saturated-fat"]
+        food_data["level_salt"] = product["nutrient_levels"]["salt"]
+        food_data["level_sugar"] = product["nutrient_levels"]["sugars"]
+        food_data["nova"] = product["nutriments"]["nova-group"]
+       
+
+    except Exception:
+            pass
         
-        request = get(url=url, params=params)
+    return food_data
 
-        return request.json()
+def search_product(user_request):
+    """ give a list of products matching with the use request""" 
+    
+    params = {
+        'search_simple': 1,
+        'action': 'process',
+        'json': 1,
+        'page_size': 30,
+        'search_terms': "{}".format(user_request),
+    }
 
-    def search_product(self, user_request):
-        """ give a list of products matching with the use request""" 
-        
+    data = request_api(params)
+    product_list = get_data_list(data)
+    
+    return product_list
+
+def search_substitutes(category, nutrigrade):
+    """ give a list of substitutes in the relevant category """
+    print("subs")
+    product_list = []
+    data = {}
+    quality ="better"
+    nutrigrades = [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e"
+    ]
+
+    for grade in nutrigrades:
+        if grade == nutrigrade:
+            if len(product_list) > 0:
+                break
+            else:
+                quality = "equal"
+
         params = {
             'search_simple': 1,
             'action': 'process',
             'json': 1,
-            'page_size': 12,
-            'search_terms': "{}".format(user_request),
+            'page_size': 50,
+            'tagtype_0': 'categories',
+            'tag_contains_0': 'contains',
+            "tag_0": "{}".format(category),
+            'tagtype_1': 'nutrition_grades',
+            'tag_contains_1': 'contains',
+            "tag_1": "{}".format(grade),
         }
+        
+        data_grade = request_api(params)
+        
+        data = get_data_list(data_grade)
 
-        data = self.request_api(params)
-      
-        for product_data in data["products"]:
-            
-            product = Product(product_data)
-            self.product_list.append(product)
-            
-        return self.product_list
+        product_list.extend(data)
+        
+        if len(product_list) > 30:
+            break
+        
 
-    def search_substitutes(self, category, nutrigrade):
-        """ give a list of substitutes in the relevant category """
-        data = {}
+    return (product_list, quality)
+    
+def select_product(code):
+    """ give all data for a selected product """
 
-        nutrigrades = [
-            "a",
-            "b",
-            "c",
-            "d",
-            "e"
-        ]
+    url = "https://world.openfoodfacts.org/api/v0/produit/"+str(code)+".json"
+    
+    product = get(url).json()
 
-        for grade in nutrigrades:
-            
-            params = {
-                'search_simple': 1,
-                'action': 'process',
-                'json': 1,
-                'page_size': 10,
-                'tagtype_0': 'categories',
-                'tag_contains_0': 'contains',
-                "tag_0": "{}".format(category),
-                'tagtype_1': 'nutrition_grades',
-                'tag_contains_1': 'contains',
-                "tag_1": "{}".format(grade),
-            }
-            
-            data = self.request_api(params)
-            
-            for product_data in data["products"]:
-            
-                product = Product().create_product(product_data)
-                
-                self.product_list.append(product)
-                
-            if grade == nutrigrade:
-                break
-        #print(self.product_list[0].__dict__)
-        return self.product_list
+    food_data = get_product_list(product["product"])
 
-liste = ManagerApi().search_substitutes("fr:barres-chocolatees-au-lait", "e")
-print(len(liste))
-for food in liste:
-    print(food.name)
+    return food_data

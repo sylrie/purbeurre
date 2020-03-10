@@ -2,18 +2,17 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import SavedProduct, FavoriteProduct
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template import loader
 from django.core.paginator import Paginator
 
-from product.manager_api2 import search_product,  search_substitutes, select_product
+from product.manager_api import search_product,  search_substitutes, select_product
 
 
 def index(request):
-    
     return render(request,'product/home.html' )
 
 def legals(request):
-
     return render(request,'product/legals.html' )
 
 class Product():
@@ -36,8 +35,8 @@ class Product():
 
             self.query = request.POST.get("product-name")
             self.product_list = search_product(self.query)
-        
-        paginator = Paginator(self.product_list, 6)
+            
+        paginator = Paginator(self.product_list, 9)
         products = paginator.page(page)
         
         context = {
@@ -58,22 +57,25 @@ class Product():
             
         if request.GET.get('code'):
             query = request.GET.get('code')
+            print(query)
 
             self.product = select_product(query)
             
-            self.url = "https://world.openfoodfacts.org/product/{}".format(query)
+            #self.url = "https://world.openfoodfacts.org/product/{}".format(query)
             category = self.product["category"]
             nutrigrade = self.product["nutrigrade"]
 
             substitutes = search_substitutes(category, nutrigrade)
             self.substitutes_list = substitutes[0]
+            for food in self.substitutes_list:
+                print(food["name"])
             self.quality = substitutes[1]
-            
-        paginator = Paginator(self.substitutes_list, 6)
+           
+        paginator = Paginator(self.substitutes_list, 9)
         products = paginator.get_page(page)
 
         context = {
-            'url': self.url,
+            #'url': self.url,
             'product': self.product,
             'products': products,
             'title': title,
@@ -82,12 +84,19 @@ class Product():
         
         return render(request,'product/product.html', context)
 
-    def food(self, request, favorite=None):
+    def food(self, request):
         title = "Fiche produit"
-        query = request.GET.get('code')
+        if request.GET.get('code'):
+            query = request.GET.get('code')
+            favorite = False
+        if request.GET.get('favorite'):
+            query = request.GET.get('favorite')
+            favorite = True
+
         self.product = select_product(query)
         url = "https://world.openfoodfacts.org/product/{}".format(query)
 
+      
         context = {
             'url': url,
             'title': title,
@@ -95,47 +104,61 @@ class Product():
             'favorite': favorite,
             }
         return render(request,'product/food.html', context)
-
-    def add_favorite(self, request):
-
-        code = request.GET.get('code')
-        product = SavedProduct.objects.filter(code=code)
-        
-        if not product.exists():
-            self.product = select_product(code)
-
-            product = SavedProduct(
-                code=self.product["code"],
-                name=self.product["name"],
-                img=self.product["img"],
-                details=self.product["details"],
-                nutrigrade=self.product["nutrigrade"],
-                )
-            product.save() 
-        else:
-            pass
-
-        new_product = get_object_or_404(SavedProduct, pk=code)
-        favorite = FavoriteProduct.objects.filter(user=request.user)
-        favorite = favorite.filter(saved_product=code)
-
-
-        if not favorite.exists():
-            try:
-                new_favorite = FavoriteProduct.objects.create(
-                    saved_product=new_product,
-                    user=request.user,
-                    )
-                new_favorite.save()
-                message = "Le produit à été ajouté aux favoris !"
-            except:
-                pass
-        else:
-            message = "Tu avais déjà ce produit en favoris"
-            
-        return self.favorites(request, message)
     
-    def favorites(self, request, message=None):
+    def change_favorite(self, request):
+        if not request.user.is_authenticated:
+            return redirect('login')
+
+        if request.GET.get('page'):
+            return self.favorites(request)
+
+        if request.GET.get('del'):      
+            code = request.GET.get('del')
+            print('del')      
+            favorite = get_object_or_404(SavedProduct, pk=code)
+            favorite = FavoriteProduct.objects.filter(user=request.user)
+            favorite = favorite.filter(saved_product=code).delete()
+
+            message = "le produit à été retiré des favoris"
+
+        if request.GET.get('add'):              
+            code = request.GET.get('add')
+            product = SavedProduct.objects.filter(code=code)
+            
+            if not product.exists():
+                self.product = select_product(code)
+
+                product = SavedProduct(
+                    code=self.product["code"],
+                    name=self.product["name"],
+                    img=self.product["img"],
+                    details=self.product["details"],
+                    nutrigrade=self.product["nutrigrade"],
+                    )
+                product.save() 
+            else:
+                pass
+
+            new_product = get_object_or_404(SavedProduct, pk=code)
+            favorite = FavoriteProduct.objects.filter(user=request.user)
+            favorite = favorite.filter(saved_product=code)
+
+            if not favorite.exists():
+                try:
+                    new_favorite = FavoriteProduct.objects.create(
+                        saved_product=new_product,
+                        user=request.user,
+                        )
+                    new_favorite.save()
+                    message = "Le produit à été ajouté aux favoris !"
+                except:
+                    pass
+            else:
+                message = "Tu avais déjà ce produit en favoris"
+            
+        return self.favorites(request, message, code=code)
+      
+    def favorites(self, request, message=None, code=None):
 
         if request.GET.get('page'):
             page = int(request.GET.get('page'))
@@ -143,16 +166,21 @@ class Product():
             page = 1
 
         title = "Favoris"
-        if message == None:
-            message =  ""
         
-        favorite = FavoriteProduct.objects.filter(user=request.user).order_by('-date')
-        paginator = Paginator(favorite, 6)
+        
+        if message == "Tu avais déjà ce produit en favoris":
+            print('ok')
+            favorite = FavoriteProduct.objects.filter(user=request.user)
+            favorite = favorite.filter(saved_product=code)
+        else:
+            favorite = FavoriteProduct.objects.filter(user=request.user).order_by('-date')
+        paginator = Paginator(favorite, 9)
         products = paginator.get_page(page)
         
         context = {
             'title': title,
             'message': message,
+            'code': code,
             'products': products,
             }
 

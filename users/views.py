@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+
 from .forms import UserRegisterForm
 from django.contrib.auth.decorators import login_required
+from product.models import FavoriteProduct
 
 
 def register(request):
@@ -17,12 +19,11 @@ def register(request):
     else:
         form = UserRegisterForm()
         
- 
     return render(request, 'users/register.html', {'form': form, 'title': title})
     
-def login (request):
-    
-    return render(request,'users/login.html', {'title': "Connexion"} )     
+def login(request, message=None):
+    message = "test"
+    return render(request,'users/login.html', {'message': message})     
 
 @login_required
 def logout(request):
@@ -30,5 +31,6 @@ def logout(request):
 
 @login_required
 def profile(request):
-    
-    return render(request, 'users/profile.html', {'title': "Profil"})
+    name = str(request.user).capitalize()
+    favorites = len(FavoriteProduct.objects.filter(user=request.user))
+    return render(request, 'users/profile.html', {'title': "Profil", 'name': name, 'favorites': favorites})

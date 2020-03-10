@@ -72,13 +72,13 @@
         </div>
         <div class="row w-100 pt-4"></div>
 
-        {% if favorite == yes %}
-        <a href="">
-          <i class="far fa-trash-alt del-fav"> Retire le des favoris</i>
+        {% if not favorite %}
+        <a href="{% url 'change_favorite' %}?add={{ food.code }}">
+          <i class="far fa-save add-fav"> Ajoute le aux favoris</i>
         </a>
         {% else %}
-        <a class="nav-link js-scroll-trigger" href="{% url 'add_favorite' %}?code={{ food.code }}">
-          <i class="far fa-save add-fav"> Ajoute le aux favoris</i>
+        <a href="{% url 'change_favorite' %}?del={{ food.code }}">
+          <i class="far fa-trash-alt del-fav"> Retire le des favoris</i>
         </a>
         {% endif %}
       </div>

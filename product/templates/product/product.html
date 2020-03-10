@@ -55,8 +55,8 @@
 {% if title == "Recherche" %}
   <section class="page-section" id="selected">
     <div class="text-center">
-      <h1>Résultats pour la recherche:</h1>
-      <p><strong>"{{ request }}"</p></strong>    
+      <h1 class="pb-0">Résultats pour la recherche:</h1>
+      <h3><strong>"{{ request }}"</h3></strong>    
     </div>
   </section>
   
@@ -75,7 +75,6 @@
 
     <div class="container-fluid col-lg-10 " >
       <div class="row justify-content-center">
-        {% if products %}{% include 'product/paging.html' %}{% endif %}
           
           {% for food in products %}
             {% if food.code != product.code %}
@@ -97,7 +96,7 @@
                   {% if product %}
                   
                   <hr class="divider">
-                  <a href="{% url 'add_favorite' %}?code={{ food.code }}">
+                  <a href="{% url 'change_favorite' %}?add={{ food.code }}">
                     <i class="far fa-save add-fav"> Ajoute le aux favoris</i>
                   </a>
                   

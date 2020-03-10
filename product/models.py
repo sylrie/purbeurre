@@ -23,4 +23,5 @@ class FavoriteProduct(models.Model):
     date = models.DateTimeField(verbose_name="Date sauvegarde", default=timezone.now)
 
     def __str__(self):
-        return str(self.saved_product)
+       
+        return str(self.saved_product)+" - ajouté par: "+str(self.user).capitalize()
