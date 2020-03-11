@@ -1,1 +1,1 @@
-web: gunicorn P8_pur_beurre_platform.wsgi
+web: gunicorn pur_beurre_platform.wsgi
