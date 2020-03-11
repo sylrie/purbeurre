@@ -1,10 +1,11 @@
+""" urls for products app"""
 
 from django.urls import path
 from . import views
 
-app_name='product'
+APP_NAME = 'products'
 
-urlpatterns = [
+URLPATTERNS = [
     path('', views.index, name='index'),
     path('products/', views.Product().results, name='products'),
     path('substitutes/', views.Product().substitutes, name='substitutes'),

@@ -1,9 +1,6 @@
-from django.conf import settings
-from django.conf.urls import include, url
-from django.contrib import admin
-from django.urls import path, include
-from django.conf.urls.static import static
 
+from django.urls import include, path
+from django.contrib import admin
 
 from product import views as product_views
 from users import views as users_views
@@ -28,8 +25,8 @@ urlpatterns = [
     path('profile/', users_views.profile, name='profile'),
 ]
 
-if settings.DEBUG:
+"""if settings.DEBUG:
     import debug_toolbar
     urlpatterns = [
         url(r'^__debug__/', include(debug_toolbar.urls)),
-    ] + urlpatterns
+    ] + urlpatterns"""

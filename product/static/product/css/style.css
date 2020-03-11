@@ -67,7 +67,7 @@ header.masthead h2 {
   font-size: 80%;
   line-height: 120%;
   text-overflow: ellipsis;
-  overflow: auto;
+  overflow: hidden;
 }
 strong {
     color: var(--rooibos);
@@ -106,7 +106,7 @@ strong {
     padding-bottom: 3rem;
 }
 #identity {
-    color: var(--rooibos);
+    color: var(--moules);
     padding-top: 4rem;
     padding-bottom: 0;
     background-color: var(--biscuit);
@@ -208,6 +208,7 @@ strong {
 footer {
     background-color: var(--caramel);
     color: var(--moules);
+    box-shadow: 0rem 1rem 2rem rgba(0, 0, 0, 0.4);
 }
 .d-block {
     color: var(--caramel);
@@ -239,10 +240,13 @@ footer {
   padding: 15px;
   margin: auto;
 }
+.invalid-feedback strong {
+  color: red;
+}
 .alert {
   background: none;
   border:none;
   padding: 0;
-  color: var(--rooibos);
+  color: red;
   font-size: 20px;
 }

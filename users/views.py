@@ -21,8 +21,10 @@ def register(request):
     return render(request, 'users/register.html', {'form': form, 'title': title})
 
 def login(request, message=None):
-    message = "test"
-    return render(request,'users/login.html', {'message': message})     
+    if message:
+        return render(request,'users/login.html', {'message': message})
+    else:
+        return render(request,'users/login.html')     
 
 @login_required
 def logout(request):

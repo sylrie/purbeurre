@@ -54,8 +54,7 @@
           <li class="nav-item">
             <form action="{% url 'products' %}" method="post" class="form-inline">
               {% csrf_token %}
-              <input class="form-control rounded text-center" id="nav-form" placeholder="Chercher" name="product-name" type="text" 
-               onFocus="if(this.value!='')this.value=''">
+              <input class="form-control rounded text-center" id="nav-form" placeholder="Chercher" name="product-name" type="text">
             </form>
           </li>
 
