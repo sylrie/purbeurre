@@ -47,7 +47,7 @@ h4 {
   -1px -1px 1px white;
 } 
 header.masthead h1 {
-  font-size: 4.4rem;
+  font-size: 4rem;
 }
 header.masthead h2 {
   font-size: 3rem;
@@ -117,7 +117,7 @@ strong {
     height:250px; 	
 }
 #connection, #legals {
-    background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.4) 100%), url("../img/bg-masthead.jpg");
+    background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.4) 100%), url("../img/bg-masthead.0cb91755596e.jpg");
     background-position: top;
     background-repeat: no-repeat;
     background-attachment: scroll;
@@ -128,7 +128,7 @@ strong {
   padding-top: 90px;
 }
 #logout {
-    background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.3) 100%), url("../img/ratatouille-11.jpg");
+    background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.3) 100%), url("../img/ratatouille-11.1b4cab52e321.jpg");
     background-position: top;
     background-repeat: no-repeat;
     background-attachment: scroll;
@@ -136,7 +136,7 @@ strong {
     color: var(--caramel);
 }
 #profile {
-  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.3) 100%), url("../img/portfolio/remy-3.jpg");
+  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.3) 100%), url("../img/portfolio/remy-3.6e429f1dbfc6.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
