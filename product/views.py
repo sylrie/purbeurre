@@ -5,7 +5,6 @@ from product.manager_api import search_product, search_substitutes, select_produ
 from .models import SavedProduct, FavoriteProduct
 
 
-
 def index(request):
     return render(request, 'product/home.html')
 
@@ -98,11 +97,9 @@ class Product():
         return render(request, 'product/food.html', context)
 
     def change_favorite(self, request):
+       
         if not request.user.is_authenticated:
             return redirect('login')
-
-        if request.GET.get('page'):
-            return self.favorites(request)
 
         if request.GET.get('del'):      
             code = request.GET.get('del')
@@ -112,7 +109,7 @@ class Product():
 
             message = "Le produit à été retiré des favoris"
 
-        if request.GET.get('add'):              
+        elif request.GET.get('add'):              
             code = request.GET.get('add')
             product = SavedProduct.objects.filter(code=code)
     
@@ -147,10 +144,13 @@ class Product():
             else:
                 message = "Tu avais déjà ce produit en favoris"
 
+        else:
+            return self.favorites(request)
+            
         return self.favorites(request, message, code=code)
 
     def favorites(self, request, message=None, code=None):
-
+        
         if request.GET.get('page'):
             page = int(request.GET.get('page'))
         else:
