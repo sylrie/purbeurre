@@ -42,7 +42,7 @@ class Product():
             'title': title,
             }
 
-        return render(request, 'product/product.html', context)
+        return render(request, 'product/product.html', ccontext)
 
     def substitutes(self, request):
         title = "Substituts"
