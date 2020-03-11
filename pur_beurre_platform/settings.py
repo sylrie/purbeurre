@@ -22,7 +22,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY =  os.environ.get('SECRET_KEY','^92a7n40s-1l0%k_mfw)r2%g+sfe97@k)#-7omu3d$=7&we=+u')
 
-
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'srpurbeurre.herokuapp.com']
 
 # Application definition
