@@ -67,7 +67,7 @@ header.masthead h2 {
   font-size: 80%;
   line-height: 120%;
   text-overflow: ellipsis;
-  overflow: hidden;
+  overflow: auto;
 }
 strong {
     color: var(--rooibos);
