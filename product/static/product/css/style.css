@@ -123,6 +123,8 @@ strong {
     background-attachment: scroll;
     background-size: cover;
     color: var(--moules);
+    text-overflow: ellipsis;
+    overflow: auto;
 }
 #connection {
   padding-top: 90px;
