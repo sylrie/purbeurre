@@ -80,74 +80,82 @@ def get_product_list(product):
 
     return food_data
 
-def search_product(user_request):
-    """ give a list of products matching with the use request"""
+class ProductData():
 
-    params = {
-        'search_simple': 1,
-        'action': 'process',
-        'json': 1,
-        'page_size': 40,
-        'search_terms': "{}".format(user_request),
-    }
+    def __init__(self):
 
-    data = request_api(params)
-    product_list = get_data_list(data)
+        self.product = {}
+        self.product_list = []
+        self.substitutes_list = []
 
-    return product_list
-
-def search_substitutes(category, nutrigrade):
-    """ give a list of substitutes in the relevant category """
-
-    product_list = []
-    data = {}
-    quality = "better"
-    nutrigrades = [
-        "a",
-        "b",
-        "c",
-        "d",
-        "e"
-    ]
-
-    for grade in nutrigrades:
-        if grade == nutrigrade:
-            if len(product_list) > 0:
-                break
-
-            quality = "equal"
+    def search_product(self, user_request):
+        """ give a list of products matching with the use request"""
 
         params = {
             'search_simple': 1,
             'action': 'process',
             'json': 1,
-            'page_size': 60,
-            'tagtype_0': 'categories',
-            'tag_contains_0': 'contains',
-            "tag_0": "{}".format(category),
-            'tagtype_1': 'nutrition_grades',
-            'tag_contains_1': 'contains',
-            "tag_1": "{}".format(grade),
+            'page_size': 40,
+            'search_terms': "{}".format(user_request),
         }
 
-        data_grade = request_api(params)
+        data = request_api(params)
+        self.products_list = get_data_list(data)
 
-        data = get_data_list(data_grade)
+        return self.products_list
 
-        product_list.extend(data)
+    def search_substitutes(self,category, nutrigrade):
+        """ give a list of substitutes in the relevant category """
 
-        if len(product_list) > 40:
-            break
+        self.substitutes_list = []
+        data = {}
+        self.quality = "better"
+        nutrigrades = [
+            "a",
+            "b",
+            "c",
+            "d",
+            "e"
+        ]
 
-    return (product_list, quality)
+        for grade in nutrigrades:
+            if grade == nutrigrade:
+                if len(self.substitutes_list) > 0:
+                    break
 
-def select_product(code):
-    """ give all data for a selected product """
+                self.quality = "equal"
 
-    url = "https://world.openfoodfacts.org/api/v0/produit/"+str(code)+".json"
+            params = {
+                'search_simple': 1,
+                'action': 'process',
+                'json': 1,
+                'page_size': 60,
+                'tagtype_0': 'categories',
+                'tag_contains_0': 'contains',
+                "tag_0": "{}".format(category),
+                'tagtype_1': 'nutrition_grades',
+                'tag_contains_1': 'contains',
+                "tag_1": "{}".format(grade),
+            }
 
-    product = get(url).json()
+            data_grade = request_api(params)
 
-    food_data = get_product_list(product["product"])
+            data = get_data_list(data_grade)
 
-    return food_data
+            self.substitutes_list.extend(data)
+
+            if len(self.substitutes_list) > 40:
+                break
+
+        return (self.substitutes_list, self.quality)
+
+    def select_product(self, code):
+        """ give all data for a selected product """
+
+        url = "https://world.openfoodfacts.org/api/v0/produit/"+str(code)+".json"
+
+        product = get(url).json()
+
+        self.food_data = get_product_list(product["product"])
+
+        return self.food_data

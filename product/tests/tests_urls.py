@@ -2,7 +2,8 @@ from django.test import TestCase, Client
 from django.urls import resolve, reverse
 from django.shortcuts import render
 
-from product.views import index, legals, Product
+from product.views import Product
+from product.views import index, legals
 
 class TestUrls(TestCase):
 

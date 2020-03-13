@@ -118,7 +118,7 @@ strong {
 }
 
 #connection, #legals {
-    background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.4) 100%), url("../img/bg-masthead.png");
+    background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.4) 100%), url("../img/bg-masthead.b2e702468132.png");
     color: var(--moules);
     text-overflow: ellipsis;
     overflow: auto;
@@ -127,11 +127,11 @@ strong {
   padding-top: 90px;
 }
 #profile {
-  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.3) 100%), url("../img/portfolio/remy-3.jpg");
+  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.3) 100%), url("../img/portfolio/remy-3.6e429f1dbfc6.jpg");
   color: var(--caramel);
 }
 #logout {
-  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.3) 100%), url("../img/ratatouille-11.jpg");
+  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.3) 100%), url("../img/ratatouille-11.1b4cab52e321.jpg");
   color: var(--caramel);
 }
 #logout, #profile, #connection, #legals {

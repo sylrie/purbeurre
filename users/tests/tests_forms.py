@@ -56,21 +56,3 @@ class TestForms(TestCase):
         }
         form = AuthenticationForm(None, data)
         self.assertFalse(form.is_valid())
-
-    """def test_user_already_exists(self):
-        data = {
-            "username": "user1",
-            "email": "email@email.fr",
-            "password1": "newpassword@",
-            "password2": "newpassword@",
-        }
-        form = UserCreationForm(data)
-        self.assertFalse(form.is_valid())
-    
-    def test_success_authentication(self):
-        data = {
-            "username": "user1",
-            "password": "password@",
-        }
-        form = AuthenticationForm(None, data)
-        self.assertTrue(form.is_valid())"""

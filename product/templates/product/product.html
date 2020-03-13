@@ -6,13 +6,13 @@
 {% if title == "Substituts" %}
   <section class="page-section" id="selected">
     <div class="container">
-      <div class="row justify-content-center align-items-center">
+      <div class="row bg justify-content-center align-items-center">
         
-        <div class="col-lg-5 text-center">
-          <img class="img-fluid border" src="{{ product.img }}" alt="">
+        <div class="cardcol-lg-5 text-center">
+          <img class="img-fluid border-xl" src="{{ product.img }}" alt="">
         </div>
 
-        <div class="card col-lg-5 col-md-10 mt-2 text-center d-flex">
+        <div class="card col-lg-5 col-md-10 my-2 text-center d-flex">
           <div class="row my-2 mx-2 justify-content-around">
             
             <h1>{{ product.name }}</h1>
@@ -97,7 +97,7 @@
                       <span class=>{{ food.details}}</span>
                     </div>
                   
-                  
+
                   {% if product %}
                   
                   <hr class="divider">

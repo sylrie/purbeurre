@@ -116,12 +116,9 @@ strong {
     width: 100%;
     height:250px; 	
 }
+
 #connection, #legals {
     background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.4) 100%), url("../img/bg-masthead.png");
-    background-position: top;
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-size: cover;
     color: var(--moules);
     text-overflow: ellipsis;
     overflow: auto;
@@ -129,22 +126,21 @@ strong {
 #connection {
   padding-top: 90px;
 }
-#logout {
-    background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.3) 100%), url("../img/ratatouille-11.jpg");
-    background-position: top;
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-size: cover;
-    color: var(--caramel);
-}
 #profile {
   background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.3) 100%), url("../img/portfolio/remy-3.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-size: cover;
   color: var(--caramel);
 }
+#logout {
+  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.3) 100%), url("../img/ratatouille-11.jpg");
+  color: var(--caramel);
+}
+#logout, #profile, #connection, #legals {
+  background-position: top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
 #contact {
     background-color: var(--rooibos);
     color: var(--biscuit);

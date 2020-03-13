@@ -23,11 +23,11 @@
           <div class="col-lg-8">
             <form class="row input-group mb-3 mx-0 justify-content-center" action="{% url 'products' %}" method="POST">
               {% csrf_token %}
-              <div class="col-lg-6 col-md-10 py-2">
+              <div class="col-lg-7 col-md-10 py-2">
                 <input type="text" class="form-control input-group-append rounded " name="product-name"
               placeholder="Rechercher un produit"/>
               </div>
-              <div class="input-group-append col-lg-2 col-md-3 col-sm-6 py-2">
+              <div class="input-group-append col-lg-3 col-md-3 col-sm-6 py-2">
                 <button class="btn rounded w-100" input type="POST">  Chercher  </button>
               </div>
             </form>
@@ -41,13 +41,15 @@
   <section class="page-section" id="identity">
     <div class="container-fluid d-flex justify-content-center">
       <div class="row col-11 text-center justify-content-center">
-        <h1>De la ratatouille aux croissants</h1>
+        <h1>Colette et Rémy</h1>
         <div class="row w-100"></div>
-
+        
         <div class="mt-3 col-lg-7 col-md-10 text-justify text-center">
-          Pur Beurre est l'initiative de deux amoureux de la gastronomie française,
+          <hr class="divider mt-3 mb-4 text-white">
+          <h3>De la ratatouille aux croissants</h3>
+          <p>Beurre est l'initiative de deux amoureux de la gastronomie française,
           Colette Tatou et Rémy, que vous avez déjà certainement rencontrés dans notre excellent
-          restaurant Ratatouille.
+          restaurant Ratatouille.</p>
         </div>
 
         <div class="row d-flex justify-content-around">

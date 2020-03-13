@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 
-from product.manager_api import search_product, search_substitutes, select_product
+from product.manager_api import ProductData as search
 from .models import SavedProduct, FavoriteProduct
 
 
@@ -13,11 +13,11 @@ def legals(request):
 
 class Product():
 
-    """def __init__(self):
+    def __init__(self):
 
         self.product = {}
         self.product_list = []
-        self.substitutes_list = []"""
+        self.substitutes_list = []
 
     def results(self, request):
         title = "Recherche"
@@ -30,7 +30,7 @@ class Product():
         if request.POST.get('product-name'):
 
             self.query = request.POST.get("product-name")
-            self.product_list = search_product(self.query)
+            self.product_list = search().search_product(self.query)
 
         paginator = Paginator(self.product_list, 9)
         products = paginator.page(page)
@@ -41,7 +41,7 @@ class Product():
             'title': title,
             }
 
-        return render(request, 'product/product.html', context)
+        return render(request, 'product/product.html', ccontext)
 
     def substitutes(self, request):
         title = "Substituts"
@@ -54,11 +54,11 @@ class Product():
         if request.GET.get('code'):
             query = request.GET.get('code')
 
-            self.product = select_product(query)
+            self.product = search().select_product(query)
             category = self.product["category"]
             nutrigrade = self.product["nutrigrade"]
 
-            substitutes = search_substitutes(category, nutrigrade)
+            substitutes = search().search_substitutes(category, nutrigrade)
             self.substitutes_list = substitutes[0]
             self.quality = substitutes[1]
 
@@ -85,7 +85,7 @@ class Product():
             query = request.GET.get('favorite')
             favorite = True
 
-        self.product = select_product(query)
+        self.product = search().select_product(query)
         url = "https://world.openfoodfacts.org/product/{}".format(query)
 
         context = {
@@ -114,7 +114,7 @@ class Product():
             product = SavedProduct.objects.filter(code=code)
     
             if not product.exists():
-                self.product = select_product(code)
+                self.product = search().select_product(code)
 
                 product = SavedProduct(
                     code=self.product["code"],
