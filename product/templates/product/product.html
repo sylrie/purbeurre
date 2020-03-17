@@ -87,15 +87,16 @@
 
 {% if base_product == "Pur Beurre" %}
     <img class="img-fluid db2-sticker px-2"
-      src="{% static 'product/img/base/pur Beurre.png' %}"
+      src="{% static 'product/img/base/PurBeurre.png' %}"
       alt="Base - Pur Beure">
     <div class="row w-100"></div>
     {% else %}
     <img class="img-fluid db2-sticker px-2"
-      src="{% static 'product/img/base/Open food Facts.png' %}"
+      src="{% static 'product/img/base/OpenfoodFacts.png' %}"
       alt="Base - Open Food Facts">
       <div class="row w-100"></div>
     {% endif %}
+
     <div class="container-fluid col-lg-11 " >
       <div class="row justify-content-center">
         {% if products %}{% include 'product/paging.html' %}{% endif %}
