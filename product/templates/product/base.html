@@ -50,7 +50,7 @@
 
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto text-right align-items-end my-2 my-lg-0">
-          
+
           <li class="nav-item">
             <form action="{% url 'products' %}" method="post" class="form-inline">
               {% csrf_token %}
@@ -78,7 +78,6 @@
             <a class="nav-link" href="/admin/">
               <i class="fas fa-tools"></i>
             </a>
-          </li>
           {% endif %}
 
           <li class="nav-item">
@@ -110,7 +109,19 @@
   <!-- Plugin JavaScript -->
   <script src="{% static 'product/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
   <script src="{% static 'product/vendor/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
-
+  <script type="text/javascript">
+    const off = $("#off")[0];
+    off.onclick = function(){
+      let elt = $("#off")[0];
+      elt.innerHTML = ""
+      
+      var newA = elt.appendChild(document.createElement("a"));
+      newA.id ="searching";
+    
+      var newImg = newA.appendChild(document.createElement("img"));
+      newImg.src = "/static/product/img/gif/loader.gif";
+    };
+  </script>
   <!-- Custom scripts for this template -->
   <script src="{% static 'product/js/creative.min.js' %}"></script>
 

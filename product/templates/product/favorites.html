@@ -3,7 +3,7 @@
 {% load static %}
 {% block content %}
 
-{% if title == "Favoris" %}
+{% if title == "Pur Beurre - Favoris" %}
 <section class="page-section" id="favorites">
   <div class="text-center">
     {% if not message %}
@@ -32,10 +32,10 @@
         <div class="product-card col-11 text-center">
         {% endif %}
           
-					<img class="logo-star img-fluid" src="{% static 'product/img/star.png' %}"
+					<img class="logo-star img-fluid" src="{% static 'product/img/sticker/star.png' %}"
           alt="logo favoris">
        
-					<img class="logo-nutriscore img-fluid" src="{% static 'product/img/nutrigrade/' %}{{ food.nutrigrade }}.png"
+					<img class="logo-nutriscore img-fluid" src="{% static 'product/img/sticker/' %}{{ food.nutrigrade }}.png"
 						alt="nutrigrade {{ food.nutrigrade }}">
 					
 					<a href="{% url 'food' %}?favorite={{ food.code }}">
@@ -66,7 +66,7 @@
 	<div class="text-center">  
 		<h2 class="text-center pb-1">Tu n'as pas encore de favoris.</h2>
 		<hr class="divider">
-		<img class="img-fluid" src="{% static 'product/img/star.png' %}"
+		<img class="img-fluid" src="{% static 'product/img/sticker/star.png' %}"
 					alt="logo favoris">
 	</div>
 {% endif %}

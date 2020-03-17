@@ -45,28 +45,28 @@
                   <img class="img-fluid py-1"
                     src="https://static.openfoodfacts.org/images/misc/{{ food.level_fat }}.svg"
                     alt="">
-                    Matières grasses / Lipides: <strong>{{ food.fat_100g }}g</strong>
+                    Matières grasses / Lipides: <strong>{{ food.fat }}g</strong>
                 </p>
                 <div class="row w-100"></div>
                 <p class="level">
                   <img class="img-fluid py-1" 
                   src="https://static.openfoodfacts.org/images/misc/{{ food.level_saturated_fat }}.svg" 
                   alt="">
-                    Acides gras saturés: <strong>{{ food.saturated_fat_100g }}g</strong>
+                    Acides gras saturés: <strong>{{ food.saturated_fat }}g</strong>
                 </p>
                 <div class="row w-100"></div>
                 <p class="level">
                   <img class="img-fluid py-1" 
                   src="https://static.openfoodfacts.org/images/misc/{{ food.level_sugar }}.svg" 
                   alt="">
-                    Sucres: <strong>{{ food.sugar_100g }}g</strong>
+                    Sucres: <strong>{{ food.sugar }}g</strong>
                 </p>
                 <div class="row w-100"></div>
                 <p class="level">
                   <img class="img-fluid py-1" 
                   src="https://static.openfoodfacts.org/images/misc/{{ food.level_salt }}.svg" 
                   alt="">
-                    sel: <strong>{{ food.salt_100g }}g</strong>
+                    sel: <strong>{{ food.salt }}g</strong>
                 </p>
               </div>
             </div>
@@ -90,6 +90,17 @@
   
   <section class="page-section py-5" id="products">
     <div class="container-fluid">
+      {% if base_product == "Pur Beurre" %}
+      <img class="img-fluid db2-sticker px-2"
+        src="{% static 'product/img/base/pur Beurre.png' %}"
+        alt="Base - Pur Beure">
+      <div class="row w-100"></div>
+      {% else %}
+      <img class="img-fluid db2-sticker px-2"
+        src="{% static 'product/img/base/Open food Facts.png' %}"
+        alt="Base - Open Food Facts">
+        <div class="row w-100"></div>
+      {% endif %}
       <div class="row justify-content-around"> 
 
         <div class="product-box d-flex justify-content-center col-lg-5 col-md-8 mx-2 ">

@@ -3,10 +3,10 @@
 {% load static %}
 {% block content %}
 
-{% if title == "Substituts" %}
+{% if title == "Pur Beurre - Substituts" %}
   <section class="page-section" id="selected">
     <div class="container">
-      <div class="row bg justify-content-center align-items-center">
+      <div class="row justify-content-center align-items-center">
         
         <div class="cardcol-lg-5 text-center">
           <img class="img-fluid border-xl" src="{{ product.img }}" alt="">
@@ -32,7 +32,7 @@
             {% endif %}
             
             <a class="pt-4" href="{% url 'food' %}?code={{ product.code }}">
-              Voir la fiche produit</i>
+              > Voir la fiche produit <</i>
             </a>
             <div class="rox w-100"></div>
             
@@ -43,36 +43,59 @@
   </section>
 
   <section class="page-section py-5" id="products">
+    
     {% if quality == 'better' %}
-      <h3 class="text-center pb-5">Tu peux remplacer cet aliment par un de ces <strong>{{number}} produit(s):</strong></h3>
+      <h3 class="text-center pb-2">Tu peux remplacer cet aliment par un de ces <strong>{{number}} produit(s):</strong></h3>
     {% elif quality == 'equal' %}
-      <h3 class="text-center text-warning pb-5">Nous pouvons seulement te proposer <strong>{{number}} produits équivalents:</strong></h3>
+      <h3 class="text-center text-warning pb-2">Nous pouvons seulement te proposer <strong>{{number}} produits équivalents:</strong></h3>
     {% else %}
-    <h3 class="text-center text-warning pb-5">Nous n'avons aucun produit à te proposer.</h3>
+    <h3 class="text-center text-warning pb-2">Nous n'avons aucun produit à te proposer.</h3>
+    {% endif %}
+    {% if number < 12 and base_product == "Pur Beurre" %}
+    <a href="{% url 'substitutes' %}?off-code={{ code }}" id="off">> Voir plus de propositions sur Open food Facts <</a>
     {% endif %}
 {% endif %}
 
-{% if title == "Recherche" %}
+{% if title == "Pur Beurre - Recherche" %}
   <section class="page-section" id="selected">
     <div class="text-center">
       <h1 class="pb-0">Résultats pour la recherche:</h1>
-      <h3><strong>"{{ request }}"</h3></strong>    
+      <h3 id="test"><strong>"{{ request }}"</h3></strong>
     </div>
   </section>
   
   {% if products %}
     <section class="page-section pt-4" id="products">
+
       <div class="text-center">
-        <h2 class="text-center pb-1">Sélectionne un produit dans la liste</h2>
+        <h2 class="text-center mx-1">Sélectionne un produit dans la liste</h2>
   {% else %}
     <section class="page-section h-100 pt-4" id="products">
       <div class="text-center">  
-        <h2 class="text-center pb-1">Nous n'avons aucun produit à te proposer.</h2>
+        <h2 class="text-center px-1">Nous n'avons aucun produit à te proposer.</h2>
+  {% endif %}
+    
+  {% if error %}
+  <h3 class="text-center pb-1">{{ error }}</h3>
+  {% endif %}
+  {% if number < 12 and not error %}
+  <a href="{% url 'products' %}?off-name={{ request }}" id="off">> Voir plus de résultats sur Open food Facts <</a>
   {% endif %}
         <hr class="divider">
       </div>
 {% endif %}
 
+{% if base_product == "Pur Beurre" %}
+    <img class="img-fluid db2-sticker px-2"
+      src="{% static 'product/img/base/pur Beurre.png' %}"
+      alt="Base - Pur Beure">
+    <div class="row w-100"></div>
+    {% else %}
+    <img class="img-fluid db2-sticker px-2"
+      src="{% static 'product/img/base/Open food Facts.png' %}"
+      alt="Base - Open Food Facts">
+      <div class="row w-100"></div>
+    {% endif %}
     <div class="container-fluid col-lg-11 " >
       <div class="row justify-content-center">
         {% if products %}{% include 'product/paging.html' %}{% endif %}
@@ -82,7 +105,7 @@
                 <div class="product-card col-11 text-center">
                   
                   {% if product %}
-                  <img class="logo-nutriscore img-fluid" src="{% static 'product/img/nutrigrade/' %}{{ food.nutrigrade }}.png"
+                  <img class="logo-nutriscore img-fluid" src="{% static 'product/img/sticker/' %}{{ food.nutrigrade }}.png"
                     alt="nutrigrade {{ food.nutrigrade }}">
                   
                   <a href="{% url 'food' %}?code={{ food.code }}">

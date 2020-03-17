@@ -1,9 +1,9 @@
 {% extends 'product/base.html' %}
-{% block title %}Profil{% endblock %}
+{% block title %}Pur Beurre - Profil{% endblock %}
 {% load static %}
 {% block content %}
 
-<section class="page-section" id="profile">
+<section class="page-section h-100" id="profile">
 	<div class= "container logout justify-content-center col-lg-6 col-md-9 mt-4 pt-4">
 		<div class="row m-2">
 				<div class="col-lg-12 text-center">
@@ -12,7 +12,7 @@
 						<h2>Email :</h2> <p><strong>{{ user.email }}</strong></p>
 						<div class="py-2">
 								<a class="nav-link js-scroll-trigger" href="{% url 'favorites' %}">
-									<p class="m-0"><img class="img-fluid h-50" src="{% static 'product/img/star.png' %}"
+									<p class="m-0"><img class="img-fluid h-50" src="{% static 'product/img/sticker/star.png' %}"
 									alt="logo favoris"></p>
 								</a>
 								<h3 class="pt-0">
