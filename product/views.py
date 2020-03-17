@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
-import re
 
+import re
 from product.manager_api import ProductData as search
 from product.update_data import UpdateData
 from .models import FavoriteProduct, Products
@@ -13,6 +13,7 @@ def index(request):
 def legals(request):
     return render(request, 'product/legals.html')
 
+     
 class Product():
 
     def __init__(self):
