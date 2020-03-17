@@ -26,7 +26,7 @@ class Product():
         title = "Pur Beurre - Recherche"
         error = None
         self.qty = None
-
+        
         try:
             page = int(request.GET.get('page', '1'))
         except ValueError:
@@ -51,8 +51,12 @@ class Product():
             except:
                 error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
 
+       
         paginator = Paginator(self.product_list, 9)
-        products = paginator.page(page)
+        try:
+            products = paginator.page(page)
+        except:
+            products = paginator.page(paginator.num_pages)
 
         context = {
             'request': self.user_request,
@@ -80,9 +84,9 @@ class Product():
             'e'
         ]
 
-        if request.GET.get('page'):
-            page = int(request.GET.get('page'))
-        else:
+        try:
+            page = int(request.GET.get('page', '1'))
+        except ValueError:
             page = 1
 
         if request.GET.get('code'):
@@ -274,9 +278,9 @@ class Product():
     def favorites(self, request, message=None, code=None):
         title = "Pur Beurre - Favoris"
 
-        if request.GET.get('page'):
-            page = int(request.GET.get('page'))
-        else:
+        try:
+            page = int(request.GET.get('page', '1'))
+        except ValueError:
             page = 1
 
         if message == "Tu avais déjà ce produit en favoris":
@@ -284,6 +288,7 @@ class Product():
             favorite = favorite.filter(saved_product=code)
         else:
             favorite = FavoriteProduct.objects.filter(user=request.user).order_by('-date')
+        
         paginator = Paginator(favorite, 9)
         products = paginator.get_page(page)
 
