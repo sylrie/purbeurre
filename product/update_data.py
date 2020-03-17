@@ -18,13 +18,14 @@ class UpdateData():
             "snacks",
             "Aliments et boissons à base de végétaux",
             "boissons",
-            "Produits laitiers"
+            "Produits laitiers",
+            "Desserts"
             ]
 
         self.nutrigrades = [
             "a",
             "b",
-            "c",
+            #"c",
             #"d",
             #"e"
         ]
