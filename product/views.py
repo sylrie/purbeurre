@@ -27,9 +27,9 @@ class Product():
         error = None
         self.qty = None
 
-        if request.GET.get('page'):
-            page = int(request.GET.get('page'))
-        else:
+        try:
+            page = int(request.GET.get('page', '1'))
+        except ValueError:
             page = 1
 
         if request.POST.get('product-name'):
