@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
-from django.core.cache import cache
 
 import re
 from product.manager_api import ProductData as search
@@ -32,27 +31,25 @@ class Product():
             page = int(request.GET.get('page', '1'))
         except ValueError:
             page = 1
-        
-        if request.POST.get('product-name'):
-            cache.clear()
-            self.base_product = "Pur Beurre"
-            query = request.POST.get("product-name")
-            # Remove space end and start
-            user_request = re.sub(r"( )+$", "", query)
-            self.user_request = re.sub(r"^( )+", "", user_request)
+        if not request.GET.get('page'):
+            if request.POST.get('product-name'):
+                self.base_product = "Pur Beurre"
+                query = request.POST.get("product-name")
+                # Remove space end and start
+                user_request = re.sub(r"( )+$", "", query)
+                self.user_request = re.sub(r"^( )+", "", user_request)
 
-            self.product_list = Products.objects.filter(name__icontains=self.user_request).order_by("-name")
+                self.product_list = Products.objects.filter(name__icontains=self.user_request).order_by("-name")
 
-            self.qty = len(self.product_list)
-            
-        elif request.GET.get('off-name'):
-            cache.clear()
-            self.base_product = "Open Food Facts"
-            self.user_request = request.GET.get("off-name")
-            try:
-                self.product_list = search().search_product(self.user_request)
-            except:
-                error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
+                self.qty = len(self.product_list)
+                
+            elif request.GET.get('off-name'):
+                self.base_product = "Open Food Facts"
+                self.user_request = request.GET.get("off-name")
+                try:
+                    self.product_list = search().search_product(self.user_request)
+                except:
+                    error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
 
         paginator = Paginator(self.product_list, 9)
         try:
