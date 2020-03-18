@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
+from django.core.cache import cache
 
 import re
 from product.manager_api import ProductData as search
@@ -33,6 +34,7 @@ class Product():
             page = 1
         
         if request.POST.get('product-name'):
+            cache.clear()
             self.base_product = "Pur Beurre"
             query = request.POST.get("product-name")
             # Remove space end and start
@@ -44,12 +46,13 @@ class Product():
             self.qty = len(self.product_list)
             
         elif request.GET.get('off-name'):
-                self.base_product = "Open Food Facts"
-                self.user_request = request.GET.get("off-name")
-                try:
-                    self.product_list = search().search_product(self.user_request)
-                except:
-                    error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
+            cache.clear()
+            self.base_product = "Open Food Facts"
+            self.user_request = request.GET.get("off-name")
+            try:
+                self.product_list = search().search_product(self.user_request)
+            except:
+                error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
 
         paginator = Paginator(self.product_list, 9)
         try:
@@ -144,14 +147,14 @@ class Product():
             except:
                 error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
         
-        
         paginator = Paginator(self.substitutes_list, 9)
         try:
             self.products = paginator.page(page)
         except:
             self.products = paginator.page(paginator.num_pages)
+        
         self.number = len(self.substitutes_list)
-        print(self.number)
+
         context = {
             'code': self.query,
             'product': self.product,
