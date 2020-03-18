@@ -31,20 +31,19 @@ class Product():
             page = int(request.GET.get('page', '1'))
         except ValueError:
             page = 1
+        
+        if request.POST.get('product-name'):
+            self.base_product = "Pur Beurre"
+            query = request.POST.get("product-name")
+            # Remove space end and start
+            user_request = re.sub(r"( )+$", "", query)
+            self.user_request = re.sub(r"^( )+", "", user_request)
 
-        if not request.GET.get('page'):
-            if request.POST.get('product-name'):
-                self.base_product = "Pur Beurre"
-                query = request.POST.get("product-name")
-                # Remove space end and start
-                user_request = re.sub(r"( )+$", "", query)
-                self.user_request = re.sub(r"^( )+", "", user_request)
+            self.product_list = Products.objects.filter(name__icontains=self.user_request).order_by("-name")
 
-                self.product_list = Products.objects.filter(name__icontains=self.user_request).order_by("-name")
-
-                self.qty = len(self.product_list)
-                
-            elif request.GET.get('off-name'):
+            self.qty = len(self.product_list)
+            
+        elif request.GET.get('off-name'):
                 self.base_product = "Open Food Facts"
                 self.user_request = request.GET.get("off-name")
                 try:
@@ -72,7 +71,6 @@ class Product():
     def substitutes(self, request):
 
         title = "Pur Beurre - Substituts"
-
         error = None
         nutrigrades = [
             'a',
