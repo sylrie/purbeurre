@@ -106,6 +106,7 @@ class Product():
             pass
 
         if request.GET.get('code'):
+            self.base_substitute = "Pur Beurre"
             try:    
                 self.query = request.GET.get('code')
                 self.substitutes_list = Products.objects.filter(category=category)
@@ -119,15 +120,17 @@ class Product():
                         else:
                             self.quality = "better"
                         break
-                    
+                    else:
+                        self.quality = None
                     if grade == nutrigrade:
                         break
 
-                self.base_substitute = "Pur Beurre"
+                
             except:
                 pass
 
-        elif request.GET.get('off-code'):   
+        elif request.GET.get('off-code'):
+            self.base_substitute = "Open Food Facts"
             try:
                 self.query = request.GET.get('off-code')
                 substitutes = search().search_substitutes(category, nutrigrade)
@@ -140,7 +143,7 @@ class Product():
                         index += 1
 
                 self.quality = substitutes[1]
-                self.base_substitute = "Open Food Facts"
+                
             except:
                 error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
         
