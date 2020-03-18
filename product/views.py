@@ -32,26 +32,26 @@ class Product():
         except ValueError:
             page = 1
 
-        if request.POST.get('product-name'):
-            self.base_product = "Pur Beurre"
-            query = request.POST.get("product-name")
-            # Remove space end and start
-            user_request = re.sub(r"( )+$", "", query)
-            self.user_request = re.sub(r"^( )+", "", user_request)
+        if not request.GET.get('page'):
+            if request.POST.get('product-name'):
+                self.base_product = "Pur Beurre"
+                query = request.POST.get("product-name")
+                # Remove space end and start
+                user_request = re.sub(r"( )+$", "", query)
+                self.user_request = re.sub(r"^( )+", "", user_request)
 
-            self.product_list = Products.objects.filter(name__icontains=self.user_request)
+                self.product_list = Products.objects.filter(name__icontains=self.user_request).order_by("-name")
 
-            self.qty = len(self.product_list)
-            
-        if request.GET.get('off-name'):
-            self.base_product = "Open Food Facts"
-            self.user_request = request.GET.get("off-name")
-            try:
-                self.product_list = search().search_product(self.user_request)
-            except:
-                error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
+                self.qty = len(self.product_list)
+                
+            elif request.GET.get('off-name'):
+                self.base_product = "Open Food Facts"
+                self.user_request = request.GET.get("off-name")
+                try:
+                    self.product_list = search().search_product(self.user_request)
+                except:
+                    error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
 
-       
         paginator = Paginator(self.product_list, 9)
         try:
             products = paginator.page(page)
@@ -89,69 +89,74 @@ class Product():
         except ValueError:
             page = 1
 
-        if request.GET.get('code'):
-            self.query = request.GET.get('code')
-        elif request.GET.get('off-code'):   
-            self.query = request.GET.get('off-code')
+        if not request.GET.get('page'):
+            if request.GET.get('code'):
+                self.query = request.GET.get('code')
+            elif request.GET.get('off-code'):   
+                self.query = request.GET.get('off-code')
 
+            try:
+                self.product = Products.objects.get(pk=query)
+                category = self.product.category
+                nutrigrade = self.product.nutrigrade
 
-        try:
-            self.product = Products.objects.get(pk=query)
-            category = self.product.category
-            nutrigrade = self.product.nutrigrade
-
-        except:
-            pass
-        try:
-            self.product = search().select_product(self.query)
-            category = self.product["category"]
-            nutrigrade = self.product["nutrigrade"]
-
-        except:
-            pass
-        if request.GET.get('code'):    
-            try:    
-                self.substitutes_list = Products.objects.filter(category=category)
-                
-                for grade in nutrigrades:
-                    self.substitutes_list = self.substitutes_list.filter(nutrigrade=grade)
-
-                    if len(self.substitutes_list) > 0:
-                        if grade == nutrigrade:
-                            self.quality = "equal"
-                        
-                        else:
-                            self.quality = "better"
-                        break
-
-                    if grade == nutrigrade:
-                        break
-
-                self.base_substitute = "Pur Beurre"
             except:
                 pass
-
-        if request.GET.get('off-code'):   
-            print("ok")
+            
             try:
-                substitutes = search().search_substitutes(category, nutrigrade)
-                self.substitutes_list = substitutes[0]
-                print(len(self.substitutes_list))
-                index = 0
-                for product in self.substitutes_list:
-                    if product["code"] == self.query:
-                        del self.substitutes_list[index]
-                    else:
-                        index += 1
+                self.product = search().select_product(self.query)
+                category = self.product["category"]
+                nutrigrade = self.product["nutrigrade"]
 
-                self.quality = substitutes[1]
-                self.base_substitute = "Open Food Facts"
             except:
-                error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
+                pass
+            if request.GET.get('code'):    
+                try:    
+                    self.query = request.GET.get('code')
+                    self.substitutes_list = Products.objects.filter(category=category)
+                    
+                    for grade in nutrigrades:
+                        self.substitutes_list = self.substitutes_list.filter(nutrigrade=grade).order_by("-nutrigrade")
+
+                        if len(self.substitutes_list) > 0:
+                            if grade == nutrigrade:
+                                self.quality = "equal"
+                            
+                            else:
+                                self.quality = "better"
+                            break
+
+                        if grade == nutrigrade:
+                            break
+
+                    self.base_substitute = "Pur Beurre"
+                except:
+                    pass
+
+            elif request.GET.get('off-code'):   
+                try:
+                    self.query = request.GET.get('off-code')
+                    substitutes = search().search_substitutes(category, nutrigrade)
+                    self.substitutes_list = substitutes[0]
+                    print(len(self.substitutes_list))
+                    index = 0
+                    for product in self.substitutes_list:
+                        if product["code"] == self.query:
+                            del self.substitutes_list[index]
+                        else:
+                            index += 1
+
+                    self.quality = substitutes[1]
+                    self.base_substitute = "Open Food Facts"
+                except:
+                    error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
         
         self.number = len(self.substitutes_list)
         paginator = Paginator(self.substitutes_list, 9)
-        products = paginator.get_page(page)
+        try:
+            products = paginator.page(page)
+        except:
+            products = paginator.page(paginator.num_pages)
 
         context = {
             'code': self.query,
@@ -211,14 +216,11 @@ class Product():
             
             message = "Le produit à été retiré des favoris"
 
-        elif request.GET.get('add'):
-            print("add")           
+        elif request.GET.get('add'):          
             code = request.GET.get('add')
-            print(code)
             product = Products.objects.filter(code=code)
     
             if not product.exists():
-                print("not exist")
                 product = search().select_product(code)
                 try:
                     new = Products(
@@ -242,17 +244,15 @@ class Product():
                         nova = product["nova"]
                     )
                     new.save()
-                    print("product added") 
                 except:
                     message = "Oups... Le produit n'a pas été ajouté aux favoris !"
                     return self.favorites(request, message=message, code=code)
                     
             else:
-                print("exist")
 
-            new_product = get_object_or_404(Products, pk=code)
-            favorite = FavoriteProduct.objects.filter(user=request.user)
-            favorite = favorite.filter(saved_product=code)
+                new_product = get_object_or_404(Products, pk=code)
+                favorite = FavoriteProduct.objects.filter(user=request.user)
+                favorite = favorite.filter(saved_product=code)
 
             if not favorite.exists():
                 try:
@@ -265,7 +265,7 @@ class Product():
                     new_favorite.save()
                     message = "Le produit à été ajouté aux favoris !"
                 except:
-                    print("error")
+                    pass
 
             else:
                 message = "Tu avais déjà ce produit en favoris"
@@ -292,7 +292,6 @@ class Product():
         paginator = Paginator(favorite, 9)
         products = paginator.get_page(page)
 
-        number = len(favorite)
         context = {
             'title': title,
             'message': message,
