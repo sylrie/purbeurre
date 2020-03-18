@@ -72,10 +72,8 @@ class Product():
     def substitutes(self, request):
 
         title = "Pur Beurre - Substituts"
-        self.query = None
-        self.base_substitute = "Pur Beurre"
+
         error = None
-        self.quality = None
         nutrigrades = [
             'a',
             'b',
@@ -138,7 +136,6 @@ class Product():
                     self.query = request.GET.get('off-code')
                     substitutes = search().search_substitutes(category, nutrigrade)
                     self.substitutes_list = substitutes[0]
-                    print(len(self.substitutes_list))
                     index = 0
                     for product in self.substitutes_list:
                         if product["code"] == self.query:
@@ -151,13 +148,14 @@ class Product():
                 except:
                     error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
         
-        self.number = len(self.substitutes_list)
+        
         paginator = Paginator(self.substitutes_list, 9)
         try:
             products = paginator.page(page)
         except:
             products = paginator.page(paginator.num_pages)
-
+        self.number = len(self.substitutes_list)
+        print(self.number)
         context = {
             'code': self.query,
             'product': self.product,
