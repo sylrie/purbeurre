@@ -32,7 +32,7 @@
             {% endif %}
             
             <a class="pt-4" href="{% url 'food' %}?code={{ product.code }}">
-              > Voir la fiche produit <</i>
+              Voir la fiche produit</i>
             </a>
             <div class="rox w-100"></div>
             
@@ -55,7 +55,7 @@
     
     {% endif %}
     {% if number < 12 and base_product == "Pur Beurre" %}
-    <a href="{% url 'substitutes' %}?off-code={{ code }}" id="off">> Voir plus de propositions sur Open food Facts <</a>
+    <a href="{% url 'substitutes' %}?off-code={{ code }}" id="off">Voir plus de propositions sur Open food Facts ?</a>
     {% endif %}
 {% endif %}
 
@@ -82,7 +82,7 @@
   <h3 class="text-center pb-1">{{ error }}</h3>
   {% endif %}
   {% if number < 12 and not error %}
-  <a href="{% url 'products' %}?off-name={{ request }}" id="off">> Voir plus de résultats sur Open food Facts <</a>
+  <a href="{% url 'products' %}?off-name={{ request }}" id="off">Voir plus de résultats sur Open food Facts ?</a>
   {% endif %}
         <hr class="divider">
       </div>
@@ -101,7 +101,7 @@
     {% endif %}
 
     <div class="container-fluid col-lg-11 " >
-      <div class="row justify-content-center">
+      <div class="row justify-content-center" id="list">
         {% if products %}{% include 'product/paging.html' %}{% endif %}
           {% for food in products %}
             {% if food.code != product.code %}
@@ -123,15 +123,11 @@
                       <div class="row w-100"></div>
                       <span class=>{{ food.details}}</span>
                     </div>
-                  
-
-                  {% if product %}
-                  
+                  {% if product %} 
                   <hr class="divider">
                   <a href="{% url 'change_favorite' %}?add={{ food.code }}">
                     <i class="far fa-save add-fav"> Ajoute le aux favoris</i>
                   </a>
-                  
                   {% endif %}
                 </div>
               </div>

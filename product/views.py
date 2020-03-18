@@ -124,8 +124,6 @@ class Product():
                         self.quality = None
                     if grade == nutrigrade:
                         break
-
-                
             except:
                 pass
 

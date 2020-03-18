@@ -109,6 +109,9 @@
   
   <!-- Custom scripts for this template -->
   <script src="{% static 'product/js/creative.min.js' %}"></script>
+  
+  <!-- Searching gif -->
+  {% if number < 12 and base_product == "Pur Beurre" %}
   <script type="text/javascript">
     const off = $("#off")[0];
     off.onclick = function(){
@@ -122,6 +125,7 @@
       newImg.src = "/static/product/img/gif/loader.gif";
     };
   </script>
+  {% endif %}
 
 </body>
 
