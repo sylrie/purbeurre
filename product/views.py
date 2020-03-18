@@ -289,6 +289,7 @@ class Product():
         else:
             favorite = FavoriteProduct.objects.filter(user=request.user).order_by('-date')
         
+        number = len(favorite)
         paginator = Paginator(favorite, 9)
         products = paginator.get_page(page)
 
@@ -301,3 +302,4 @@ class Product():
             }
 
         return render(request, 'product/favorites.html', context )
+
