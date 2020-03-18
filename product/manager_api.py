@@ -129,7 +129,7 @@ class ProductData():
                 'search_simple': 1,
                 'action': 'process',
                 'json': 1,
-                #'page_size': 60,
+                'page_size': 40,
                 'tagtype_0': 'categories',
                 'tag_contains_0': 'contains',
                 "tag_0": "{}".format(category),

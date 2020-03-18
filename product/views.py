@@ -53,13 +53,13 @@ class Product():
 
         paginator = Paginator(self.product_list, 9)
         try:
-            products = paginator.page(page)
+            self.products = paginator.page(page)
         except:
-            products = paginator.page(paginator.num_pages)
+            self.products = paginator.page(paginator.num_pages)
 
         context = {
             'request': self.user_request,
-            'products': products,
+            'products': self.products,
             'number': self.qty,
             'title': title,
             'error': error,
@@ -85,79 +85,77 @@ class Product():
         except ValueError:
             page = 1
 
-        if not request.GET.get('page'):
-            if request.GET.get('code'):
+        if request.GET.get('code'):
+            self.query = request.GET.get('code')
+        elif request.GET.get('off-code'):   
+            self.query = request.GET.get('off-code')
+
+        try:
+            self.product = Products.objects.get(pk=query)
+            category = self.product.category
+            nutrigrade = self.product.nutrigrade
+
+        except:
+            pass
+        
+        try:
+            self.product = search().select_product(self.query)
+            category = self.product["category"]
+            nutrigrade = self.product["nutrigrade"]
+
+        except:
+            pass
+        if request.GET.get('code'):    
+            try:    
                 self.query = request.GET.get('code')
-            elif request.GET.get('off-code'):   
-                self.query = request.GET.get('off-code')
+                self.substitutes_list = Products.objects.filter(category=category)
+                
+                for grade in nutrigrades:
+                    self.substitutes_list = self.substitutes_list.filter(nutrigrade=grade).order_by("-nutrigrade")[:12]
 
-            try:
-                self.product = Products.objects.get(pk=query)
-                category = self.product.category
-                nutrigrade = self.product.nutrigrade
-
-            except:
-                pass
-            
-            try:
-                self.product = search().select_product(self.query)
-                category = self.product["category"]
-                nutrigrade = self.product["nutrigrade"]
-
-            except:
-                pass
-            if request.GET.get('code'):    
-                try:    
-                    self.query = request.GET.get('code')
-                    self.substitutes_list = Products.objects.filter(category=category)
-                    
-                    for grade in nutrigrades:
-                        self.substitutes_list = self.substitutes_list.filter(nutrigrade=grade).order_by("-nutrigrade")
-
-                        if len(self.substitutes_list) > 0:
-                            if grade == nutrigrade:
-                                self.quality = "equal"
-                            
-                            else:
-                                self.quality = "better"
-                            break
-
+                    if len(self.substitutes_list) > 0:
                         if grade == nutrigrade:
-                            break
-
-                    self.base_substitute = "Pur Beurre"
-                except:
-                    pass
-
-            elif request.GET.get('off-code'):   
-                try:
-                    self.query = request.GET.get('off-code')
-                    substitutes = search().search_substitutes(category, nutrigrade)
-                    self.substitutes_list = substitutes[0]
-                    index = 0
-                    for product in self.substitutes_list:
-                        if product["code"] == self.query:
-                            del self.substitutes_list[index]
+                            self.quality = "equal"
                         else:
-                            index += 1
+                            self.quality = "better"
+                        break
 
-                    self.quality = substitutes[1]
-                    self.base_substitute = "Open Food Facts"
-                except:
-                    error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
+                    if grade == nutrigrade:
+                        break
+
+                self.base_substitute = "Pur Beurre"
+            except:
+                pass
+
+        elif request.GET.get('off-code'):   
+            try:
+                self.query = request.GET.get('off-code')
+                substitutes = search().search_substitutes(category, nutrigrade)
+                self.substitutes_list = substitutes[0]
+                index = 0
+                for product in self.substitutes_list:
+                    if product["code"] == self.query:
+                        del self.substitutes_list[index]
+                    else:
+                        index += 1
+
+                self.quality = substitutes[1]
+                self.base_substitute = "Open Food Facts"
+            except:
+                error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
         
         
         paginator = Paginator(self.substitutes_list, 9)
         try:
-            products = paginator.page(page)
+            self.products = paginator.page(page)
         except:
-            products = paginator.page(paginator.num_pages)
+            self.products = paginator.page(paginator.num_pages)
         self.number = len(self.substitutes_list)
         print(self.number)
         context = {
             'code': self.query,
             'product': self.product,
-            'products': products,
+            'products': self.products,
             'title': title,
             'quality': self.quality,
             'number': self.number,

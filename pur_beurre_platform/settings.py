@@ -151,20 +151,4 @@ INTERNAL_IPS = ['127.0.0.1']
 if os.environ.get('ENV') == 'PRODUCTION':
     DEBUG = False
 else:
-    DEBUG = False
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'ERROR'),
-        },
-    },
-}
+    DEBUG = True
