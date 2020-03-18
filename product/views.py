@@ -31,25 +31,25 @@ class Product():
             page = int(request.GET.get('page', '1'))
         except ValueError:
             page = 1
-        if not request.GET.get('page'):
-            if request.POST.get('product-name'):
-                self.base_product = "Pur Beurre"
-                query = request.POST.get("product-name")
-                # Remove space end and start
-                user_request = re.sub(r"( )+$", "", query)
-                self.user_request = re.sub(r"^( )+", "", user_request)
+        
+        if request.POST.get('product-name'):
+            self.base_product = "Pur Beurre"
+            query = request.POST.get("product-name")
+            # Remove space end and start
+            user_request = re.sub(r"( )+$", "", query)
+            self.user_request = re.sub(r"^( )+", "", user_request)
 
-                self.product_list = Products.objects.filter(name__icontains=self.user_request).order_by("-name")
+            self.product_list = Products.objects.filter(name__icontains=self.user_request).order_by("-name")
 
-                self.qty = len(self.product_list)
-                
-            elif request.GET.get('off-name'):
-                self.base_product = "Open Food Facts"
-                self.user_request = request.GET.get("off-name")
-                try:
-                    self.product_list = search().search_product(self.user_request)
-                except:
-                    error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
+            self.qty = len(self.product_list)
+            
+        elif request.GET.get('off-name'):
+            self.base_product = "Open Food Facts"
+            self.user_request = request.GET.get("off-name")
+            try:
+                self.product_list = search().search_product(self.user_request)
+            except:
+                error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
 
         paginator = Paginator(self.product_list, 9)
         try:
@@ -69,7 +69,6 @@ class Product():
         return render(request, 'product/product.html', context)
 
     def substitutes(self, request):
-
         title = "Pur Beurre - Substituts"
         error = None
         nutrigrades = [
@@ -105,7 +104,8 @@ class Product():
 
         except:
             pass
-        if request.GET.get('code'):    
+
+        if request.GET.get('code'):
             try:    
                 self.query = request.GET.get('code')
                 self.substitutes_list = Products.objects.filter(category=category)
@@ -119,7 +119,7 @@ class Product():
                         else:
                             self.quality = "better"
                         break
-
+                    
                     if grade == nutrigrade:
                         break
 
@@ -144,6 +144,7 @@ class Product():
             except:
                 error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
         
+
         paginator = Paginator(self.substitutes_list, 9)
         try:
             self.products = paginator.page(page)
