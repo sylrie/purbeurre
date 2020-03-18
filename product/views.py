@@ -16,11 +16,11 @@ def legals(request):
      
 class Product():
 
-    def __init__(self):
+    """def __init__(self):
 
         self.product = {}
         self.product_list = []
-        self.substitutes_list = []
+        self.substitutes_list = []"""
 
     def results(self, request):
         title = "Pur Beurre - Recherche"
@@ -144,7 +144,6 @@ class Product():
             except:
                 error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
         
-
         paginator = Paginator(self.substitutes_list, 9)
         try:
             self.products = paginator.page(page)
