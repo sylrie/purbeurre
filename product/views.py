@@ -244,12 +244,10 @@ class Product():
                 except:
                     message = "Oups... Le produit n'a pas été ajouté aux favoris !"
                     return self.favorites(request, message=message, code=code)
-                    
-            else:
 
-                new_product = get_object_or_404(Products, pk=code)
-                favorite = FavoriteProduct.objects.filter(user=request.user)
-                favorite = favorite.filter(saved_product=code)
+            new_product = get_object_or_404(Products, pk=code)
+            favorite = FavoriteProduct.objects.filter(user=request.user)
+            favorite = favorite.filter(saved_product=code)
 
             if not favorite.exists():
                 try:
