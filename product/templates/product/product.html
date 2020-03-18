@@ -42,18 +42,19 @@
     </div>
   </section>
     
-  {% if number > 0 %}
+  {% if number == 0 %}
     <section class="page-section h-100 py-5" id="products">
     <h3 class="text-center text-warning pb-2">Nous n'avons aucun produit à te proposer.</h3>
-    {% if quality == 'better' %}
-    <section class="page-section py-5" id="products">
-      <h3 class="text-center pb-2">Tu peux remplacer cet aliment par un de ces <strong>{{number}} produit(s):</strong></h3>
-    {% elif quality == 'equal' %}
-    <section class="page-section py-5" id="products">
-      <h3 class="text-center text-warning pb-2">Nous pouvons seulement te proposer <strong>{{number}} produits équivalents:</strong></h3>
+  {% elif quality == 'better' %}
+  <section class="page-section py-5" id="products">
+    <h3 class="text-center pb-2">Tu peux remplacer cet aliment par un de ces <strong>{{number}} produit(s):</strong></h3>
+  {% elif quality == 'equal' %}
+  <section class="page-section py-5" id="products">
+    <h3 class="text-center text-warning pb-2">Nous pouvons seulement te proposer <strong>{{number}} produits équivalents:</strong></h3>
+    
+    
     {% endif %}
-  {% endif %}
-  {% if number < 12 and base_product == "Pur Beurre" %}
+    {% if number < 12 and base_product == "Pur Beurre" %}
     <a href="{% url 'substitutes' %}?off-code={{ code }}" id="off">> Voir plus de propositions sur Open food Facts <</a>
     {% endif %}
 {% endif %}
