@@ -110,23 +110,6 @@
   <!-- Custom scripts for this template -->
   <script src="{% static 'product/js/creative.min.js' %}"></script>
   
-  <!-- Searching gif -->
-  {% if number < 12 and base_product == "Pur Beurre" %}
-  <script type="text/javascript">
-    const off = $("#off")[0];
-    off.onclick = function(){
-      let elt = $("#off")[0];
-      elt.innerHTML = ""
-      
-      var newA = elt.appendChild(document.createElement("a"));
-      newA.id ="searching";
-    
-      var newImg = newA.appendChild(document.createElement("img"));
-      newImg.src = "/static/product/img/gif/loader.gif";
-    };
-  </script>
-  {% endif %}
-
 </body>
 
 </html>

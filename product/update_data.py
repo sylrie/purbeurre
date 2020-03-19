@@ -54,7 +54,7 @@ class UpdateData():
                     "tagtype_1": "nutrition_grades",
                     "tag_contains_1": "contains",
                     "tag_1": "{}".format(grade),
-                    "page_size": 900,
+                    "page_size": 1000,
                     "json": "1",
                 }
                 try:
