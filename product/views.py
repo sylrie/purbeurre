@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 import re
 from product.manager_api import ProductData as search
 from product.update_data import UpdateData
+from users import views
 from .models import FavoriteProduct, Products
 
 
@@ -15,12 +16,6 @@ def legals(request):
 
      
 class Product():
-
-    """def __init__(self):
-
-        self.product = {}
-        self.product_list = []
-        self.substitutes_list = []"""
 
     def results(self, request):
         title = "Pur Beurre - Recherche"
@@ -107,12 +102,13 @@ class Product():
 
         if request.GET.get('code'):
             self.base_substitute = "Pur Beurre"
-            try:    
+            try:
+                self.base_substitute = "Pur Beurre"
                 self.query = request.GET.get('code')
                 self.substitutes_list = Products.objects.filter(category=category)
                 
                 for grade in nutrigrades:
-                    self.substitutes_list = self.substitutes_list.filter(nutrigrade=grade).order_by("-nutrigrade")[:12]
+                    self.substitutes_list = self.substitutes_list.filter(nutrigrade=grade).order_by("-nutrigrade")
 
                     if len(self.substitutes_list) > 0:
                         if grade == nutrigrade:
@@ -130,6 +126,7 @@ class Product():
         elif request.GET.get('off-code'):
             self.base_substitute = "Open Food Facts"
             try:
+                self.base_substitute = "Open Food Facts"
                 self.query = request.GET.get('off-code')
                 substitutes = search().search_substitutes(category, nutrigrade)
                 self.substitutes_list = substitutes[0]
@@ -141,7 +138,6 @@ class Product():
                         index += 1
 
                 self.quality = substitutes[1]
-                
             except:
                 error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
         
