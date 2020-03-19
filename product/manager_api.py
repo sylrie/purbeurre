@@ -144,7 +144,7 @@ class ProductData():
 
             self.substitutes_list.extend(data)
 
-            if len(self.substitutes_list) > 40:
+            if len(self.substitutes_list) > 0:
                 break
 
         return (self.substitutes_list, self.quality)

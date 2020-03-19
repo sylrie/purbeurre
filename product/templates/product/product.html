@@ -51,7 +51,7 @@
     <h3 class="text-center pb-2">Tu peux remplacer cet aliment par un de ces <strong>{{number}} produit(s):</strong></h3>
   {% elif quality == 'equal' %}
   <section class="page-section py-5" id="products">
-    <h3 class="text-center text-warning pb-2">Nous pouvons seulement te proposer <strong>{{number}} produits équivalents:</strong></h3>
+    <h3 class="text-center text-warning pb-2">Nous pouvons seulement te proposer <strong>{{number}} produit(s) équivalent(s):</strong></h3>
     
     
     {% endif %}
@@ -72,7 +72,7 @@
     <section class="page-section pt-4" id="products">
 
       <div class="text-center">
-        <h2 class="text-center mx-1">Sélectionne un produit dans la liste</h2>
+        <h2 class="text-center mx-1">Sélectionne un produit dans la liste (<strong>{{number}}</strong>)</h2>
   {% else %}
     <section class="page-section h-100 pt-4" id="products">
       <div class="text-center">  
@@ -103,7 +103,7 @@
 
     <div class="container-fluid col-lg-11 " >
       <div class="row justify-content-center" id="list">
-        {% if products %}{% include 'product/paging.html' %}{% endif %}
+
           {% for food in products %}
             {% if food.code != product.code %}
               <div class="col-lg-4 col-md-8 mt-2 mb-2 d-flex justify-content-center ">
@@ -134,7 +134,7 @@
               </div>
             {% endif %}
           {% endfor %}
-        {% if products %}{% include 'product/paging.html' %}{% endif %}
+
       </div>
     </div>  
   </section>

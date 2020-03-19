@@ -14,7 +14,6 @@ def index(request):
 
 def legals(request):
     return render(request, 'product/legals.html')
-
      
 class Product():
 
@@ -31,22 +30,30 @@ class Product():
         if request.POST.get('product-name'):
             self.base_product = "Pur Beurre"
             query = request.POST.get("product-name")
+            
             # Remove space end and start
             user_request = re.sub(r"( )+$", "", query)
             self.user_request = re.sub(r"^( )+", "", user_request)
 
-            self.product_list = Products.objects.filter(name__icontains=self.user_request).order_by("-name")
+            self.product_list = Products.objects.filter(name__icontains=self.user_request).order_by("-name")[:15]
 
             self.qty = len(self.product_list)
             
         elif request.GET.get('off-name'):
+            self.product_list = []
             self.base_product = "Open Food Facts"
             self.user_request = request.GET.get("off-name")
             try:
-                self.product_list = search().search_product(self.user_request)
+                product_list = search().search_product(self.user_request)
+                count = 0
+                for food in product_list:
+                    self.product_list.append(food)
+                    count += 1
+                    if count == 15:
+                        break
             except:
                 error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
-
+        self.qty = len(self.product_list)
         paginator = Paginator(self.product_list, 9)
         try:
             products = paginator.page(page)
@@ -109,7 +116,7 @@ class Product():
                 self.substitutes_list = Products.objects.filter(category=category)
                 
                 for grade in nutrigrades:
-                    self.substitutes_list = self.substitutes_list.filter(nutrigrade=grade).order_by("-nutrigrade")
+                    self.substitutes_list = self.substitutes_list.filter(nutrigrade=grade).order_by("-nutrigrade")[:15]
 
                     if len(self.substitutes_list) > 0:
                         if grade == nutrigrade:
@@ -126,19 +133,22 @@ class Product():
                 self.substitutes_list = []
 
         elif request.GET.get('off-code'):
+            self.product_list = []
             self.base_substitute = "Open Food Facts"
             try:
                 self.base_substitute = "Open Food Facts"
                 self.query = request.GET.get('off-code')
                 substitutes = search().search_substitutes(category, nutrigrade)
-                self.substitutes_list = substitutes[0]
-                index = 0
-                for product in self.substitutes_list:
+                substitutes_list = substitutes[0]
+                count = 0
+                for product in substitutes_list:
                     if product["code"] == self.query:
-                        del self.substitutes_list[index]
-                    else:
-                        index += 1
-
+                        pass
+                    self.product_list.append(food)
+                    count += 1
+                    if count == 15:
+                        break
+                    
                 self.quality = substitutes[1]
             except:
                 self.quality = None
@@ -275,7 +285,11 @@ class Product():
             page = int(request.GET.get('page', '1'))
         except ValueError:
             page = 1
-
+        
+        """if request.GET.get('top'):
+            favorite = Products.objects.exclude(favorite=0)"""
+            
+  
         if message == "Tu avais déjà ce produit en favoris":
             favorite = FavoriteProduct.objects.filter(user=request.user)
             favorite = favorite.filter(saved_product=code)

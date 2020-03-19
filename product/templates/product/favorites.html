@@ -15,11 +15,11 @@
   </div>
 </section>
 {% endif %}
-
 {% if products %}
 <section class="page-section pt-4" id="products">
 	<div class="container-fluid col-lg-11 " >
 		<div class="row d-flex justify-content-center">
+      
 		{% include 'product/paging.html' %}
 				
 		{% for food in products %}
