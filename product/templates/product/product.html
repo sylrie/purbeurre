@@ -19,12 +19,13 @@
             
             <div class="row w-100"></div>
             
+            {% if product.nutrigrade %}
             <a href="https://fr.openfoodfacts.org/nutriscore" target ="_blank">
               <img class="img-fluid"
               src="https://static.openfoodfacts.org/images/misc/nutriscore-{{ product.nutrigrade }}.svg"
               alt="nutrigrade {{ product.nutrigrade }}">
             </a>
-            
+            {% endif %}
             {% if product.details %}
             <div class="row w-100 justify-content-center pt-4">
               <span>{{ product.details }}</span>

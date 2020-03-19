@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 
 import re
 from product.manager_api import ProductData as search
@@ -121,7 +122,8 @@ class Product():
                     if grade == nutrigrade:
                         break
             except:
-                pass
+                self.quality = None
+                self.substitutes_list = []
 
         elif request.GET.get('off-code'):
             self.base_substitute = "Open Food Facts"
@@ -139,6 +141,8 @@ class Product():
 
                 self.quality = substitutes[1]
             except:
+                self.quality = None
+                self.substitutes_list = []
                 error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
         
         paginator = Paginator(self.substitutes_list, 9)
@@ -263,7 +267,7 @@ class Product():
             return self.favorites(request)
 
         return self.favorites(request, message=message, code=code)
-
+    
     def favorites(self, request, message=None, code=None):
         title = "Pur Beurre - Favoris"
 
