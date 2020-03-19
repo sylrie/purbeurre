@@ -39,23 +39,23 @@ class Product():
 
             self.qty = len(self.product_list)
             
-        """elif request.GET.get('off-name'):
+        elif request.GET.get('off-name'):
             self.base_product = "Open Food Facts"
             self.user_request = request.GET.get("off-name")
             try:
                 self.product_list = search().search_product(self.user_request)
             except:
                 error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
-        """
+
         paginator = Paginator(self.product_list, 9)
         try:
-            self.products = paginator.page(page)
+            products = paginator.page(page)
         except:
-            self.products = paginator.page(paginator.num_pages)
+            products = paginator.page(paginator.num_pages)
 
         context = {
             'request': self.user_request,
-            'products': self.products,
+            'products': products,
             'number': self.qty,
             'title': title,
             'error': error,
@@ -147,16 +147,16 @@ class Product():
         
         paginator = Paginator(self.substitutes_list, 9)
         try:
-            self.products = paginator.page(page)
+            products = paginator.page(page)
         except:
-            self.products = paginator.page(paginator.num_pages)
+            products = paginator.page(paginator.num_pages)
         
         self.number = len(self.substitutes_list)
 
         context = {
             'code': self.query,
             'product': self.product,
-            'products': self.products,
+            'products': products,
             'title': title,
             'quality': self.quality,
             'number': self.number,
