@@ -133,7 +133,7 @@ class Product():
                 self.substitutes_list = []
 
         elif request.GET.get('off-code'):
-            self.product_list = []
+            self.substitutes_list = []
             self.base_substitute = "Open Food Facts"
             try:
                 self.base_substitute = "Open Food Facts"
@@ -144,7 +144,7 @@ class Product():
                 for product in substitutes_list:
                     if product["code"] == self.query:
                         pass
-                    self.product_list.append(food)
+                    self.substitutes_list.append(product)
                     count += 1
                     if count == 15:
                         break
