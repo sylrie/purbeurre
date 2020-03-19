@@ -39,14 +39,14 @@ class Product():
 
             self.qty = len(self.product_list)
             
-        elif request.GET.get('off-name'):
+        """elif request.GET.get('off-name'):
             self.base_product = "Open Food Facts"
             self.user_request = request.GET.get("off-name")
             try:
                 self.product_list = search().search_product(self.user_request)
             except:
                 error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
-
+        """
         paginator = Paginator(self.product_list, 9)
         try:
             self.products = paginator.page(page)

@@ -13,8 +13,3 @@ off.onclick = function(){
     var newImg = newA.appendChild(document.createElement("img"));
 newImg.src = "/static/product/img/gif/loader.gif";
 };
-
-//reload
-page.onclick = function(){
-    location.reload();
-};
