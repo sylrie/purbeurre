@@ -7,7 +7,7 @@
 
 
 from .manager_api import request_api
-from .models import Products
+from .models import BaseProduct
 
 class UpdateData():
 
@@ -76,7 +76,7 @@ class UpdateData():
         added = 0
         for product in products_list:     
             try:
-                new = Products(
+                new = BaseProduct(
                     code = product["code"],
                     category = product["compared_to_category"],
                     name = product["product_name"],

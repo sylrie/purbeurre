@@ -8,7 +8,7 @@
 from django.core.management.base import BaseCommand, CommandError
 #from product.manager_api import request_api
 from product.update_data import UpdateData
-from product.models import Products, UpdateReport
+from product.models import BaseProduct, UpdateReport
 import time
 
 class Command(BaseCommand):
@@ -23,8 +23,8 @@ class Command(BaseCommand):
         start_time = time.time()
         print("Cleanning Database")
  
-        to_delete = Products.objects.filter(favorite=0)
-        to_keep = Products.objects.all()
+        to_delete = BaseProduct.objects.filter(favorite=0)
+        to_keep = BaseProduct.objects.all()
         to_keep = len(to_keep) - len(to_delete)
         
         print("{} products keeped, {} products deleted".format(to_keep,len(to_delete)))
@@ -34,7 +34,7 @@ class Command(BaseCommand):
         products = UpdateData()
         rejected_products = products.rejected
         added_products = products.added_products
-        total_products = Products.objects.all()
+        total_products = BaseProduct.objects.all()
         duration = time.time() - start_time
         print("{} products added in {} seconds".format(
             added_products,

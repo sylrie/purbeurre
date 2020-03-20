@@ -27,9 +27,9 @@
 					
 			<div class="col-xl-4 col-lg-6 col-md-8 mt-2 mb-2 d-flex justify-content-center ">
         {% if code == food.code and message == 'Le produit à été ajouté aux favoris !' %}
-				<div class="new-product-card col-11 text-center">
+				<div class="new-fav-card col-11 text-center">
         {% else %}
-        <div class="product-card col-11 text-center">
+        <div class="fav-card col-11 text-center">
         {% endif %}
           
 					<img class="logo-star img-fluid" src="{% static 'product/img/sticker/star.png' %}"

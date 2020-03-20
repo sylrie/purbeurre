@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 # from django.db import models
 
-class Products(models.Model):
+class BaseProduct(models.Model):
 
     code = models.CharField(max_length=30, primary_key=True, unique=True)
     category = models.CharField(max_length=100)
@@ -47,7 +47,7 @@ class UpdateReport(models.Model):
 class FavoriteProduct(models.Model):
     """ Favorites table """
 
-    saved_product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    saved_product = models.ForeignKey(BaseProduct, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(verbose_name="Date sauvegarde", default=timezone.now)
 

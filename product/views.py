@@ -6,7 +6,7 @@ import re
 from product.manager_api import ProductData as search
 from product.update_data import UpdateData
 from users import views
-from .models import FavoriteProduct, Products
+from .models import FavoriteProduct, BaseProduct
 
 
 def index(request):
@@ -35,7 +35,7 @@ class Product():
             user_request = re.sub(r"( )+$", "", query)
             self.user_request = re.sub(r"^( )+", "", user_request)
 
-            self.product_list = Products.objects.filter(name__icontains=self.user_request).order_by("-name")[:18]
+            self.product_list = BaseProduct.objects.filter(name__icontains=self.user_request).order_by("-name")[:18]
 
             self.qty = len(self.product_list)
             
@@ -93,7 +93,7 @@ class Product():
             self.query = request.GET.get('off-code')
 
         try:
-            self.product = Products.objects.get(pk=query)
+            self.product = BaseProduct.objects.get(pk=query)
             category = self.product.category
             nutrigrade = self.product.nutrigrade
 
@@ -113,7 +113,7 @@ class Product():
             try:
                 self.base_substitute = "Pur Beurre"
                 self.query = request.GET.get('code')
-                self.substitutes_list = Products.objects.filter(category=category)
+                self.substitutes_list = BaseProduct.objects.filter(category=category)
                 
                 for grade in nutrigrades:
                     self.substitutes_list = self.substitutes_list.filter(nutrigrade=grade).order_by("-nutrigrade")[:18]
@@ -187,7 +187,7 @@ class Product():
             favorite = True
 
         try:
-            self.product = Products.objects.get(pk=query)
+            self.product = BaseProduct.objects.get(pk=query)
             base = "Pur Beurre"
         except:
             self.product = search().select_product(query)
@@ -215,7 +215,7 @@ class Product():
             favorite = FavoriteProduct.objects.filter(user=request.user)
             favorite = favorite.filter(saved_product=code).delete()
             
-            del_product = get_object_or_404(Products, pk=code)
+            del_product = get_object_or_404(BaseProduct, pk=code)
             del_product.favorite -= 1
             del_product.save()
             
@@ -223,12 +223,12 @@ class Product():
 
         elif request.GET.get('add'):          
             code = request.GET.get('add')
-            product = Products.objects.filter(code=code)
+            product = BaseProduct.objects.filter(code=code)
     
             if not product.exists():
                 product = search().select_product(code)
                 try:
-                    new = Products(
+                    new = BaseProduct(
                         code = product["code"],
                         category = product["category"],
                         name = product["name"],
@@ -253,7 +253,7 @@ class Product():
                     message = "Oups... Le produit n'a pas été ajouté aux favoris !"
                     return self.favorites(request, message=message, code=code)
 
-            new_product = get_object_or_404(Products, pk=code)
+            new_product = get_object_or_404(BaseProduct, pk=code)
             favorite = FavoriteProduct.objects.filter(user=request.user)
             favorite = favorite.filter(saved_product=code)
 
