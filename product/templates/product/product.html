@@ -113,19 +113,19 @@
                   {% if product %}
                   <img class="logo-nutriscore img-fluid" src="{% static 'product/img/sticker/' %}{{ food.nutrigrade }}.png"
                     alt="nutrigrade {{ food.nutrigrade }}">
-                  
                   <a href="{% url 'food' %}?code={{ food.code }}">
                   {% else %}
                   <a href="{% url 'substitutes' %}?code={{ food.code }}">
                   {% endif %}
                     <img class="product-img img-fluid" src="{{ food.img }}"alt="">
-                    <div class="row name justify-content-center align-items-center">
-                      <h4 class="food-name py-0 ">{{ food.name }}</h4>
-                    </div>
+                    <div class="row name mt-2 justify-content-center align-items-center rounded">
+                      <h4 class="food-name py-0 ">{{ food.name }}</h4>  
                   </a>
+                    {% if food.details %}
                     <div class="row w-100"></div>
                     <span class=>{{ food.details}}</span>
-                    
+                    {% endif %}
+                  </div>
                   {% if product %} 
                   <hr class="divider">
                   <a href="{% url 'change_favorite' %}?add={{ food.code }}">
