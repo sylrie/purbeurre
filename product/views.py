@@ -1,3 +1,5 @@
+""" Manage views for product app """
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
@@ -10,23 +12,24 @@ from .models import FavoriteProduct, BaseProduct
 
 
 def index(request):
+    """ Home page """
     return render(request, 'product/home.html')
 
 def legals(request):
+    """ Legals page """
     return render(request, 'product/legals.html')
      
 class Product():
-
+    """ Manage products views """
+    
     def results(self, request):
+        """ Display search results from database or Off """
+
         title = "Pur Beurre - Recherche"
         error = None
         self.qty = None
         
-        try:
-            page = int(request.GET.get('page', '1'))
-        except ValueError:
-            page = 1
-        
+        # search in database
         if request.POST.get('product-name'):
             self.base_product = "Pur Beurre"
             query = request.POST.get("product-name")
@@ -38,7 +41,8 @@ class Product():
             self.product_list = BaseProduct.objects.filter(name__icontains=self.user_request).order_by("-name")[:18]
 
             self.qty = len(self.product_list)
-            
+
+        # search in off API    
         elif request.GET.get('off-name'):
             self.product_list = []
             self.base_product = "Open Food Facts"
@@ -53,16 +57,12 @@ class Product():
                         break
             except:
                 error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
+        
         self.qty = len(self.product_list)
-        paginator = Paginator(self.product_list, 9)
-        try:
-            products = paginator.page(page)
-        except:
-            products = paginator.page(paginator.num_pages)
-
+ 
         context = {
             'request': self.user_request,
-            'products': products,
+            'products': self.product_list,
             'number': self.qty,
             'title': title,
             'error': error,
@@ -72,6 +72,8 @@ class Product():
         return render(request, 'product/product.html', context)
 
     def substitutes(self, request):
+        """ Display substitutes from database or Off """
+
         title = "Pur Beurre - Substituts"
         error = None
         nutrigrades = [
@@ -82,32 +84,29 @@ class Product():
             'e'
         ]
 
-        try:
-            page = int(request.GET.get('page', '1'))
-        except ValueError:
-            page = 1
-
+        # Get product code
         if request.GET.get('code'):
             self.query = request.GET.get('code')
         elif request.GET.get('off-code'):   
             self.query = request.GET.get('off-code')
 
+        # search product in database
         try:
             self.product = BaseProduct.objects.get(pk=query)
             category = self.product.category
             nutrigrade = self.product.nutrigrade
-
         except:
             pass
-        
+
+        # search product in off API
         try:
             self.product = search().select_product(self.query)
             category = self.product["category"]
             nutrigrade = self.product["nutrigrade"]
-
         except:
             pass
 
+        # search substitutes in database
         if request.GET.get('code'):
             self.base_substitute = "Pur Beurre"
             try:
@@ -132,6 +131,7 @@ class Product():
                 self.quality = None
                 self.substitutes_list = []
 
+        # search substitutes in off API
         elif request.GET.get('off-code'):
             self.substitutes_list = []
             self.base_substitute = "Open Food Facts"
@@ -155,18 +155,12 @@ class Product():
                 self.substitutes_list = []
                 error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
         
-        paginator = Paginator(self.substitutes_list, 9)
-        try:
-            products = paginator.page(page)
-        except:
-            products = paginator.page(paginator.num_pages)
-        
         self.number = len(self.substitutes_list)
 
         context = {
             'code': self.query,
             'product': self.product,
-            'products': products,
+            'products': self.substitutes_list,
             'title': title,
             'quality': self.quality,
             'number': self.number,
@@ -177,8 +171,11 @@ class Product():
         return render(request, 'product/product.html', context)
 
     def food(self, request):
+        """ Display details off the selected product from database or Off """
+
         title = "Pur Beurre - Fiche produit"
         
+        # Get product code
         if request.GET.get('code'):
             query = request.GET.get('code')
             favorite = False
@@ -186,6 +183,7 @@ class Product():
             query = request.GET.get('favorite')
             favorite = True
 
+        # search product in database or off API
         try:
             self.product = BaseProduct.objects.get(pk=query)
             base = "Pur Beurre"
@@ -202,13 +200,17 @@ class Product():
             'favorite': favorite,
             'base_product': base,
             }
+
         return render(request, 'product/food.html', context)
 
     def change_favorite(self, request):
-       
+        """ Manage favorites """
+
+        # Check if user is logged
         if not request.user.is_authenticated:
             return redirect('login')
 
+        # delete favorite
         if request.GET.get('del'):      
             code = request.GET.get('del')
             
@@ -221,10 +223,12 @@ class Product():
             
             message = "Le produit à été retiré des favoris"
 
+        # add favorite
         elif request.GET.get('add'):          
             code = request.GET.get('add')
             product = BaseProduct.objects.filter(code=code)
     
+            # Check if product is in databse
             if not product.exists():
                 product = search().select_product(code)
                 try:
@@ -257,6 +261,7 @@ class Product():
             favorite = FavoriteProduct.objects.filter(user=request.user)
             favorite = favorite.filter(saved_product=code)
 
+            # Check if product is already a favorite
             if not favorite.exists():
                 try:
                     new_product.favorite += 1
@@ -279,19 +284,24 @@ class Product():
         return self.favorites(request, message=message, code=code)
     
     def favorites(self, request, message=None, code=None):
+        """ Display favorites """
+
         title = "Pur Beurre - Favoris"
 
+        # page for paginator
         try:
             page = int(request.GET.get('page', '1'))
         except ValueError:
             page = 1
-        
+
+        # find Top 6 users favorites
         if request.GET.get('top'):
             message = "Top 6 des utilisateurs"
             favorite = BaseProduct.objects.all()
             favorite = favorite.exclude(favorite=0).order_by('-favorite')[:6]
             title = 'Pur Beurre - Top 6'
         
+        # find favorites
         else:        
             if message == "Tu avais déjà ce produit en favoris":
                 favorite = FavoriteProduct.objects.filter(user=request.user)
