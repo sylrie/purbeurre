@@ -287,7 +287,7 @@ class Product():
             page = 1
         
         if request.GET.get('top'):
-            message = "Top des utilisateurs"
+            message = "Top 6 des utilisateurs"
             favorite = BaseProduct.objects.all()
             favorite = favorite.exclude(favorite=0).order_by('-favorite')[:6]
             title = 'Pur Beurre - Top 6'
