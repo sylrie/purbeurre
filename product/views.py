@@ -35,7 +35,7 @@ class Product():
             user_request = re.sub(r"( )+$", "", query)
             self.user_request = re.sub(r"^( )+", "", user_request)
 
-            self.product_list = Products.objects.filter(name__icontains=self.user_request).order_by("-name")[:15]
+            self.product_list = Products.objects.filter(name__icontains=self.user_request).order_by("-name")[:18]
 
             self.qty = len(self.product_list)
             
@@ -49,7 +49,7 @@ class Product():
                 for food in product_list:
                     self.product_list.append(food)
                     count += 1
-                    if count == 15:
+                    if count == 18:
                         break
             except:
                 error ="Oups, nous n'arrivons pas à contacter Open Food Facts"
@@ -116,7 +116,7 @@ class Product():
                 self.substitutes_list = Products.objects.filter(category=category)
                 
                 for grade in nutrigrades:
-                    self.substitutes_list = self.substitutes_list.filter(nutrigrade=grade).order_by("-nutrigrade")[:15]
+                    self.substitutes_list = self.substitutes_list.filter(nutrigrade=grade).order_by("-nutrigrade")[:18]
 
                     if len(self.substitutes_list) > 0:
                         if grade == nutrigrade:
@@ -146,7 +146,7 @@ class Product():
                         pass
                     self.substitutes_list.append(product)
                     count += 1
-                    if count == 15:
+                    if count == 18:
                         break
                     
                 self.quality = substitutes[1]
@@ -297,7 +297,7 @@ class Product():
             favorite = FavoriteProduct.objects.filter(user=request.user).order_by('-date')
         
         number = len(favorite)
-        paginator = Paginator(favorite, 9)
+        paginator = Paginator(favorite, 6)
         products = paginator.get_page(page)
 
         context = {

@@ -17,7 +17,7 @@ class UpdateData():
             "viandes",
             "snacks",
             "Aliments et boissons à base de végétaux",
-            "boissons",
+            "Biscuits et gâteaux",
             "Produits laitiers",
             "Desserts"
             ]
