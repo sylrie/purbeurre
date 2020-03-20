@@ -7,11 +7,15 @@
 <section class="page-section" id="favorites">
   <div class="text-center">
     {% if not message %}
-    <h1 class="pb-2">Tu as <strong>{{number}} </strong>produit(s) favoris</h1>
+    <h1 class="pb-2">Tu as <strong>{{number}}</strong> produit(s) favoris</h1>
     <a href="{% url 'favorites' %}?top=''">Voir les produits préférés des utilisateurs</a>
     {% endif %}
     {% if message %}
     <h2 class="py-0"><strong>{{ message }}</h2></strong>
+      {% if title == "Pur Beurre - Top 6" %}
+      <img class="img-fluid" src="{% static 'product/img/sticker/star.png' %}"
+        alt="logo favoris">
+        {% endif %}
     {% endif %}
   </div>
 </section>
@@ -61,7 +65,7 @@
     <div class="col-xl-4 col-lg-6 col-md-8 mt-2 mb-2 d-flex justify-content-center ">
       <div class="fav-card col-11 text-center">
         
-        <p><strong>{{ food.favorite}}</strong> utilisateur(s)</p>
+        <h5><strong>{{ food.favorite}}</strong> utilisateur(s)</h5>
         <img class="logo-nutriscore img-fluid" src="{% static 'product/img/sticker/' %}{{ food.nutrigrade }}.png"
           alt="nutrigrade {{ food.nutrigrade }}">
         
