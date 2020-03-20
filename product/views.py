@@ -286,15 +286,18 @@ class Product():
         except ValueError:
             page = 1
         
-        """if request.GET.get('top'):
-            favorite = Products.objects.exclude(favorite=0)"""
-            
-  
-        if message == "Tu avais déjà ce produit en favoris":
-            favorite = FavoriteProduct.objects.filter(user=request.user)
-            favorite = favorite.filter(saved_product=code)
-        else:
-            favorite = FavoriteProduct.objects.filter(user=request.user).order_by('-date')
+        if request.GET.get('top'):
+            message = "Top des utilisateurs"
+            favorite = BaseProduct.objects.all()
+            favorite = favorite.exclude(favorite=0).order_by('-favorite')[:6]
+            title = 'Pur Beurre - Top 6'
+        
+        else:        
+            if message == "Tu avais déjà ce produit en favoris":
+                favorite = FavoriteProduct.objects.filter(user=request.user)
+                favorite = favorite.filter(saved_product=code)
+            else:
+                favorite = FavoriteProduct.objects.filter(user=request.user).order_by('-date')
         
         number = len(favorite)
         paginator = Paginator(favorite, 6)

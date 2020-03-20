@@ -86,13 +86,13 @@ strong {
     padding-bottom: 3rem;
     color: var(--biscuit);
 }
-#selected a, #connection a {
+#selected a, #connection a, #favorites a  {
     color: var(--rooibos);
     text-decoration: none;
     font-style: italic;
     background-color: transparent;
 } 
-#selected a:hover, #connection a:hover {
+#selected a:hover, #connection a:hover, #favorites a:hover {
     color:var(--rigolo);
     text-decoration: underline;
 }
@@ -191,8 +191,7 @@ strong {
     margin: 0.5rem 0.5rem 0.5rem 0.5rem;
     border: 4px var(--moules) ridge;
   }
-  }
-.new-product-card {
+.new-fav-card {
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   text-align: center;
   background-color: var(--biscuit);

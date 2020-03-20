@@ -3,33 +3,32 @@
 {% load static %}
 {% block content %}
 
-{% if title == "Pur Beurre - Favoris" %}
+
 <section class="page-section" id="favorites">
   <div class="text-center">
     {% if not message %}
-    <h1 class="pb-0">Tu as <strong>{{number}} </strong>produit(s) favoris</h1>
+    <h1 class="pb-2">Tu as <strong>{{number}} </strong>produit(s) favoris</h1>
+    <a href="{% url 'favorites' %}?top=''">Voir les produits préférés des utilisateurs</a>
     {% endif %}
     {% if message %}
     <h2 class="py-0"><strong>{{ message }}</h2></strong>
     {% endif %}
   </div>
 </section>
-{% endif %}
+
 {% if products %}
 <section class="page-section pt-4" id="products">
 	<div class="container-fluid col-lg-11 " >
 		<div class="row d-flex justify-content-center">
-      
-		{% include 'product/paging.html' %}
-				
-		{% for food in products %}
-			{% with food.saved_product as food %}
-					
+    {% if number > 6 %}{% include 'product/paging.html' %}{% endif %}
+		{% if title == "Pur Beurre - Favoris" %}		
+    {% for food in products %}
+			{% with food.saved_product as food %}	
 			<div class="col-xl-4 col-lg-6 col-md-8 mt-2 mb-2 d-flex justify-content-center ">
         {% if code == food.code and message == 'Le produit à été ajouté aux favoris !' %}
-				<div class="new-fav-card col-11 text-center">
+				  <div class="new-fav-card col-11 text-center">
         {% else %}
-        <div class="fav-card col-11 text-center">
+          <div class="fav-card col-11 text-center">
         {% endif %}
           
 					<img class="logo-star img-fluid" src="{% static 'product/img/sticker/star.png' %}"
@@ -54,11 +53,38 @@
 
 				</div>
 			</div>
-		
-		{% endwith %}
-		{% endfor %}
-		{% include 'product/paging.html' %}
-		</div>
+      {% endwith %}
+    {% endfor %}
+    {% else %}
+    {% for food in products %}
+
+    <div class="col-xl-4 col-lg-6 col-md-8 mt-2 mb-2 d-flex justify-content-center ">
+      <div class="fav-card col-11 text-center">
+        
+        <p class="text-danger">{{ food.favorite}} utilisateur(s)</p>
+        <img class="logo-nutriscore img-fluid" src="{% static 'product/img/sticker/' %}{{ food.nutrigrade }}.png"
+          alt="nutrigrade {{ food.nutrigrade }}">
+        
+        <a href="{% url 'food' %}?code={{ food.code }}">
+          <img class="product-img img-fluid" src="{{ food.img }}"alt="">
+          <div class="row name justify-content-center align-items-center ">
+            <h4 class="food-name py-0 ">{{ food.name }}</h4></a>
+            <div class="row w-100"></div>
+            <span class=>{{ food.details}}</span>
+          </div>
+        
+        <hr class="divider">
+        
+        <a href="{% url 'change_favorite' %}?add={{ food.code }}">
+          <i class="far fa-trash-alt del-fav"> Ajoute le aux favoris</i>
+        </a>
+
+    </div>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% if number > 6 %}{% include 'product/paging.html' %}{% endif %}
+	</div>
 		
 	</div>
 {% else %}
