@@ -132,6 +132,9 @@ strong {
     background-color: var(--biscuit);
     text-overflow: ellipsis;
     overflow: auto;
+    box-shadow: -2px -2px 0.5rem rgba(0,0,0, 0.3),
+    2px 2px 0.5rem rgba(0,0,0, 0.3);
+    
 }
 #connection, #legals, #profile {
     background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.4) 100%), url("../img/bg-masthead.png");
@@ -231,12 +234,11 @@ strong {
 .legals, .logout {
   background-color: rgba(214, 214, 216, 0.4);
   color: var(--moules);
-  text-shadow: 1px 1px 1px rgba(0,0,0, 1);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
 }
 footer {
     background-color: var(--caramel);
     color: var(--moules);
-    box-shadow: 0rem 1rem 2rem rgba(0, 0, 0, 0.4);
 }
 .d-block {
     color: var(--caramel);

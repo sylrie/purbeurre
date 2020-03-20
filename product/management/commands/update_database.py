@@ -36,11 +36,11 @@ class Command(BaseCommand):
         added_products = products.added_products
         total_products = BaseProduct.objects.all()
         duration = time.time() - start_time
-        print("{} products added in {} seconds".format(
+        print("--{} products added in {} seconds--".format(
             added_products,
             round(duration, 3)
         ))
-        print("--- Total products {} ---".format(len(total_products)))
+        print("--- TOTAL PRODUCTS IN DATABASE: {} ---".format(len(total_products)))
 
         update = UpdateReport.objects.create(
             keeped=to_keep,

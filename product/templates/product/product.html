@@ -102,12 +102,12 @@
     {% endif %}
 
     <div class="container-fluid col-lg-11 " >
-      <div class="row justify-content-center" id="list">
+      <div class="row justify-content-center rounded" id="list">
 
           {% for food in products %}
             {% if food.code != product.code %}
               <div class="col-xl-4 col-lg-6 col-md-8 mt-2 mb-2 d-flex justify-content-center ">
-                <div class="product-card col-11 text-center">
+                <div class="product-card col-11 text-center rounded">
                   
                   {% if product %}
                   <img class="logo-nutriscore img-fluid" src="{% static 'product/img/sticker/' %}{{ food.nutrigrade }}.png"
