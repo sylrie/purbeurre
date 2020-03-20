@@ -128,6 +128,7 @@ strong {
     height:250px; 	
 }
 #list {
+    height: 550px;
     text-overflow: ellipsis;
     overflow: auto;
 }
