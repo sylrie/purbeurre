@@ -33,5 +33,3 @@ class TestUrls(TestCase):
     def test_food_url_is_resolved(self):
         url = reverse("food")
         self.assertEqual(resolve(url).func, Product().food)"""
-
-

@@ -28,6 +28,6 @@ class TestViews(TestCase):
     def test_substitutes(self):
         response = self.client.get(reverse('substitutes'), {'code': '3021762383306'})
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Confiture de Fraises au Maltitol')
+        self.assertContains(response, 'Confiture')
     
         

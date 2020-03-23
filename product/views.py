@@ -113,6 +113,7 @@ class Product():
                 self.base_substitute = "Pur Beurre"
                 self.query = request.GET.get('code')
                 self.substitutes_list = BaseProduct.objects.filter(category=category)
+                self.substitutes_list = self.substitutes_list.exclude(code=self.query)
                 
                 for grade in nutrigrades:
                     self.substitutes_list = self.substitutes_list.filter(nutrigrade=grade).order_by("-nutrigrade")[:18]
@@ -144,8 +145,9 @@ class Product():
                 for product in substitutes_list:
                     if product["code"] == self.query:
                         pass
-                    self.substitutes_list.append(product)
-                    count += 1
+                    else:
+                        self.substitutes_list.append(product)
+                        count += 1
                     if count == 18:
                         break
                     
