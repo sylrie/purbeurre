@@ -16,7 +16,7 @@ The goal of *Pur Beurre* is to create a platform with the Open Food Facts databa
 
 * API:
 <p align="center">
-    <img width=65% src="https://github.com/sylrie/P8_Pur_beurre_platform/blob/master/docs/api.png">
+    <img width=45% src="https://github.com/sylrie/P8_Pur_beurre_platform/blob/master/docs/api.png">
 
 ## GET STARTED
 * The web app is here [Pur Beurre](https://srpurbeurre.herokuapp.com/)
