@@ -1,5 +1,5 @@
-> Web application: Python - Django
-![Python](https://img.shields.io/badge/Python-3.8.2dj-blue.svg)
+> Web application: Python - Django <br>
+![Python](https://img.shields.io/badge/Python-3.8.2-blue.svg)
 ![Django](https://img.shields.io/badge/Django-3.0.3-blue.svg)
 ![Status](https://img.shields.io/badge/Status-Refactoring-orange.svg)
 ![Version](https://img.shields.io/badge/Version-1-blue.svg)
@@ -14,7 +14,7 @@
 </p>
 
 ## DEVICES
-* Responsive design
+* Responsive design <br>
 ![Extrasmall](https://img.shields.io/badge/Extrasmall-<576px-red.svg)
 ![Small](https://img.shields.io/badge/Small->576px-red.svg)
 ![Medium](https://img.shields.io/badge/Medium->768px-red.svg)
