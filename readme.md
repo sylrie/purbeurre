@@ -21,10 +21,10 @@
 ![Large](https://img.shields.io/badge/Large->992px-red.svg)
 ![ExtraLarge](https://img.shields.io/badge/ExtraLarge->1200px-green.svg)
 <p align="center">
-    <img width=35% src="https://github.com/sylrie/P8_Pur_beurre_platform/blob/master/docs/responsive-design.png">
+    <img width=30% src="https://github.com/sylrie/P8_Pur_beurre_platform/blob/master/docs/responsive-design.png">
 </p>
 
-## PUR BEURRE PLATFORM, SUBSTITUTES PRODUCTS
+## TOOLS
 
 > Tools:
 <p align="center">
@@ -33,10 +33,11 @@
 
 > API:
 <p align="center">
-  <img width=35% src="https://github.com/sylrie/P8_Pur_beurre_platform/blob/master/docs/api.png">
+  <img width=25% src="https://github.com/sylrie/P8_Pur_beurre_platform/blob/master/docs/api.png">
 </p>
 
 ## GET STARTED
+![Server]https://img.shields.io/badge/Server-Heroku-pink.svg
 * The web app is here [Pur Beurre](https://srpurbeurre.herokuapp.com/)
 
 ## FEATURES
