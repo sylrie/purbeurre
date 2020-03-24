@@ -37,13 +37,13 @@
 </p>
 
 ## GET STARTED
-![Server](https://img.shields.io/badge/Server-Heroku-pink.svg)
-* The web app is here [Pur Beurre](https://srpurbeurre.herokuapp.com/)
+![Server](https://img.shields.io/badge/Server-HEROKU-pink.svg)
+* The web app is here: [Pur Beurre](https://srpurbeurre.herokuapp.com/)
 
 ## FEATURES
-* Search your product: the platform will looking in the Pur Beurre data Base and on the API.
-* See substitute products: picture, nutrigrade and more details with the food card.
-* Save your favorites products and see the most savd products.
+* Search your product: the platform will looking in the *Pur Beurre data Base* and on the *API*.
+* See substitute products: picture, nutrigrade and more details with the *food card*.
+* Save your favorites products and see the *most saved products*.
 
 ## COMMANDS
 * Update database
