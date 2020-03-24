@@ -1,4 +1,4 @@
-> Web application: Python - Django <br>
+> Web application: Pur Beurre Platform - Substitute products <br>
 ![Python](https://img.shields.io/badge/Python-3.8.2-blue.svg)
 ![Django](https://img.shields.io/badge/Django-3.0.3-blue.svg)
 ![Status](https://img.shields.io/badge/Status-Refactoring-orange.svg)
@@ -14,7 +14,7 @@
 </p>
 
 ## DEVICES
-* Responsive design <br>
+> Responsive design <br>
 ![Extrasmall](https://img.shields.io/badge/Extrasmall-<576px-red.svg)
 ![Small](https://img.shields.io/badge/Small->576px-red.svg)
 ![Medium](https://img.shields.io/badge/Medium->768px-red.svg)
@@ -26,12 +26,12 @@
 
 ## PUR BEURRE PLATFORM, SUBSTITUTES PRODUCTS
 
-* Tools:
+> Tools:
 <p align="center">
   <img width=45% src="https://github.com/sylrie/P8_Pur_beurre_platform/blob/master/docs/tools.png">
 
 
-* API:
+> API:
 <p align="center">
   <img width=35% src="https://github.com/sylrie/P8_Pur_beurre_platform/blob/master/docs/api.png">
 </p>
