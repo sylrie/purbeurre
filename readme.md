@@ -37,7 +37,7 @@
 </p>
 
 ## GET STARTED
-![Server]https://img.shields.io/badge/Server-Heroku-pink.svg
+![Server](https://img.shields.io/badge/Server-Heroku-pink.svg)
 * The web app is here [Pur Beurre](https://srpurbeurre.herokuapp.com/)
 
 ## FEATURES
