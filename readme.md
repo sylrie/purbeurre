@@ -1,8 +1,9 @@
 > Web application: Pur Beurre Platform - Substitute products <br>
 ![Python](https://img.shields.io/badge/Python-3.8.2-blue.svg)
 ![Django](https://img.shields.io/badge/Django-3.0.3-blue.svg)
-![Status](https://img.shields.io/badge/Status-Refactoring-orange.svg)
 ![Version](https://img.shields.io/badge/Version-1-blue.svg)
+![Status](https://img.shields.io/badge/Status-In Production-green.svg)
+
 
 <p align="center">
   <img width=50% src="https://github.com/sylrie/P8_Pur_beurre_platform/blob/master/docs/title.png">
@@ -19,21 +20,19 @@
 ![Small](https://img.shields.io/badge/Small->576px-red.svg)
 ![Medium](https://img.shields.io/badge/Medium->768px-red.svg)
 ![Large](https://img.shields.io/badge/Large->992px-red.svg)
-![ExtraLarge](https://img.shields.io/badge/ExtraLarge->1200px-green.svg)
+![ExtraLarge](https://img.shields.io/badge/ExtraLarge->1200px-red.svg)
 <p align="center">
     <img width=30% src="https://github.com/sylrie/P8_Pur_beurre_platform/blob/master/docs/responsive-design.png">
 </p>
 
 ## TOOLS
-
 > Tools:
 <p align="center">
-  <img width=45% src="https://github.com/sylrie/P8_Pur_beurre_platform/blob/master/docs/tools.png">
-
+  <img width=50% src="https://github.com/sylrie/P8_Pur_beurre_platform/blob/master/docs/tools.png">
 
 > API:
 <p align="center">
-  <img width=25% src="https://github.com/sylrie/P8_Pur_beurre_platform/blob/master/docs/api.png">
+  <img width=20% src="https://github.com/sylrie/P8_Pur_beurre_platform/blob/master/docs/api.png">
 </p>
 
 ## GET STARTED
@@ -41,9 +40,9 @@
 * The web app is here: [Pur Beurre](https://srpurbeurre.herokuapp.com/)
 
 ## FEATURES
-* Search your product: the platform will looking in the *Pur Beurre data Base* and on the *API*.
-* See substitute products: picture, nutrigrade and more details with the *food card*.
-* Save your favorites products and see the *most saved products*.
+* Search your product: the platform will looking in the **Pur Beurre data Base** and on the **API**.
+* See substitute products: picture, nutrigrade and more details with the **food card**.
+* Save your favorites products and see the **most saved products**.
 
 ## COMMANDS
 * Update database
