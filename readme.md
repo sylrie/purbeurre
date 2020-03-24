@@ -2,7 +2,7 @@
 ![Python](https://img.shields.io/badge/Python-3.8.2-blue.svg)
 ![Django](https://img.shields.io/badge/Django-3.0.3-blue.svg)
 ![Version](https://img.shields.io/badge/Version-1-blue.svg)
-![Status](https://img.shields.io/badge/Status-In Production-green.svg)
+![Status](https://img.shields.io/badge/Status-Production-green.svg)
 
 
 <p align="center">
