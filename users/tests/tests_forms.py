@@ -22,6 +22,15 @@ class TestForms(TestCase):
         form = UserCreationForm(data)
         self.assertTrue(form.is_valid())
 
+    def test_user_already_exists(self):
+        data = {
+            "username": "user1",
+            "password1": "123456@",
+            "password2": "123456@",
+        }
+        form = UserCreationForm(data)
+        self.assertFalse(form.is_valid())
+
     def test_invalid_data(self):
         data = {
             "username": "",

@@ -18,16 +18,30 @@ class TestViews(TestCase):
     def test_homepage(self): 
         response = self.client.get(reverse('index'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Du gras")
+        self.assertTemplateUsed(response, 'product/home.html')
 
     def test_legals(self): 
         response = self.client.get(reverse('legals'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "légales")
+        self.assertTemplateUsed(response, 'product/legals.html')
+
+    def test_results(self):
+        response = self.client.post(reverse('products'), {'product-name': 'Confipote Fraise'})
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'product/product.html')
+        self.assertContains(response, 'Confipote')
+
+    def test_food(self):
+        response = self.client.get(reverse('food'), {'code': '3021762383306'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'product/food.html')
+        self.assertContains(response, 'Confipote Fraise')
 
     def test_substitutes(self):
         response = self.client.get(reverse('substitutes'), {'code': '3021762383306'})
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'product/product.html')
         self.assertContains(response, 'Confiture')
+
     
         
