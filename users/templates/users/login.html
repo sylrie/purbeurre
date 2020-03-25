@@ -1,5 +1,5 @@
 {% extends 'product/base.html' %}
-{% block title %}Pur Beurre - Connexion{% endblock %}
+{% block title %}Pur Beurre - Connection{% endblock %}
 
 {% load static %}
 {% load crispy_forms_tags %}
@@ -10,7 +10,7 @@
     {{ message }}
     <div class="text-center mb-4">
       <img src="{% static 'product/img/nav/logo_pur_beurre.png' %}" alt="" width="80" height="80">
-      <h1 class="pb-2">Connecxion</h1> 
+      <h1 class="pb-2">Connection</h1> 
       {% if messages %}
         {% for message in messages %}
           <p class="text-success -{{ message.tags }}">

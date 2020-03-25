@@ -1,8 +1,8 @@
 > Web application: Pur Beurre Platform - Substitute products <br>
-![Python](https://img.shields.io/badge/Python-3.8.2-blue.svg)
-![Django](https://img.shields.io/badge/Django-3.0.3-blue.svg)
+![Python-3.8.2](https://img.shields.io/badge/Python-3.8.2-blue.svg)
+![Django-3.0.3](https://img.shields.io/badge/Django-3.0.3-blue.svg)
 ![Status](https://img.shields.io/badge/Status-Production-green.svg)
-![Version](https://img.shields.io/badge/Version-1-blue.svg)
+![Version-1](https://img.shields.io/badge/Version-1-blue.svg)
 
 <p align="center">
   <img width=50% src="https://github.com/sylrie/P8_Pur_beurre_platform/blob/master/docs/title.png">
