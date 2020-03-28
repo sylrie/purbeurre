@@ -131,7 +131,7 @@ strong {
     height:250px; 	
 }
 #list {
-    height: 580px;
+    max-height: 650px;
     background-color: var(--biscuit);
     text-overflow: ellipsis;
     overflow: auto;
