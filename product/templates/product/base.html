@@ -38,7 +38,7 @@
     <div class="container-fluid mx-5">  
       
       <h2 class="title">
-        <a class="navbar-brand js-scroll-trigger" href="{% url 'index' %}">
+        <a class="navbar-brand js-scroll-trigger" title="Accueil" href="{% url 'index' %}">
           <img class="img-fluid pr-1" src="{% static 'product/img/nav/logo_pur_beurre.png' %}" alt="Logo" style="max-height: 60px;">
           Pur Beurre
         </a>
@@ -61,14 +61,14 @@
           {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="{% url 'profile' %}">
-              <i class="fas fa-user-circle"></i>
+              <i class="fas fa-user-circle" title="Mon Profil"></i>
             </a>
           </li>
 
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="{% url 'favorites' %}">
-             <i class="fas fa-carrot"></i>
-             <!--<img class="img-fluid" src="{% static 'product/img/nav/favorites.png' %}" alt="Menu" style="max-height: 40px;">-->
+             <i class="fas fa-carrot" title="Mes Favoris"></i>
+             <!--<img class="img-fluid" src="{% static 'product/img/nav/favorites.png' %}" title="Mes Favoris" alt="Menu" style="max-height: 40px;">-->
             </a>
           </li>
           {% endif %}
@@ -76,18 +76,18 @@
           {% if user.is_superuser %}
           <li class="nav-item">
             <a class="nav-link" href="/admin/">
-              <i class="fas fa-tools"></i>
+              <i class="fas fa-tools" title="Administrateur"></i>
             </a>
           {% endif %}
 
           <li class="nav-item">
             {% if user.is_authenticated %}
             <a class="nav-link" href="{% url 'logout' %}">
-              <i class="fas fa-sign-out-alt"></i>
+              <i class="fas fa-sign-out-alt" title="Se Déconnecter"></i>
             </a>
             {% else %}
             <a class="nav-link" href="{% url 'login' %}">
-              <i class="fas fa-user"></i>
+              <i class="fas fa-user" title="Se Connecter"></i>
             </a>
             {% endif %}
           </li>

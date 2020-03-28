@@ -46,8 +46,8 @@ h5 {
 }
 .masthead {
   color: var(--biscuit);
-  text-shadow: 2px 1px 1px rgba(0,0,0, 0.5),
-  -1px -1px 1px white;
+  text-shadow: 3px 2px 2px rgba(0,0,0, 0.8),
+  -2px -1.5px 1px rgba(255, 255 ,255 , 1);
 } 
 header.masthead h1 {
   font-size: 4.4rem;
@@ -140,7 +140,7 @@ strong {
     
 }
 #connection, #legals, #profile {
-    background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.4) 100%), url("../img/bg-masthead.jpg");
+    background: url("../img/bg-masthead.jpg");
     color: var(--moules);
     text-overflow: ellipsis;
     overflow: auto;
@@ -149,11 +149,11 @@ strong {
   padding-top: 90px;
 }
 #profile {
-  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.3) 100%), url("../img/portfolio/remy-3.jpg");
+  background: url("../img/portfolio/remy-3.jpg");
   color: var(--caramel);
 }
 #logout {
-  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.1) 0%, rgba(92, 77, 66, 0.3) 100%), url("../img/ratatouille-11.jpg");
+  background: url("../img/ratatouille-11.jpg");
   color: var(--caramel);
 }
 #logout, #profile, #connection, #legals {
@@ -234,7 +234,7 @@ strong {
 }
 
 .legals, .logout {
-  background-color: rgba(214, 214, 216, 0.4);
+  background-color: rgba(214, 214, 216, 0.5);
   color: var(--moules);
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
 }
