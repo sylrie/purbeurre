@@ -8,6 +8,8 @@ from product.models import FavoriteProduct
 
 
 def register(request):
+    """ account creation """
+
     title = "Inscription"
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -23,6 +25,8 @@ def register(request):
     return render(request, 'users/register.html', {'form': form, 'title': title})
 
 def login(request, message=None):
+    """ Authentification """
+
     if message:
         return render(request,'users/login.html', {'message': message})
     else:
@@ -35,6 +39,8 @@ def logout(request):
 
 @login_required
 def profile(request):
+    """ acces to user profile """
+
     name = str(request.user).capitalize()
     favorites = len(FavoriteProduct.objects.filter(user=request.user))
     return render(request, 'users/profile.html', {'title': "Profil", 'name': name, 'favorites': favorites})

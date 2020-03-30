@@ -324,4 +324,3 @@ class Product():
             }
 
         return render(request, 'product/favorites.html', context )
-

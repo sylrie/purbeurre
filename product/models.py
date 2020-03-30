@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 
 
 class BaseProduct(models.Model):
+    """ Product table """ 
 
     code = models.CharField(max_length=30, primary_key=True, unique=True)
     category = models.CharField(max_length=100)
@@ -31,6 +32,7 @@ class BaseProduct(models.Model):
         return self.name
 
 class UpdateReport(models.Model):
+    """ report table """
 
     keeped = models.IntegerField()
     rejected = models.IntegerField()
@@ -50,5 +52,4 @@ class FavoriteProduct(models.Model):
     date = models.DateTimeField(verbose_name="Date sauvegarde", default=timezone.now)
 
     def __str__(self):
-
         return str(self.saved_product)+" - ajouté par: "+str(self.user).capitalize()
