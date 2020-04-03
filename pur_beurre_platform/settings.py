@@ -17,7 +17,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY =  os.environ.get('SECRET_KEY','^92a7n40s-1l0%k_mfw)r2%g+sfe97@k)#-7omu3d$=7&we=+u')
+#if os.environ.get('ENV') == 'PRODUCTION':
+SECRET_KEY =  os.environ.get('SECRET_KEY')
+#else:
+    #SECRET_KEY = '^92a7n40s-1l0%k_mfw)r2%g+sfe97@k)#-7omu3d$=7&we=+u'
+
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'srpurbeurre.herokuapp.com']
 
@@ -74,16 +78,15 @@ WSGI_APPLICATION = 'pur_beurre_platform.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql', # on utilise l'adaptateur postgresql
-        'NAME': 'pur_beurre', # le nom de notre base de donnees creee precedemment
-        'USER': 'pur_beurre', # attention : remplacez par votre nom d'utilisateur
-        'PASSWORD': 'pur_beurre',
-        'HOST': '',
-        'PORT': '5432',
+'default': {
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    'NAME': os.environ.get('DB_NAME'),
+    'USER': os.environ.get('DB_USER'),
+    'PASSWORD': os.environ.get('DB_PASSWORD'),
+    'HOST': '',
+    'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
