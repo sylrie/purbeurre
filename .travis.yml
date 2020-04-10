@@ -8,7 +8,7 @@ before_script:
 # safelist
 branches:
   only:
-    - staging
+    - master
 
 env: DJANGO_SETTINGS_MODULE="P8_Pur_beurre_platform.settings.travis"
 
