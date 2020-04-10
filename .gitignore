@@ -1,5 +1,6 @@
 venv
 .vscode
+pur_beurre_platform/settings/production.py
 __pycache__/
 AWS
 OVH
