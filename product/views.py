@@ -13,6 +13,7 @@ from .models import FavoriteProduct, BaseProduct
 
 def index(request):
     """ Home page """
+    test sentry
     return render(request, 'product/home.html')
 
 def legals(request):
