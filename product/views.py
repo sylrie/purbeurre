@@ -302,7 +302,7 @@ class Product():
             favorite = BaseProduct.objects.all()
             favorite = favorite.exclude(favorite=0).order_by('-favorite')[:6]
             title = 'Pur Beurre - Top 6'
-            print(type(favorite))
+
         # find favorites
         else:        
             if message == "Tu avais déjà ce produit en favoris":

@@ -43,5 +43,20 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'product/product.html')
         self.assertContains(response, 'Confiture')
 
-    
+    def test_favorites(self, request='top'):
+        response = {
+            'title': 'title',
+            'message': 'message',
+            'code': 'code',
+            'products': 'products',
+            'number': 'number',
+            }
+        #response = self.client.get(reverse('favorites'), {'title': 'Top 6 des utilisateurs'})
+        self.assertTemplateUsed(response, 'product/favorites.html')
+   
         
+    """def test_favorites(self):
+        response = self.client.get(reverse('favorites'), {'title': 'Pur Beurre - Favoris'})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'product/favorites.html')
+        self.assertContains(response, 'Pur Beurre - Favoris')"""
