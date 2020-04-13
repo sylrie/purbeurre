@@ -9,6 +9,17 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import dj_database_url
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+sentry_sdk.init(
+    dsn="https://dfed232263a24fa98e78ff10715826a3@o375878.ingest.sentry.io/5198764",
+    integrations=[DjangoIntegration()],
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,10 +31,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY =  os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if os.environ.get('ENV') == 'PRODUCTION':	
-    DEBUG = False	
-else:	
-    DEBUG = True 
+DEBUG = False	
+
 
 ALLOWED_HOSTS = ['127.0.0.1', '51.77.151.187', 'localhost', 'srpurbeurre.herokuapp.com']
 
@@ -130,23 +139,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 STATIC_URL = '/static/'
 
-if os.environ.get('ENV') == 'PRODUCTION':	
-    # Static files settings	
-    PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))	
 
-    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')	
+# Static files settings	
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))	
 
-    # Extra places for collectstatic to find static files.	
-    STATICFILES_DIRS = (	
-        os.path.join(PROJECT_ROOT, 'static'),	
-    )	
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')	
 
-    # Simplified static file serving.	
-    # https://warehouse.python.org/project/whitenoise/	
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'	
+# Extra places for collectstatic to find static files.	
+STATICFILES_DIRS = (	
+    os.path.join(PROJECT_ROOT, 'static'),	
+)	
 
-    db_from_env = dj_database_url.config(conn_max_age=500)	
-    DATABASES['default'].update(db_from_env)	
+# Simplified static file serving.	
+# https://warehouse.python.org/project/whitenoise/	
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'	
+
+db_from_env = dj_database_url.config(conn_max_age=500)	
+DATABASES['default'].update(db_from_env)	
 
 # Django debug toolbar
 INTERNAL_IPS = ['127.0.0.1']
