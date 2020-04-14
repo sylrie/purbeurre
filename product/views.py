@@ -5,14 +5,12 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 
 import re
-
 from product.manager_api import ProductData as search
 from product.update_data import UpdateData
 from users import views
-from users.views import login
 from .models import FavoriteProduct, BaseProduct
 
-logger = loging.getLogger(__name__)
+
 
 def index(request):
     """ Home page """
@@ -70,13 +68,8 @@ class Product():
             'title': title,
             'error': error,
             'base_product': self.base_product,
-            }
-
-        logger.info('New search', exc_info=True, extra={
-        # Optionally pass a request and we'll grab any information we can
-        'request': request,
-        })
-
+        }
+        
         return render(request, 'product/product.html', context)
 
     def substitutes(self, request):
