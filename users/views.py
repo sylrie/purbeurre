@@ -2,10 +2,12 @@
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
+import logging
 from .forms import UserRegisterForm
 from django.contrib.auth.decorators import login_required
 from product.models import FavoriteProduct
 
+logger = logging.getLogger(__name__)
 
 def register(request):
     """ account creation """
@@ -26,7 +28,10 @@ def register(request):
 
 def login(request, message=None):
     """ Authentification """
-
+    logger.info('New loggin', exc_info=True, extra={
+        # Optionally pass a request and we'll grab any information we can
+        'request': request,
+    })
     if message:
         return render(request,'users/login.html', {'message': message})
     else:
