@@ -18,7 +18,10 @@ logger = logging.getLogger(__name__)
 
 def index(request):
     """ Home page """
-    logger.info('New Visit', exc_info=True)
+    logger.info('New Visit', exc_info=True, extra={
+        # Optionally pass a request and we'll grab any information we can
+        'request': request,
+    })
     return render(request, 'product/home.html')
 
 def legals(request):
