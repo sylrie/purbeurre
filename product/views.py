@@ -5,6 +5,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 
 import re
+import logging
 from product.manager_api import ProductData as search
 from product.update_data import UpdateData
 from users import views
@@ -68,6 +69,11 @@ class Product():
             'error': error,
             'base_product': self.base_product,
             }
+
+        logger.info('New search', exc_info=True, extra={
+        # Optionally pass a request and we'll grab any information we can
+        'request': request,
+        })
 
         return render(request, 'product/product.html', context)
 
