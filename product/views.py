@@ -5,13 +5,14 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 
 import re
-import logging
+
 from product.manager_api import ProductData as search
 from product.update_data import UpdateData
 from users import views
+from users.views import login
 from .models import FavoriteProduct, BaseProduct
 
-logger = logging.getLogger(__name__)
+logger = loging.getLogger(__name__)
 
 def index(request):
     """ Home page """
