@@ -11,6 +11,7 @@ from product.update_data import UpdateData
 from users import views
 from .models import FavoriteProduct, BaseProduct
 
+logger = logging.getLogger(__name__)
 
 def index(request):
     """ Home page """
