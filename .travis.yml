@@ -10,7 +10,7 @@ branches:
   only:
     - master
 
-env: DJANGO_SETTINGS_MODULE="pur_beurre_platform.settings"
+env: DJANGO_SETTINGS_MODULE="pur_beurre_platform.settings.travis"
 
 services:
   - postgresql
