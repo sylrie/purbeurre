@@ -2,12 +2,11 @@
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
-import logging
 from .forms import UserRegisterForm
 from django.contrib.auth.decorators import login_required
 from product.models import FavoriteProduct
 
-logger = logging.getLogger(__name__)
+logger = loging.getLogger(__name__)
 
 def register(request):
     """ account creation """
