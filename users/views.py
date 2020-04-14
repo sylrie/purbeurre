@@ -5,9 +5,7 @@ from django.contrib import messages
 from .forms import UserRegisterForm
 from django.contrib.auth.decorators import login_required
 from product.models import FavoriteProduct
-import logging
 
-logger = logging.getLogger(__name__)
 
 def register(request):
     """ account creation """
@@ -28,11 +26,6 @@ def register(request):
 
 def login(request, message=None):
     """ Authentification """
-    logger.info('New connection', exc_info=True, extra={
-        # Optionally pass a request and we'll grab any information we can
-        'request': request,
-    })
-    
     if message:
         return render(request,'users/login.html', {'message': message})
     else:
