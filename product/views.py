@@ -1,5 +1,5 @@
 """ Manage views for product app """
-
+import logging
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
@@ -10,10 +10,18 @@ from product.update_data import UpdateData
 from users import views
 from .models import FavoriteProduct, BaseProduct
 
+import logging
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 
 def index(request):
     """ Home page """
+    logger.info('New Visit', exc_info=True, extra={
+        # Optionally pass a request and we'll grab any information we can
+        'request': request,
+    })
     return render(request, 'product/home.html')
 
 def legals(request):
@@ -70,6 +78,10 @@ class Product():
             'base_product': self.base_product,
         }
         
+        logger.info('New Search', exc_info=True, extra={
+        # Optionally pass a request and we'll grab any information we can
+        'request': request,
+        })
         return render(request, 'product/product.html', context)
 
     def substitutes(self, request):
