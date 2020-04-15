@@ -20,16 +20,16 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Ton compte a bien été créé, tu peux te connecter.')
+            
+            logger.info('New Visit', exc_info=True, extra={
+                # Optionally pass a request and we'll grab any information we can
+                'request': request,
+            })
             return redirect('login')
             
     else:
         form = UserRegisterForm()
-
-    logger.info('New Visit', exc_info=True, extra={
-        # Optionally pass a request and we'll grab any information we can
-        'request': request,
-    })
-        
+  
     return render(request, 'users/register.html', {'form': form, 'title': title})
 
 def login(request, message=None):
