@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['127.0.0.1', '51.77.151.187', 'localhost', 'srpurbeurre.herokua
 # Application definition
 
 INSTALLED_APPS = [
+    'django_crontab',
     'product',
     'users',
     'django.contrib.admin',
@@ -44,7 +45,9 @@ INSTALLED_APPS = [
     'crispy_forms',
     'raven.contrib.django.raven_compat',
 ]
-
+CRONJOBS = [
+    ('*/5 * * * *', 'product.cron.cronTest')
+]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
