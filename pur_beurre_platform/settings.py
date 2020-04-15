@@ -47,7 +47,7 @@ INSTALLED_APPS = [
 ]
 
 CRONJOBS = [
-    ('*/5 * * * *', 'product.cron.cronTest')
+    ('*/5 * * * *', 'pur_beurre_platform.cron.cronTest')
 ]
 
 MIDDLEWARE = [
