@@ -9,7 +9,6 @@ from product.manager_api import ProductData as search
 from product.update_data import UpdateData
 from users import views
 from .models import FavoriteProduct, BaseProduct
-
 import logging
 
 # Get an instance of a logger

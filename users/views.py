@@ -5,7 +5,10 @@ from django.contrib import messages
 from .forms import UserRegisterForm
 from django.contrib.auth.decorators import login_required
 from product.models import FavoriteProduct
+import logging
 
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 def register(request):
     """ account creation """
@@ -21,6 +24,11 @@ def register(request):
             
     else:
         form = UserRegisterForm()
+
+    logger.info('New Visit', exc_info=True, extra={
+        # Optionally pass a request and we'll grab any information we can
+        'request': request,
+    })
         
     return render(request, 'users/register.html', {'form': form, 'title': title})
 
