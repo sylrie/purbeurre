@@ -8,6 +8,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import raven
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -32,6 +35,7 @@ ALLOWED_HOSTS = ['127.0.0.1', '51.77.151.187', 'localhost', 'srpurbeurre.herokua
 INSTALLED_APPS = [
     'product',
     'users',
+    #'django-crontab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,7 +43,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'raven.contrib.django.raven_compat',
 ]
+
+#CRONJOBS = [
+#    ('*/5 * * * *', 'pur_beurre_platform.cron.cronTest')
+#]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -134,19 +143,80 @@ if os.environ.get('ENV') == 'PRODUCTION':
     # Static files settings	
     PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))	
 
-    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')	
+    STATIC_ROOT = os.path.join(PROJECT_ROOT, '../static')	
 
-    # Extra places for collectstatic to find static files.	
+    # Extra places for collectstatic to find static files.
     STATICFILES_DIRS = (	
         os.path.join(PROJECT_ROOT, 'static'),	
-    )	
+    )
 
     # Simplified static file serving.	
     # https://warehouse.python.org/project/whitenoise/	
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'	
+    #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'	
 
     db_from_env = dj_database_url.config(conn_max_age=500)	
     DATABASES['default'].update(db_from_env)	
 
 # Django debug toolbar
 INTERNAL_IPS = ['127.0.0.1']
+
+
+sentry_sdk.init(
+    dsn="https://dfed232263a24fa98e78ff10715826a3@o375878.ingest.sentry.io/5198764",
+    integrations=[DjangoIntegration()],
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
+
+RAVEN_CONFIG = {
+    'dsn': 'https://dfed232263a24fa98e78ff10715826a3@o375878.ingest.sentry.io/5198764', # caution replace by your own!!
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    'release': raven.fetch_git_sha(os.path.dirname(os.pardir)),
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'root': {
+        'level': 'INFO', # WARNING by default. Change this to capture more than warnings.
+        'handlers': ['sentry'],
+    },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s '
+                      '%(process)d %(thread)d %(message)s'
+        },
+    },
+    'handlers': {
+        'sentry': {
+            'level': 'INFO', # To capture more than ERROR, change to WARNING, INFO, etc.
+            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+            'tags': {'custom-tag': 'x'},
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': {
+        'django.db.backends': {
+            'level': 'ERROR',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'raven': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'sentry.errors': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+    },
+}
