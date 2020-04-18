@@ -15,7 +15,7 @@ from sentry_sdk.integrations.django import DjangoIntegration
 import dj_database_url
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False	
+#DEBUG = False	
 
 CRONJOBS = [
     ('*/5 * * * *', 'pur_beurre_platform.cron.cronTest')
