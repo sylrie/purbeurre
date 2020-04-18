@@ -37,6 +37,11 @@ def login(request, message=None):
     if message:
         return render(request,'users/login.html', {'message': message})
     else:
+        logger.info('New Registration', exc_info=True, extra={
+            # Optionally pass a request and we'll grab any information we can
+            'request': request,
+        })
+        
         return render(request,'users/login.html')     
 
 @login_required
