@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ['127.0.0.1', '51.77.151.187', 'localhost', 'srpurbeurre.herokua
 INSTALLED_APPS = [
     'product',
     'users',
-    #'django-crontab'
+    'django-crontab'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
