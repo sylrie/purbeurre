@@ -27,16 +27,19 @@ ALLOWED_HOSTS = ['127.0.0.1', '51.77.151.187', 'localhost']
 # Application definition
 
 INSTALLED_APPS = [
+    #Apps
     'product',
     'users',
-    'django_crontab'
+    #Django
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #Form
     'crispy_forms',
+    #Raven
     'raven.contrib.django.raven_compat',
 ]
 
