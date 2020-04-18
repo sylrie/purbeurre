@@ -5,6 +5,10 @@ from django.contrib import messages
 from .forms import UserRegisterForm
 from django.contrib.auth.decorators import login_required
 from product.models import FavoriteProduct
+import logging
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 def register(request):
     """ account creation """
@@ -16,7 +20,11 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Ton compte a bien été créé, tu peux te connecter.')
-            
+            logger.info('New Registration', exc_info=True, extra={
+                # Optionally pass a request and we'll grab any information we can
+                'request': request,
+            })
+
             return redirect('login')
             
     else:
