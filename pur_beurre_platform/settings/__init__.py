@@ -22,14 +22,14 @@ SECRET_KEY =  os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True 
 
-ALLOWED_HOSTS = ['127.0.0.1', '51.77.151.187', 'localhost', 'srpurbeurre.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', '51.77.151.187', 'localhost']
 
 # Application definition
 
 INSTALLED_APPS = [
     'product',
     'users',
-    #'django-cron'
+    'django_crontab'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

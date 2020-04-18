@@ -18,7 +18,7 @@ import dj_database_url
 DEBUG = True	
 
 CRONJOBS = [
-    ('*/5 * * * *', 'pur_beurre_platform.cron.cronTest')
+    ('*/3 * * * *', 'pur_beurre_platform.cron.cronTest')
 ]
 
 # Static files (CSS, JavaScript, Images)
