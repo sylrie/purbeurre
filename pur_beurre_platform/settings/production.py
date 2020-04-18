@@ -17,9 +17,9 @@ import dj_database_url
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False	
 
-CRONJOBS = [
-    ('*/5 * * * *', 'pur_beurre_platform.cron.cronTest')
-]
+#CRONJOBS = [
+#    ('*/5 * * * *', 'pur_beurre_platform.cron.cronTest')
+#]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
