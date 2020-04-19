@@ -17,7 +17,7 @@ import dj_database_url
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-INSTALLED_APPS += 'django_crontab'
+INSTALLED_APPS.append('django_crontab')
 
 CRONJOBS = [
     ('*/3 * * * *', '~/www/purbeurreenv/bin/python ~/www/purbeurre/manage.py update_database')
