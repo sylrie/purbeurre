@@ -31,16 +31,21 @@ INSTALLED_APPS = [
     'product',
     'users',
     #Django
+    'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #Form
+    #Forms
     'crispy_forms',
     #Raven
     'raven.contrib.django.raven_compat',
+]
+
+CRONJOBS = [
+    ('*/3 * * * *', 'pur_beurre_platform.cron.cronTest')
 ]
 
 MIDDLEWARE = [
