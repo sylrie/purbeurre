@@ -20,9 +20,9 @@ DEBUG = False
 INSTALLED_APPS.append('django_crontab')
 
 CRONJOBS = [
-    ('*/3 * * * *', '~/www/purbeurreenv/bin/python ~/www/purbeurre/manage.py update_database'),
-    ('*/1 * * * *', 'pur_beurre_platform.cron.cron_update'),
-    ('*/1 * * * *', 'pur_beurre_platform.cron.cron_test'),
+    ('*/3 * * * *', '~/www/purbeurreenv/bin/python' '~/www/purbeurre/manage.py update_database'),
+    ('*/1 * * * *', '~/www/purbeure/pur_beurre_platform.cron.cron_update'),
+    ('*/1 * * * *', '~/www/purbeurre/pur_beurre_platform/cron.cron_test'),
 ]
 
 # Static files (CSS, JavaScript, Images)
