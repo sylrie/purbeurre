@@ -15,11 +15,13 @@ from sentry_sdk.integrations.django import DjangoIntegration
 import dj_database_url
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True	
+DEBUG = False
 
-#CRONJOBS = [
-#    ('*/3 * * * *', 'pur_beurre_platform.cron.cronTest')
-#]
+INSTALLED_APPS += 'django_crontab'
+
+CRONJOBS = [
+    ('*/3 * * * *', '~/www/purbeurreenv/bin/python ~/www/purbeurre/manage.py update_database')
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/

@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     'product',
     'users',
     #Django
-    'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,10 +41,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     #Raven
     'raven.contrib.django.raven_compat',
-]
-
-CRONJOBS = [
-    ('*/3 * * * *', '~/www/purbeurreenv/bin/python ~/www/purbeurre/manage.py update_database')
 ]
 
 MIDDLEWARE = [
