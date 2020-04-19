@@ -2,7 +2,7 @@ from product.update_data import UpdateData
 from product.models import BaseProduct, UpdateReport
 import time
 
-def cron_update(self):
+def cron_update():
     
     start_time = time.time()
         print("Cleanning Database")
@@ -34,4 +34,6 @@ def cron_update(self):
             duration=duration,
         )
         update.save()
-    
+
+def cron_test():
+    print('ça marche')   
