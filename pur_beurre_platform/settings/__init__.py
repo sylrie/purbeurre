@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 ]
 
 CRONJOBS = [
-    ('*/3 * * * *', 'pur_beurre_platform.cron.cron_update')
+    ('*/3 * * * *', '~/www/purbeurreenv/bin/python ~/www/purbeurre/manage.py update_database')
 ]
 
 MIDDLEWARE = [
