@@ -37,7 +37,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, '../staticfiles')
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (	
-    os.path.join(PROJECT_ROOT, 'static'),	
+    os.path.join(PROJECT_ROOT, 'staticfiles'),	
 )
 	
 db_from_env = dj_database_url.config(conn_max_age=500)	
