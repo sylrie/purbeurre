@@ -11,7 +11,7 @@ from product.update_data import UpdateData
 from product.models import BaseProduct, UpdateReport
 import time
 
-SECRET_KEY = '5+#\x0bA\\K=N+\x0cgVqin*F+\x0c\t3uT'
+
 class Command(BaseCommand):
 
     help = 'Import Openfoodfacts products'
@@ -20,7 +20,7 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-
+        
         start_time = time.time()
         print("Cleanning Database")
  
