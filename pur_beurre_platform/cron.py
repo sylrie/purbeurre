@@ -1,2 +1,2 @@
 def cron_test():
-    print('ça marche')   
+    print('ça marche')
