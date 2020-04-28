@@ -16,8 +16,10 @@ import dj_database_url
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-SECRET_KEY = '5+#\x0bA\\K=N+\x0cgVqin*F+\x0c\t3uT'
+
 INSTALLED_APPS += ['django_crontab']
+
+CRONTAB_COMMAND_PREFIX = 'SECRET_KEY=5+#\x0bA\\K=N+\x0cgVqin*F+\x0c\t3uT'
 
 CRONJOBS = [
     ('*/2 * * * *', '~/www/purbeurreenv/bin/python ~/www/purbeurre/manage.py update_database'),
