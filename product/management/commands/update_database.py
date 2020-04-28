@@ -10,6 +10,7 @@ from django.core.management.base import BaseCommand, CommandError
 from product.update_data import UpdateData
 from product.models import BaseProduct, UpdateReport
 import time
+from django.conf import settings
 
 class Command(BaseCommand):
 
