@@ -20,7 +20,7 @@ DEBUG = False
 INSTALLED_APPS += ['django_crontab']
 
 CRONJOBS = [
-    ('*/2 * * * *', '~/www/purbeurreenv/bin/activate && ~/www/purbeurre/python manage.py update_database'),
+    ('*/2 * * * *', '~/www/purbeurreenv/bin/activate && ~/www source ./secretsenv && ~/www/purbeurre/python manage.py update_database'),
     #('*/1 * * * *', 'pur_beurre_platform.cron.cron_test'),
     #('*/1 * * * *', '~/www/purbeurre/pur_beurre_platform.cron.cron_test'),
     #('0 2 * * 1', 'django.core.management.call_command', ['update_database']),
