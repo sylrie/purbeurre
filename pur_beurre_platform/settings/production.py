@@ -17,7 +17,7 @@ import dj_database_url
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-INSTALLED_APPS += ['django_crontab']
+INSTALLED_APPS += ('django_crontab')
 SECRET_KEY =  os.environ.get('SECRET_KEY')
 CRONTAB_COMMAND_PREFIX = SECRET_KEY
 
