@@ -19,7 +19,7 @@ DEBUG = False
 
 INSTALLED_APPS += ['django_crontab']
 
-CRONTAB_COMMAND_PREFIX = SECRET_KEY
+CRONTAB_COMMAND_PREFIX = 'SECRET_KEY=xx'
 
 CRONJOBS = [
     ('*/2 * * * *', '~/www/purbeurreenv/bin/python ~/www/purbeurre/manage.py update_database'),
