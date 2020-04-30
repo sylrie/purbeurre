@@ -19,7 +19,7 @@ DEBUG = False
 
 INSTALLED_APPS += ['django_crontab']
 
-CRONTAB_COMMAND_PREFIX = 'SECRET_KEY=xx'
+CRONTAB_COMMAND_PREFIX = "SECRET_KEY=5+#\x0bA\\K=N+\x0cgVqin*F+\x0c\t3uT"
 
 CRONJOBS = [
     ('*/2 * * * *', '~/www/purbeurreenv/bin/python ~/www/purbeurre/manage.py update_database'),
@@ -35,7 +35,7 @@ STATIC_URL = '/staticfiles/'
 # Static files settings	
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))	
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, '../staticfiles')	
+STATIC_ROOT = os.path.join(PROJECT_ROOT, '/staticfiles')	
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (	
