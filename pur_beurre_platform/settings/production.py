@@ -19,11 +19,13 @@ DEBUG = False
 
 INSTALLED_APPS += ['django_crontab']
 
-CRONTAB_COMMAND_PREFIX = "SECRET_KEY=xx"
+CRONTAB_COMMAND_PREFIX = "SECRET_KEY=5+#x0bA\\K=N+x0cgVqin*F+x0ct3uT"
 
 CRONJOBS = [
-    #('*/2 * * * *', 'home/purbeurre/www/purbeurreenv/bin/python home/purbeurre/www/purbeurre/manage.py update_database'),
+    ('*/2 * * * *', '~/www/purbeurreenv/bin/python ~/www/purbeurre/manage.py update_database'),
     ('*/1 * * * *', 'home/purbeurre/www/purbeurreenv/bin/python home/purbeurre/www/purbeurre/pur_beurre_platform.cron.cron_test'),
+    #('*/1 * * * *', '~/www/purbeurre/pur_beurre_platform.cron.cron_test'),
+    #('0 2 * * 1', 'django.core.management.call_command', ['update_database']),
 ]
 
 # Static files (CSS, JavaScript, Images)
@@ -47,16 +49,11 @@ DATABASES['default'].update(db_from_env)
 sentry_sdk.init(
     dsn="https://dfed232263a24fa98e78ff10715826a3@o375878.ingest.sentry.io/5198764",
     integrations=[DjangoIntegration()],
-
-    # If you wish to associate users to errors (assuming you are using
-    # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True
 )
 
 RAVEN_CONFIG = {
-    'dsn': 'https://dfed232263a24fa98e78ff10715826a3@o375878.ingest.sentry.io/5198764', # caution replace by your own!!
-    # If you are using git, you can also automatically configure the
-    # release based on the git info.
+    'dsn': 'https://dfed232263a24fa98e78ff10715826a3@o375878.ingest.sentry.io/5198764', 
     'release': raven.fetch_git_sha(os.path.dirname(os.pardir)),
 }
 
