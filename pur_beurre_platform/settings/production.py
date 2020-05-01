@@ -23,7 +23,7 @@ CRONTAB_COMMAND_PREFIX = "SECRET_KEY=5+#x0bAK=N+x0cgVqin*F+x0ct3uT"
 
 CRONJOBS = [
     ('*/2 * * * *', '~/www/purbeurreenv/bin/python ~/www/purbeurre/manage.py update_database'),
-    ('*/1 * * * *', 'home/purbeurre/www/purbeurreenv/bin/python home/purbeurre/www/purbeurre/pur_beurre_platform.cron.cron_test'),
+    #('*/1 * * * *', 'home/purbeurre/www/purbeurreenv/bin/python home/purbeurre/www/purbeurre/pur_beurre_platform.cron.cron_test'),
     #('*/1 * * * *', '~/www/purbeurre/pur_beurre_platform.cron.cron_test'),
     #('0 2 * * 1', 'django.core.management.call_command', ['update_database']),
 ]
