@@ -17,16 +17,15 @@ import dj_database_url
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-INSTALLED_APPS += ['django_crontab']
+#INSTALLED_APPS += ['django_crontab']
 
-CRONTAB_COMMAND_PREFIX = 'SECRET_KEY="5+#\x0bA\\K=N+\x0cgVqin*F+\x0c\t3uT"'
+#CRONTAB_COMMAND_PREFIX = 'SECRET_KEY="5+#\x0bA\\K=N+\x0cgVqin*F+\x0c\t3uT"'
 
-CRONJOBS = [
-    ('*/2 * * * *', '~/www/purbeurreenv/bin/python ~/www/purbeurre/manage.py update_database'),
-    #('*/1 * * * *', 'home/purbeurre/www/purbeurreenv/bin/python home/purbeurre/www/purbeurre/pur_beurre_platform.cron.cron_test'),
+#CRONJOBS = [
+    #('*/2 * * * *', '~/www/purbeurreenv/bin/python ~/www/purbeurre/manage.py update_database'),
     #('*/1 * * * *', '~/www/purbeurre/pur_beurre_platform.cron.cron_test'),
     #('0 2 * * 1', 'django.core.management.call_command', ['update_database']),
-]
+#]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
