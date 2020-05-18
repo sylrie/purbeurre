@@ -40,11 +40,11 @@ class Product():
         # search in database
         if request.POST.get('product-name'):
             self.base_product = "Pur Beurre"
-            query = request.POST.get("product-name")
+            self.user_request = request.POST.get("product-name").strip()
             
-            # Remove space end and start
-            user_request = re.sub(r"( )+$", "", query)
-            self.user_request = re.sub(r"^( )+", "", user_request)
+            #Remove space end and start
+            #user_request = re.sub(r"( )+$", "", query)
+            #self.user_request = re.sub(r"^( )+", "", user_request)
 
             self.product_list = BaseProduct.objects.filter(name__icontains=self.user_request).order_by("-name")[:18]
 
@@ -336,3 +336,4 @@ class Product():
             }
 
         return render(request, 'product/favorites.html', context )
+

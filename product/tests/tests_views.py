@@ -35,7 +35,7 @@ class TestViews(TestCase):
         response = self.client.get(reverse('food'), {'code': '3021762383306'})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'product/food.html')
-        self.assertContains(response, 'Confipote Fraise')
+        self.assertContains(response, 'Confipote')
 
     def test_substitutes(self):
         response = self.client.get(reverse('substitutes'), {'code': '3021762383306'})
@@ -43,8 +43,3 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'product/product.html')
         self.assertContains(response, 'Confiture')
    
-    """def test_favorites(self):
-        response = self.client.get(reverse('favorites'), {'title': 'Pur Beurre - Favoris'})
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'product/favorites.html')
-        self.assertContains(response, 'Pur Beurre - Favoris')"""
