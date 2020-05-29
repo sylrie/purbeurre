@@ -2,12 +2,12 @@ from django.test import TestCase, Client
 
 from product.manager_api import ProductData
 
-"""class TestApi(TestCase):
+class TestApi(TestCase):
 
-    def setUp(self):
-        self.client = Client()
+    """def setUp(self):
+        self.client = Client()"""
         
-    def test_search_product(self):
+    """def test_search_product(self):
         product = ProductData().search_product("user_request")
         self.assertIs(type(product), list)
     

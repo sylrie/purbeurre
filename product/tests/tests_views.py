@@ -42,4 +42,8 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'product/product.html')
         self.assertContains(response, 'Confiture')
-   
+
+    def test_top_6(self):
+        response = self.client.get(reverse('top_6'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Top 6 des utilisateurs')

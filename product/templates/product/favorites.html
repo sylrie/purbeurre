@@ -8,7 +8,11 @@
   <div class="text-center">
     {% if not message %}
     <h1 class="pb-2">Tu as <strong>{{number}}</strong> produit(s) favoris</h1>
-    <a href="{% url 'favorites' %}?top=''">Voir les produits préférés des utilisateurs</a>
+    {% endif %}
+    {% if user.is_authenticated %}
+    <a href="{% url 'top_6' %}">Voir les produits préférés des utilisateurs</a>
+    {% else %}
+    <a href="{% url 'login' %}">Connecte toi pour voir tes favoris</a>
     {% endif %}
     {% if message %}
     <h2 class="py-0"><strong>{{ message }}</h2></strong>
@@ -63,7 +67,12 @@
     {% for food in products %}
 
     <div class="col-xl-4 col-lg-6 col-md-8 mt-2 mb-2 d-flex justify-content-center ">
+
+      {% if forloop.counter == 1 %}
+      <div class="new-fav-card col-11 text-center">
+      {% else %}
       <div class="fav-card col-11 text-center">
+      {% endif %}
         <h2 class="pt-0"><strong>{{ forloop.counter }}</strong></h2>
         
         <img class="logo-nutriscore img-fluid" src="{% static 'product/img/sticker/' %}{{ food.nutrigrade }}.png"

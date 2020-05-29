@@ -68,7 +68,13 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="{% url 'favorites' %}">
              <i class="fas fa-carrot" title="Mes Favoris"></i>
-             <!--<img class="img-fluid" src="{% static 'product/img/nav/favorites.png' %}" title="Mes Favoris" alt="Menu" style="max-height: 40px;">-->
+            </a>
+          </li>
+          
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{% url 'top_6' %}">
+             <i class="fas fa-carrot" title="Mes Favoris"></i>
             </a>
           </li>
           {% endif %}
