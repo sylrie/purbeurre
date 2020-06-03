@@ -8,7 +8,7 @@ import re
 from product.manager_api import ProductData as search
 from product.update_data import UpdateData
 from users import views
-from .models import FavoriteProduct, BaseProduct
+from .models import FavoriteProduct, BaseProduct, BaseProductManager
 import logging
 
 # Get an instance of a logger
@@ -40,12 +40,8 @@ class Product():
         # search in database
         if request.POST.get('product-name'):
             self.base_product = "Pur Beurre"
-            self.user_request = request.POST.get("product-name").strip()
+            self.user_request = request.POST.get("product-name").strip()#Remove space end and start
             
-            #Remove space end and start
-            #user_request = re.sub(r"( )+$", "", query)
-            #self.user_request = re.sub(r"^( )+", "", user_request)
-
             self.product_list = BaseProduct.objects.filter(name__icontains=self.user_request).order_by("-name")[:18]
 
             self.qty = len(self.product_list)
@@ -331,10 +327,14 @@ class Product():
 
     def top_6(self, request):
         
-        message = "Top 6 des utilisateurs"
-        favorite = BaseProduct.objects.all()
-        products = favorite.exclude(favorite=0).order_by('-favorite')[:6]
         title = 'Pur Beurre - Top 6'
+        message = "Top 6 des utilisateurs"
+        
+        #favorite = BaseProduct.objects.all()
+        #products = favorite.exclude(favorite=0).order_by('-favorite')[:6]
+
+        # Get top 6 favorites in BaseProduct table
+        products = BaseProductManager().get_top_6()
 
         context = {
             'title': title,

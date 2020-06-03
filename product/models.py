@@ -4,6 +4,10 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+class BaseProductManager(models.Model):
+    def get_top_6(self):
+        top_6 = BaseProduct.objects.all().exclude(favorite=0).order_by('-favorite')[:6]
+        return top_6
 
 class BaseProduct(models.Model):
     """ Product table """ 
