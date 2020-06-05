@@ -11,7 +11,7 @@ from users import views
 from .models import FavoriteProduct, BaseProduct, BaseProductManager
 import logging
 
-# Get an instance of a logger
+# Get a logger instance
 logger = logging.getLogger(__name__)
 
 
