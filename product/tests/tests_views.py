@@ -2,22 +2,45 @@ from django.test import TestCase, Client
 from django.urls import resolve, reverse
 from django.db.models.query import QuerySet
 from django.contrib.auth.models import User
+from unittest.mock import patch
 
-from product.models import FavoriteProduct, BaseProduct
+from product.models import FavoriteProduct, BaseProduct, BaseProductManager
 
 class TestViews(TestCase):
 
     def setUp(self):
         self.client = Client()
         
-        self.product = {
-            "code": "3021762383306",
-            "name": "Confipote Fraise",
-        }
-        self.product_list = [
-            {"name": "Fraise à tartiner sans sucres ajoutés"},
-            {"name": "Confiture de Fraises au Maltitol"}
-        ]
+        self.product = BaseProduct.objects.create(
+            code='0001',
+            category='category',
+            name='productName',
+            img='',
+            details='blabla',
+            brand='brand',
+            stores='stores',
+            nutrigrade='a',
+            ingredients='ingredients',
+            fat='1.1',
+            saturated_fat='1.2',
+            salt='1.3',
+            sugar ='1.4',
+            level_fat ='1.5',
+            level_saturated_fat ='1.6',
+            level_salt = '1.7',
+            level_sugar ='1.8',
+            nova ='1',
+        )
+
+        self.user = User.objects.create_user(
+            username='toto',
+            email='toto@toto.fr',
+            password='password',
+        )
+        #self.product_list = [
+        #    {"name": "Fraise à tartiner sans sucres ajoutés"},
+        #    {"name": "Confiture de Fraises au Maltitol"}
+        #]
 
     def test_homepage(self): 
         response = self.client.get(reverse('index'))
@@ -64,44 +87,19 @@ class TestViews(TestCase):
         self.assertContains(response, 'Top 6 des utilisateurs')
         self.assertTemplateUsed(response, 'product/favorites.html')
 
-
     def test_flow_change_favorite(self):
-        product = BaseProduct.objects.create(
-            code='0001',
-            category='category',
-            name='productName',
-            img='',
-            details='blabla',
-            brand='brand',
-            stores='stores',
-            nutrigrade='a',
-            ingredients='ingredients',
-            fat='1.1',
-            saturated_fat='1.2',
-            salt='1.3',
-            sugar ='1.4',
-            level_fat ='1.5',
-            level_saturated_fat ='1.6',
-            level_salt = '1.7',
-            level_sugar ='1.8',
-            nova ='1',
-        )
-        product.save()
 
-        user = User.objects.create_user(
-            username='toto',
-            email='toto@toto.fr',
-            password='password',
-        )
-        self.client.force_login(user)
+        self.product.save()
+
+        self.client.force_login(self.user)
 
         response = self.client.get(reverse('favorites'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'product/favorites.html')
 
         response = self.client.get(
-            'http://127.0.0.1:8000/favorites/change/?add={}'.format(
-                product.code
+            '/favorites/change/?add={}'.format(
+                self.product.code
             )
         )
             
@@ -110,8 +108,8 @@ class TestViews(TestCase):
         self.assertContains(response, 'Le produit à été ajouté aux favoris !')
 
         response = self.client.get(
-            'http://127.0.0.1:8000/favorites/change/?del={}'.format(
-                product.code
+            '/favorites/change/?del={}'.format(
+                self.product.code
             )
         )
             
@@ -121,7 +119,38 @@ class TestViews(TestCase):
 
     def test_change_favorite_no_user(self):
         response = self.client.get(
-            'http://127.0.0.1:8000/favorites/change/?add=0001'
+            '/favorites/change/?add=0001'
         )
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('login'))
+
+    @patch('product.models.BaseProductManager.get_top_6')
+    def test_top_no_user(self, mock_get_top_6):
+        mock_get_top_6.return_value = [
+            BaseProduct(code='000'),
+            BaseProduct(code='001'),
+            BaseProduct(code='002'),
+            ]
+            
+        response = self.client.get(reverse('top_6'))
+        #import pdb
+        #pdb.set_trace()
+        self.assertContains(response, 'Connecte toi pour voir tes favoris')
+        self.assertEqual(len(response.context['products']), 3)
+
+    @patch('product.models.BaseProductManager.get_top_6')
+    def test_top_user(self, mock_get_top_6):
+        self.client.force_login(self.user)
+        
+        mock_get_top_6.return_value = [
+            BaseProduct(code='000'),
+            BaseProduct(code='001'),
+            BaseProduct(code='002'),
+            ]
+            
+        response = self.client.get(reverse('top_6'))
+
+        self.assertContains(response, 'Voir tes produits favoris')
+        self.assertEqual(len(response.context['products']), 3)
+
+        

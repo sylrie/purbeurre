@@ -66,36 +66,40 @@
       {% endwith %}
     {% endfor %}
     {% else %}
+    
     {% for food in products %}
-
     <div class="col-xl-4 col-lg-6 col-md-8 mt-2 mb-2 d-flex justify-content-center ">
+      {% if forloop.counter <= 6 %}
 
-      {% if forloop.counter == 1 %}
-      <div class="new-fav-card col-11 text-center">
-      {% else %}
-      <div class="fav-card col-11 text-center">
-      {% endif %}
-        <h2 class="pt-0"><strong>{{ forloop.counter }}</strong></h2>
-        
-        <img class="logo-nutriscore img-fluid" src="{% static 'product/img/sticker/' %}{{ food.nutrigrade }}.png"
-          alt="nutrigrade {{ food.nutrigrade }}">
-        
-        <a href="{% url 'food' %}?code={{ food.code }}">
-          <img class="product-img img-fluid" src="{{ food.img }}"alt="">
-          <div class="row name justify-content-center align-items-center">
-            <h4 class="food-name py-0 ">{{ food.name }}</h4></a>
-            <div class="row w-100"></div>
-            <span class=>{{ food.details }}</span>
+        {% if forloop.counter == 1 %}
+        <div class="new-fav-card col-11 text-center">
+        {% else %}
+        <div class="fav-card col-11 text-center">
+        {% endif %}
+          <h2 class="pt-0"><strong>{{ forloop.counter }}</strong></h2>
+          
+          <img class="logo-nutriscore img-fluid" src="{% static 'product/img/sticker/' %}{{ food.nutrigrade }}.png"
+            alt="nutrigrade {{ food.nutrigrade }}">
+          
+          <a href="{% url 'food' %}?code={{ food.code }}">
+            <img class="product-img img-fluid" src="{{ food.img }}"alt="">
+            <div class="row name justify-content-center align-items-center">
+              <h4 class="food-name py-0 ">{{ food.name }}</h4></a>
+              <div class="row w-100"></div>
+              <span class=>{{ food.details }}</span>
+            </div>
+          
+          <hr class="divider">
+          
+          <p><strong>{{ food.favorite }}</strong> utilisateur(s)</p>
+
           </div>
+        </div>
+        {% endif %}
+        {% endfor %}
         
-        <hr class="divider">
-        
-        <p><strong>{{ food.favorite }}</strong> utilisateur(s)</p>
+      {% endif %}
 
-    </div>
-  </div>
-  {% endfor %}
-  {% endif %}
   {% if number > 6 %}{% include 'product/paging.html' %}{% endif %}
 	</div>
 		
