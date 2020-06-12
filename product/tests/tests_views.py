@@ -37,10 +37,6 @@ class TestViews(TestCase):
             email='toto@toto.fr',
             password='password',
         )
-        #self.product_list = [
-        #    {"name": "Fraise à tartiner sans sucres ajoutés"},
-        #    {"name": "Confiture de Fraises au Maltitol"}
-        #]
 
     def test_homepage(self): 
         response = self.client.get(reverse('index'))
@@ -97,6 +93,7 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'product/favorites.html')
 
+        # Save favorite
         response = self.client.get(
             '/favorites/change/?add={}'.format(
                 self.product.code
@@ -107,6 +104,7 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'product/favorites.html')
         self.assertContains(response, 'Le produit à été ajouté aux favoris !')
 
+        # Delete favorite
         response = self.client.get(
             '/favorites/change/?del={}'.format(
                 self.product.code
@@ -130,14 +128,22 @@ class TestViews(TestCase):
             BaseProduct(code='000'),
             BaseProduct(code='001'),
             BaseProduct(code='002'),
+            BaseProduct(code='003'),
+            BaseProduct(code='004'),
+            BaseProduct(code='005'),
+            BaseProduct(code='006'),
+            BaseProduct(code='007'),
             ]
             
         response = self.client.get(reverse('top_6'))
         #import pdb
         #pdb.set_trace()
         self.assertContains(response, 'Connecte toi pour voir tes favoris')
-        self.assertEqual(len(response.context['products']), 3)
-
+        self.assertContains(response, 'Top 6 des utilisateurs')
+        self.assertIs(type(response.context['products']), list)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'product/favorites.html')
+       
     @patch('product.models.BaseProductManager.get_top_6')
     def test_top_user(self, mock_get_top_6):
         self.client.force_login(self.user)
@@ -151,6 +157,9 @@ class TestViews(TestCase):
         response = self.client.get(reverse('top_6'))
 
         self.assertContains(response, 'Voir tes produits favoris')
-        self.assertEqual(len(response.context['products']), 3)
+        self.assertContains(response, 'Top 6 des utilisateurs')
+        self.assertIs(type(response.context['products']), list)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'product/favorites.html')
 
         

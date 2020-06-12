@@ -4,10 +4,10 @@ from product.manager_api import ProductData
 
 class TestApi(TestCase):
 
-    """def setUp(self):
-        self.client = Client()"""
+    def setUp(self):
+        self.client = Client()
         
-    """def test_search_product(self):
+    def test_search_product(self):
         product = ProductData().search_product("user_request")
         self.assertIs(type(product), list)
     
@@ -18,4 +18,4 @@ class TestApi(TestCase):
     
     def test_select_product(self):
         product = ProductData().select_product("code")
-        self.assertIs(type(product), dict)"""
+        self.assertIs(type(product), dict)
