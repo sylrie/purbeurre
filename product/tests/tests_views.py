@@ -75,13 +75,13 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'product/product.html')
         self.assertContains(response, 'Confiture')
 
-    def test_top_6(self):
+    """def test_top_6(self):
         response = self.client.get(reverse('top_6'))
         
         self.assertIs(type(response.context['products']), QuerySet)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Top 6 des utilisateurs')
-        self.assertTemplateUsed(response, 'product/favorites.html')
+        self.assertTemplateUsed(response, 'product/favorites.html')"""
 
     def test_flow_change_favorite(self):
 
@@ -140,6 +140,9 @@ class TestViews(TestCase):
         #pdb.set_trace()
         self.assertContains(response, 'Connecte toi pour voir tes favoris')
         self.assertContains(response, 'Top 6 des utilisateurs')
+        self.assertContains(response, '?code=005')
+        self.assertInHTML('class="product-link"', str(response.content), count=6)
+        self.assertNotContains(response, '?code=006')
         self.assertIs(type(response.context['products']), list)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'product/favorites.html')

@@ -17,7 +17,7 @@
     <a href="{% url 'favorites' %}">Voir tes produits favoris</a>
     {% endif %}
     {% if message %}
-    <h2 class="py-0"><strong>{{ message }}</h2></strong>
+    <h2 class="py-0"><strong>{{ message }}</strong></h2>
       {% if title == "Pur Beurre - Top 6" %}
       <img class="img-fluid" src="{% static 'product/img/sticker/star.png' %}"
         style="max-width: 10%;" alt="logo favoris">
@@ -72,7 +72,7 @@
       {% if forloop.counter <= 6 %}
 
         {% if forloop.counter == 1 %}
-        <div class="new-fav-card col-11 text-center">
+         <div class="new-fav-card col-11 text-center">
         {% else %}
         <div class="fav-card col-11 text-center">
         {% endif %}
@@ -81,7 +81,7 @@
           <img class="logo-nutriscore img-fluid" src="{% static 'product/img/sticker/' %}{{ food.nutrigrade }}.png"
             alt="nutrigrade {{ food.nutrigrade }}">
           
-          <a href="{% url 'food' %}?code={{ food.code }}">
+          <a class="product-link" href="{% url 'food' %}?code={{ food.code }}">
             <img class="product-img img-fluid" src="{{ food.img }}"alt="">
             <div class="row name justify-content-center align-items-center">
               <h4 class="food-name py-0 ">{{ food.name }}</h4></a>
