@@ -10,12 +10,11 @@ class BaseProductManager(models.Model):
         """ get top 6 favorites
             ordered by 'favorite'
             (and by 'nutrigrade' in case of equality) """
-        #get all favorites
+        # get all favorites
         top_6 = BaseProduct.objects.filter(favorite__gt=0)
-        #secondary ordering : nutrigrade
-        top_6 = top_6.order_by('nutrigrade')
-        #primary ordering: favorites
-        top_6 = top_6.order_by('-favorite')[:6]
+        
+        # ordering
+        top_6 = top_6.order_by('-favorite', 'nutrigrade')[:6]
         return top_6
 
 
