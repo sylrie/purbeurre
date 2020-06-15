@@ -5,9 +5,19 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 class BaseProductManager(models.Model):
-    def get_top_6(self):
-        top_6 = BaseProduct.objects.all().exclude(favorite=0).order_by('-favorite')[:6]
+   
+   def get_top_6(self):
+        """ get top 6 favorites
+            ordered by 'favorite'
+            (and by 'nutrigrade' in case of equality) """
+        #get all favorites
+        top_6 = BaseProduct.objects.filter(favorite__gt=0)
+        #secondary ordering : nutrigrade
+        top_6 = top_6.order_by('nutrigrade')
+        #primary ordering: favorites
+        top_6 = top_6.order_by('-favorite')[:6]
         return top_6
+
 
 class BaseProduct(models.Model):
     """ Product table """ 
@@ -35,6 +45,7 @@ class BaseProduct(models.Model):
     def __str__(self):
         return self.name
 
+
 class UpdateReport(models.Model):
     """ report table """
 
@@ -47,6 +58,7 @@ class UpdateReport(models.Model):
 
     def __str__(self):
         return str(self.date)
+
 
 class FavoriteProduct(models.Model):
     """ Favorites table """
