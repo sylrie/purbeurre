@@ -42,12 +42,11 @@
 * Search your product: the platform will looking in the **Pur Beurre data Base** and on the **API**.
 * See substitute products: picture, nutrigrade and more details with the **food card**.
 * Save your favorites products and see the **most saved products**.
+* See the **top 6** of users's favorites.
 
-## COMMANDS
-* Update database
-```shell
-$ python manage.py update_database
-```
+## DATABASE
+* The **pur beurre database** is automatically updated one time a week
+
 ## SCREENSHOTS
 <p align="center">
     <img width=50% src="https://github.com/sylrie/P8_Pur_beurre_platform/blob/master/docs/screenshot1.png">
