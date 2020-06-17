@@ -34,15 +34,15 @@ STATICFILES_DIRS = (
 db_from_env = dj_database_url.config(conn_max_age=500)	
 DATABASES['default'].update(db_from_env)	
 
-SENTRY_KEY = os.environ.get('SENTRY_KEY')
+SENTRY_DSN = os.environ.get('SENTRY_DSN')
 sentry_sdk.init(
-    dsn="https://{}.ingest.sentry.io/5198764".format(SECRET_KEY),
+    dsn=SENTRY_DSN,
     integrations=[DjangoIntegration()],
     send_default_pii=True
 )
 
 RAVEN_CONFIG = {
-    'dsn': 'https://{}.ingest.sentry.io/5198764'.format(SECRET_KEY), 
+    'dsn': SENTRY_DSN, 
     'release': raven.fetch_git_sha(os.path.dirname(os.pardir)),
 }
 
