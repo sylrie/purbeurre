@@ -17,14 +17,6 @@ import dj_database_url
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-#INSTALLED_APPS += ['django_crontab']
-
-#CRONJOBS = [
-    #('*/2 * * * *', '~/www/purbeurreenv/bin/python ~/www/purbeurre/manage.py update_database'),
-    #('*/1 * * * *', '~/www/purbeurre/pur_beurre_platform.cron.cron_test'),
-    #('0 2 * * 1', 'django.core.management.call_command', ['update_database']),
-#]
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 STATIC_URL = '/staticfiles/'
@@ -42,15 +34,15 @@ STATICFILES_DIRS = (
 db_from_env = dj_database_url.config(conn_max_age=500)	
 DATABASES['default'].update(db_from_env)	
 
-
+SENTRY_KEY = os.environ.get('SENTRY_KEY')
 sentry_sdk.init(
-    dsn="https://dfed232263a24fa98e78ff10715826a3@o375878.ingest.sentry.io/5198764",
+    dsn="https://{}.ingest.sentry.io/5198764".format(SECRET_KEY),
     integrations=[DjangoIntegration()],
     send_default_pii=True
 )
 
 RAVEN_CONFIG = {
-    'dsn': 'https://dfed232263a24fa98e78ff10715826a3@o375878.ingest.sentry.io/5198764', 
+    'dsn': 'https://{}.ingest.sentry.io/5198764'.format(SECRET_KEY), 
     'release': raven.fetch_git_sha(os.path.dirname(os.pardir)),
 }
 
