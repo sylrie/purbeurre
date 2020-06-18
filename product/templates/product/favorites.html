@@ -101,13 +101,16 @@
       {% endif %}
 
   {% if number > 6 %}{% include 'product/paging.html' %}{% endif %}
-	</div>
-		
-	</div>
+	</div>		
+	
 {% else %}
 <section class="page-section h-100 pt-4" id="products">
-	<div class="text-center">  
-		<h2 class="text-center pb-1">Tu n'as pas encore de favoris.</h2>
+	<div class="text-center">
+    {% if title == "Pur Beurre - Favoris" %}
+    <h2 class="text-center pb-1">Tu n'as pas encore de favoris.</h2>
+    {% else %}
+    <h2 class="text-center pb-1">Oups, il n'y à pas encore de résultats</h2>
+    {% endif %}
 		<hr class="divider">
 		<img class="img-fluid" src="{% static 'product/img/sticker/star.png' %}"
 					alt="logo favoris">

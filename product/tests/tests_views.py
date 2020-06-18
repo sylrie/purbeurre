@@ -141,7 +141,6 @@ class TestViews(TestCase):
         self.assertContains(response, 'Connecte toi pour voir tes favoris')
         self.assertContains(response, 'Top 6 des utilisateurs')
         self.assertContains(response, '?code=005')
-        self.assertInHTML('class="product-link"', str(response.content), count=6)
         self.assertNotContains(response, '?code=006')
         self.assertIs(type(response.context['products']), list)
         self.assertEqual(response.status_code, 200)
@@ -165,4 +164,16 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'product/favorites.html')
 
+    @patch('product.models.BaseProductManager.get_top_6')
+    def test_top_no_result(self, mock_get_top_6):
         
+        mock_get_top_6.return_value = []
+            
+        response = self.client.get(reverse('top_6'))
+
+        self.assertContains(response, 'Top 6 des utilisateurs')
+        self.assertContains(response, "Oups, il n'y à pas encore de résultats")
+
+        self.assertIs(type(response.context['products']), list)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'product/favorites.html')    
