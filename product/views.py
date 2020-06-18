@@ -329,9 +329,6 @@ class Product():
         
         title = 'Pur Beurre - Top 6'
         message = "Top 6 des utilisateurs"
-        
-        #favorite = BaseProduct.objects.all()
-        #products = favorite.exclude(favorite=0).order_by('-favorite')[:6]
 
         # Get top 6 favorites in BaseProduct table
         products = BaseProductManager().get_top_6()

@@ -31,7 +31,7 @@ class TestViews(TestCase):
             level_sugar ='1.8',
             nova ='1',
         )
-
+        
         self.user = User.objects.create_user(
             username='toto',
             email='toto@toto.fr',
@@ -75,18 +75,13 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'product/product.html')
         self.assertContains(response, 'Confiture')
 
-    """def test_top_6(self):
-        response = self.client.get(reverse('top_6'))
-        
-        self.assertIs(type(response.context['products']), QuerySet)
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Top 6 des utilisateurs')
-        self.assertTemplateUsed(response, 'product/favorites.html')"""
-
     def test_flow_change_favorite(self):
+        """ Test flow:
+            - connection
+            - save favorite
+            - delete favorite """
 
         self.product.save()
-
         self.client.force_login(self.user)
 
         response = self.client.get(reverse('favorites'))
@@ -116,6 +111,7 @@ class TestViews(TestCase):
         self.assertContains(response, 'Le produit à été retiré des favoris')
 
     def test_change_favorite_no_user(self):
+        """ Test for not connected user """
         response = self.client.get(
             '/favorites/change/?add=0001'
         )
@@ -124,6 +120,8 @@ class TestViews(TestCase):
 
     @patch('product.models.BaseProductManager.get_top_6')
     def test_top_no_user(self, mock_get_top_6):
+        """ Test top 6 for not connected user and excessive results """
+    
         mock_get_top_6.return_value = [
             BaseProduct(code='000'),
             BaseProduct(code='001'),
@@ -132,7 +130,6 @@ class TestViews(TestCase):
             BaseProduct(code='004'),
             BaseProduct(code='005'),
             BaseProduct(code='006'),
-            BaseProduct(code='007'),
             ]
             
         response = self.client.get(reverse('top_6'))
@@ -148,6 +145,7 @@ class TestViews(TestCase):
        
     @patch('product.models.BaseProductManager.get_top_6')
     def test_top_user(self, mock_get_top_6):
+        """ Test top 6 for connected user """ 
         self.client.force_login(self.user)
         
         mock_get_top_6.return_value = [
@@ -166,6 +164,7 @@ class TestViews(TestCase):
 
     @patch('product.models.BaseProductManager.get_top_6')
     def test_top_no_result(self, mock_get_top_6):
+        """ Test top 6 no results """
         
         mock_get_top_6.return_value = []
             
@@ -176,4 +175,4 @@ class TestViews(TestCase):
 
         self.assertIs(type(response.context['products']), list)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'product/favorites.html')    
+        self.assertTemplateUsed(response, 'product/favorites.html')
