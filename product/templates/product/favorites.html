@@ -59,10 +59,11 @@
 					
 					<a href="{% url 'change_favorite' %}?del={{ food.code }}">
 						<i class="far fa-trash-alt del-fav"> Retire le des favoris</i>
-					</a>
-
+          </a>
+          
 				</div>
-			</div>
+      </div>
+      
       {% endwith %}
     {% endfor %}
     {% else %}
@@ -81,14 +82,17 @@
           <img class="logo-nutriscore img-fluid" src="{% static 'product/img/sticker/' %}{{ food.nutrigrade }}.png"
             alt="nutrigrade {{ food.nutrigrade }}">
           
-          <a class="product-link" href="{% url 'food' %}?code={{ food.code }}">
+          <a href="{% url 'food' %}?code={{ food.code }}">
             <img class="product-img img-fluid" src="{{ food.img }}"alt="">
             <div class="row name justify-content-center align-items-center">
-              <h4 class="food-name py-0 ">{{ food.name }}</h4></a>
-              <div class="row w-100"></div>
-              <span class=>{{ food.details }}</span>
+              <h4 class="food-name py-0 ">{{ food.name }}</h4>
+              <span class="top-6-result"></span><!--for django test 'test_top_no_user'-->
             </div>
-          
+          </a>
+
+          <div class="row w-100"></div>
+          <span class=>{{ food.details }}</span>
+            
           <hr class="divider">
           
           <p><strong>{{ food.favorite }}</strong> utilisateur(s)</p>

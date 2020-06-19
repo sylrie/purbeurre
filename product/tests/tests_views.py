@@ -133,12 +133,12 @@ class TestViews(TestCase):
             ]
             
         response = self.client.get(reverse('top_6'))
-        #import pdb
-        #pdb.set_trace()
+
         self.assertContains(response, 'Connecte toi pour voir tes favoris')
         self.assertContains(response, 'Top 6 des utilisateurs')
         self.assertContains(response, '?code=005')
-        self.assertNotContains(response, '?code=006')
+        self.assertInHTML('<span class="top-6-result"></span>', str(response.content), count=6)
+        
         self.assertIs(type(response.context['products']), list)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'product/favorites.html')
@@ -158,6 +158,7 @@ class TestViews(TestCase):
 
         self.assertContains(response, 'Voir tes produits favoris')
         self.assertContains(response, 'Top 6 des utilisateurs')
+
         self.assertIs(type(response.context['products']), list)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'product/favorites.html')
